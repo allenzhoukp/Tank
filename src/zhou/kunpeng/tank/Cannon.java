@@ -57,20 +57,24 @@ public class Cannon extends JPanel {
             List<Tank> tankList = Arrays.asList(gameMap.getP1Tank(), gameMap.getP2Tank());
             tankList.addAll(gameMap.getEnemyTankList());
             for (Tank tank : tankList) {
+                if(tank == null)
+                    continue;
 
-                //When launching, cannon will intersect with launcher.
-                //Go ahead for flying.
-                if (tank == launcher)
-                    return false;
-
-                //Hit the zhou.kunpeng.tank
+                //Intersect
                 if (new Rectangle(getX(), getY(), getWidth(), getHeight()).intersects(
                         new Rectangle(tank.getX(), tank.getY(), tank.getWidth(), tank.getHeight()))) {
 
+                    //When launching, cannon will intersect with launcher.
+                    //Go ahead for flying.
+                    if (tank == launcher)
+                        return false;
+
+                    //Hit!
                     //Not friendly fire
                     if (tank.getSide() != launcher.getSide()) {
-                        tank.triggerHit();
                         blast(); //boom!
+                        // Will block the thread. Watch out!
+                        tank.triggerHit();
 
                     } else {
                         remove(cannonBall);

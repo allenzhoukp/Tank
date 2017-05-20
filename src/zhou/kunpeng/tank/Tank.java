@@ -11,10 +11,11 @@ import java.util.List;
  * Player zhou.kunpeng.tank and some enemy zhou.kunpeng.tank have their own identity (plus or multiple life).
  * </p>
  */
-public class Tank extends Clip {
+public abstract class Tank extends Clip {
 
-    private int speed;
-    private int cannonSpeed;
+    protected int speed;
+    protected int cannonSpeed;
+
     private int direction = Tank.NORTH;
     private int side;
 
@@ -23,18 +24,19 @@ public class Tank extends Clip {
     }
 
 
-    private GameMap gameMap;
+    protected GameMap gameMap;
 
     public static final int SOUTH = 0;
     public static final int WEST = 3;
     public static final int NORTH = 2;
     public static final int EAST = 1;
 
-    private static final int[][] DIR = {
-            {0, 1}, {1, 0}, {0, -1}, {-1, 0}
-    };
+    protected TankMoveThread moveThread;
 
-    private TankMoveThread moveThread;
+    private int moveToX;
+    private int moveToY;
+    private int prevTankBlockX;
+    private int prevTankBlockY;
 
     protected Tank(int side, int speed, int cannonSpeed, List<ImageComponent> clipSequence, int x, int y, GameMap gameMap) {
         super(clipSequence, x, y);
@@ -53,11 +55,7 @@ public class Tank extends Clip {
         //The basic logic is:
         //If we want to move the zhou.kunpeng.tank, then we assign a target destination point,
         //and this thread will move the zhou.kunpeng.tank there gradually.
-        int moveToX;
-        int moveToY;
 
-        int prevTankBlockX;
-        int prevTankBlockY;
 
         @Override
         public void run() {
@@ -112,20 +110,24 @@ public class Tank extends Clip {
     public void move(int direction) {
         changeDirection(direction);
 
+        final int[][] DIR = {
+                {0, 1}, {1, 0}, {0, -1}, {-1, 0}
+        };
+
         int x = GameMap.toBattleCoordinate(this.getX());
         int y = GameMap.toBattleCoordinate(this.getY());
         // Temporary remove current zhou.kunpeng.tank block: one cannot be blocked by itself.
         gameMap.removeTankBlock(x, y);
         if (!gameMap.tankBlocked(x + DIR[direction][0], y + DIR[direction][1])) {
             // add marker @ current x & y
-            moveThread.prevTankBlockX = x;
-            moveThread.prevTankBlockY = y;
+            prevTankBlockX = x;
+            prevTankBlockY = y;
 
             // block destination
             gameMap.addTankBlock(x + DIR[direction][0], y + DIR[direction][1]);
 
-            moveThread.moveToX = GameMap.toScreenCoordinate(x + DIR[direction][0]);
-            moveThread.moveToY = GameMap.toScreenCoordinate(y + DIR[direction][1]);
+            moveToX = GameMap.toScreenCoordinate(x + DIR[direction][0]);
+            moveToY = GameMap.toScreenCoordinate(y + DIR[direction][1]);
         }
         //Recover the block status
         gameMap.addTankBlock(x, y);
@@ -135,10 +137,15 @@ public class Tank extends Clip {
         move(direction);
     }
 
-    //TODO Should be abstract
-    public void triggerHit() {
-
+    protected void tankDestroy() {
+        gameMap.remove(this);
+        gameMap.removeTankBlock(prevTankBlockX, prevTankBlockY);
+        gameMap.removeTankBlock(moveToX, moveToY);
+        gameMap.removeTankBlock(GameMap.toBattleCoordinate(getX()),
+                GameMap.toBattleCoordinate(getY()));
     }
+
+    public abstract void triggerHit();
 
     public void fire() {
         int fireX, fireY;

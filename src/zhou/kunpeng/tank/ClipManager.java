@@ -37,13 +37,13 @@ public class ClipManager {
 
     private ClipAnimator clipAnimator = new ClipAnimator();
 
-    public ClipManager(int fps, List<Clip> clipList) {
+    public ClipManager(int fps) {
         this.fps = fps;
-        this.clipList = clipList;
+        this.clipList = new ArrayList<>();
     }
 
     public ClipManager() {
-        this(24, new ArrayList<>());
+        this(24);
     }
 
     public int getFps() {

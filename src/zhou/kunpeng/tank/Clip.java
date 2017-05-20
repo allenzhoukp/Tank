@@ -21,6 +21,7 @@ import java.util.List;
  * </p>
  */
 public class Clip extends JPanel {
+
     private boolean inPlay = true;
     private int frame = 0;
 
@@ -100,12 +101,18 @@ public class Clip extends JPanel {
         if (!inPlay)
             return;
 
-        this.remove(sequence.get(frame));
-        frame++;
+        // Sequence may be reset. Check the boundary!
         if (frame >= sequence.size())
             frame = 0;
-        this.add(sequence.get(frame));
-        this.repaint();
+
+        synchronized (this) {
+            this.remove(sequence.get(frame));
+            frame++;
+            if (frame >= sequence.size())
+                frame = 0;
+            this.add(sequence.get(frame));
+            this.repaint();
+        }
     }
 
 }
