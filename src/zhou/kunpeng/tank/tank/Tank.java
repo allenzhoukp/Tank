@@ -33,13 +33,14 @@ public abstract class Tank extends Clip {
 
     /**
      * When created, a tank will be automatically placed on the map, and start animating.
-     * @param side the side of the tank (player or enemy).
-     * @param speed the speed of the tank (pixel per frame).
-     * @param cannonSpeed the speed of the cannon launched (pixel per frame).
+     *
+     * @param side         the side of the tank (player or enemy).
+     * @param speed        the speed of the tank (pixel per frame).
+     * @param cannonSpeed  the speed of the cannon launched (pixel per frame).
      * @param clipSequence tank animation sequence.
-     * @param x initial x position (screen coordinate).
-     * @param y initial x position (screen coordinate).
-     * @param gameMap a reference of GameMap that the tank shall keep.
+     * @param x            initial x position (screen coordinate).
+     * @param y            initial x position (screen coordinate).
+     * @param gameMap      a reference of GameMap that the tank shall keep.
      */
 
     protected Tank(int side, int speed, int cannonSpeed, List<ImageComponent> clipSequence, int x, int y, GameMap gameMap) {
@@ -50,80 +51,65 @@ public abstract class Tank extends Clip {
         this.gameMap = gameMap;
 
         gameMap.add(this, GameMap.TANK_LAYER);
-        gameMap.getClipManager().getClipList().add(this);
+        gameMap.getTimer().registerListener(this);
 
-        moveThread = new TankMoveThread();
-        moveThread.start();
+        moveToX = x;
+        moveToY = y;
     }
 
-    //The thread that moves the tank.
-    private class TankMoveThread extends Thread {
-        private boolean running = true;
-
-        @Override
-        public void run() {
-            //initially the tank shouldn't move
-            moveToX = getX();
-            moveToY = getY();
-            prevTankBlockX = prevTankBlockY = -1;
-
-            while (running)
-                moveProgress();
-        }
-
-        public void stopRunning() {
-            running = false;
-        }
-    }
-
-    protected TankMoveThread moveThread;
 
     private int moveToX;
     private int moveToY;
-    private int prevTankBlockX;
-    private int prevTankBlockY;
+    private int prevTankX;
+    private int prevTankY;
 
     private boolean keepMoving = false;
 
     private boolean blocked = false;
+
+    @Override
+    public void onTimer() {
+        //Frame change for clip
+        super.onTimer();
+
+        //movement
+        moveProgress();
+    }
 
     //The basic logic is:
     //If we want to move the tank, then we assign a target destination point,
     //and this thread will move the tank there gradually.
     protected void moveProgress() {
 
-        int vecx = moveToX - getX();
-        int vecy = moveToY - getY();
+        int vecx = moveToX - this.getX();
+        int vecy = moveToY - this.getY();
         if (vecx != 0 || vecy != 0) {
             int movx = (int) ((double) vecx * speed / Math.sqrt(vecx * vecx + vecy * vecy));
             int movy = (int) ((double) vecy * speed / Math.sqrt(vecx * vecx + vecy * vecy));
-            int newx = getX() + movx;
-            int newy = getY() + movy;
+            int newx = this.getX() + movx;
+            int newy = this.getY() + movy;
+
             //If tank is moving too far ahead, drag it back.
-            if ((newx - moveToX) * movx >= 0)
-                newx = moveToX;
-            if ((newy - moveToY) * movy >= 0)
-                newy = moveToY;
-            setLocation(newx, newy);
+            if (!keepMoving) {
+                if ((newx - moveToX) * movx >= 0)
+                    newx = moveToX;
+                if ((newy - moveToY) * movy >= 0)
+                    newy = moveToY;
+            }
+
+            this.setLocation(newx, newy);
 
             //Reach the destination
-        } else if (prevTankBlockX != -1 && prevTankBlockY != -1) {
-            gameMap.removeTankBlock(prevTankBlockX, prevTankBlockY);
+        } else if (prevTankX != -1 && prevTankY != -1) {
+            gameMap.removeTankBlock(prevTankX, prevTankY);
             gameMap.addTankBlock(GameMap.toBattleCoordinate(moveToX),
                     GameMap.toBattleCoordinate(moveToY));
-            prevTankBlockX = prevTankBlockY = -1;
+            prevTankX = prevTankY = -1;
 
             //If the tank is still moving, move up to the next position.
             if (keepMoving)
                 move(direction);
         }
-
-        try {
-            Thread.sleep(1000 / GameMap.FPS);
-        } catch (InterruptedException e) {
-            //Do nothing
-        }
-
     }
 
     private void changeDirection(int direction) {
@@ -152,15 +138,14 @@ public abstract class Tank extends Clip {
             // set blocked flag
             blocked = false;
 
-            // add marker @ current x & y
-            prevTankBlockX = x;
-            prevTankBlockY = y;
+            // add marker @ current and target x & y
+            prevTankX = x;
+            prevTankY = y;
+            moveToX = GameMap.toScreenCoordinate(x + DIR[direction][0]);
+            moveToY = GameMap.toScreenCoordinate(y + DIR[direction][1]);
 
             // block destination
             gameMap.addTankBlock(x + DIR[direction][0], y + DIR[direction][1]);
-
-            moveToX = GameMap.toScreenCoordinate(x + DIR[direction][0]);
-            moveToY = GameMap.toScreenCoordinate(y + DIR[direction][1]);
 
         } else {
             blocked = true;
@@ -187,16 +172,15 @@ public abstract class Tank extends Clip {
     }
 
     protected void tankDestroy() {
-        moveThread.stopRunning();
         this.stopMove();
 
         gameMap.remove(this);
-        gameMap.removeTankBlock(prevTankBlockX, prevTankBlockY);
+        gameMap.removeTankBlock(prevTankX, prevTankY);
         gameMap.removeTankBlock(moveToX, moveToY);
         gameMap.removeTankBlock(GameMap.toBattleCoordinate(getX()),
                 GameMap.toBattleCoordinate(getY()));
 
-        gameMap.getClipManager().getClipList().remove(this);
+        gameMap.getTimer().removeListener(this);
 
         gameMap.repaint();
     }
@@ -229,6 +213,7 @@ public abstract class Tank extends Clip {
                 return;
         }
         Cannon cannon = new Cannon(cannonSpeed, direction, fireX, fireY, gameMap, this);
+        gameMap.getTimer().registerListener(cannon);
     }
 
     public int getSpeed() {

@@ -20,7 +20,7 @@ import java.util.List;
  * Thus, the x and y of the components should be set relative to Clip's x and y.
  * </p>
  */
-public class Clip extends JPanel {
+public class Clip extends JPanel implements TimerListener {
 
     private boolean inPlay = true;
     private int frame = 0;
@@ -51,22 +51,13 @@ public class Clip extends JPanel {
     }
 
 
-    private void updateSize() {
+    public void updateSize() {
         int maxWidth = 0, maxHeight = 0;
         for (ImageComponent comp : sequence) {
             maxWidth = Math.max(comp.getWidth(), maxWidth);
             maxHeight = Math.max(comp.getHeight(), maxHeight);
         }
         this.setSize(maxWidth, maxHeight);
-    }
-
-    public List<ImageComponent> getSequence() {
-        return sequence;
-    }
-
-    public void setSequence(List<ImageComponent> sequence) {
-        this.sequence = sequence;
-        updateSize();
     }
 
     public void stop() {
@@ -93,26 +84,41 @@ public class Clip extends JPanel {
         this.inPlay = false;
     }
 
+    @Override
+    public void onTimer() {
+        // Sequence may change. Check the boundary!
+        if (frame >= sequence.size())
+            frame = 0;
+
+        // Stopped
+        if (!inPlay)
+            return;
+
+        this.remove(sequence.get(frame));
+        frame++;
+        if (frame >= sequence.size())
+            frame = 0;
+        this.add(sequence.get(frame));
+        this.repaint();
+
+    }
+
+
+    public List<ImageComponent> getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(List<ImageComponent> sequence) {
+        this.sequence = sequence;
+        updateSize();
+        frame = 0;
+    }
+
     public int getFrame() {
         return frame;
     }
 
-    public void nextFrame() {
-        if (!inPlay)
-            return;
-
-        // Sequence may be reset. Check the boundary!
-        if (frame >= sequence.size())
-            frame = 0;
-
-        synchronized (this) {
-            this.remove(sequence.get(frame));
-            frame++;
-            if (frame >= sequence.size())
-                frame = 0;
-            this.add(sequence.get(frame));
-            this.repaint();
-        }
+    public int getFrameCount() {
+        return sequence.size();
     }
-
 }

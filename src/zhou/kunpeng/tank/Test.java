@@ -14,7 +14,7 @@ public class Test {
 
     public static void main(String[] args) {
 
-        ClipManager mgr = new ClipManager(GameMap.FPS);
+        Timeline timer = new Timeline();
 
         GameMap map = new GameMap(
                 new int[][]{
@@ -44,20 +44,19 @@ public class Test {
                         {0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                }, mgr);
+                }, timer);
 
         Tank tank1 = new PlayerTank(true, map);
         Tank tank2 = new PlayerTank(false, map);
 
         EnemyCreator creator = new EnemyCreator(map);
-        creator.start();
-
-        mgr.start();
 
         JFrame frame = new JFrame();
         frame.getContentPane().setLayout(null);
         frame.getContentPane().add(map);
         frame.setSize(1000, 1000);
+
+        timer.start();
         frame.setVisible(true);
 
         for (int i = 0; i < 2; i++) {
@@ -67,9 +66,10 @@ public class Test {
                 // Anything to do?
             }
 
-            tank1.fire();
-            tank2.fire();
+            tank1.startMove(Tank.NORTH);
+            tank2.startMove(Tank.NORTH);
 
         }
+
     }
 }

@@ -31,8 +31,6 @@ public class GameMap extends JLayeredPane {
     public static final Integer GRASS_LAYER = 1000;
     public static final Integer PLUS_LAYER = 1200;
 
-    public static final int FPS = 25;
-
     public static final int PLAYER_SIDE = 0;
     public static final int ENEMY_SIDE = 1;
 
@@ -53,10 +51,9 @@ public class GameMap extends JLayeredPane {
         return coordinate * SLOT_SIZE;
     }
 
+
     private int[][] map;
     private ImageComponent[][] terrainImage;
-
-    private ClipManager clipManager;
 
     private Tank p1Tank;
     private Tank p2Tank;
@@ -66,11 +63,12 @@ public class GameMap extends JLayeredPane {
     private int p2Life = GameMap.INIT_LIFE;
     private int enemyRemaining = GameMap.INIT_ENEMY;
 
+    private Timeline timer;
 
-    public GameMap(int[][] mapContent, ClipManager clipManager) {
+    public GameMap(int[][] mapContent, Timeline timer) {
         super();
         this.map = mapContent;
-        this.clipManager = clipManager;
+        this.timer = timer;
         initMap();
     }
 
@@ -145,7 +143,7 @@ public class GameMap extends JLayeredPane {
         final int[][] additive = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
         for (int i = 0; i < 4; i++)
             if (battleY + additive[i][0] >= 0 && battleY + additive[i][0] < GameMap.BATTLE_HEIGHT &&
-                battleX + additive[i][1] >= 0 && battleX + additive[i][1] < GameMap.BATTLE_WIDTH &&
+                    battleX + additive[i][1] >= 0 && battleX + additive[i][1] < GameMap.BATTLE_WIDTH &&
                     map[battleY + additive[i][0]][battleX + additive[i][1]] == TANK)
                 map[battleY + additive[i][0]][battleX + additive[i][1]] = NORMAL;
     }
@@ -162,14 +160,6 @@ public class GameMap extends JLayeredPane {
 
     public ImageComponent[][] getTerrainImage() {
         return terrainImage;
-    }
-
-    public ClipManager getClipManager() {
-        return clipManager;
-    }
-
-    public void setClipManager(ClipManager clipManager) {
-        this.clipManager = clipManager;
     }
 
     public Tank getP1Tank() {
@@ -214,6 +204,14 @@ public class GameMap extends JLayeredPane {
 
     public List<Tank> getEnemyTankList() {
         return enemyTankList;
+    }
+
+    public Timeline getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timeline timer) {
+        this.timer = timer;
     }
 
 }

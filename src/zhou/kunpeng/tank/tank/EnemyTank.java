@@ -2,6 +2,7 @@ package zhou.kunpeng.tank.tank;
 
 import zhou.kunpeng.tank.GameMap;
 import zhou.kunpeng.tank.ImageComponent;
+import zhou.kunpeng.tank.Timeline;
 
 import java.util.List;
 
@@ -13,19 +14,11 @@ import java.util.List;
  */
 public abstract class EnemyTank extends Tank {
 
-    private class AIThread extends Thread {
-        private boolean running = true;
+    private int aiOperateCounter = 0;
 
-        @Override
-        public void run() {
-            while(running)
-                doAIThread();
-        }
-
-        public void stopRunning() {
-            running = false;
-        }
-    }
+    public static final double AI_OPERATE_INTERVAL = 0.33;
+    public static final double AI_TURN_RATE = 0.2;
+    public static final double AI_FIRE_RATE = 0.2;
 
     protected void doAIThread () {
         //Logic: if blocked or it happens to decide to turn (in 20% rate), then it turns.
@@ -36,14 +29,7 @@ public abstract class EnemyTank extends Tank {
         if(Math.random() >= 0.6)
             fire();
 
-        try {
-            Thread.sleep((int)(0.5 * 1000));
-        } catch (InterruptedException e) {
-            // Anything to do?
-        }
     }
-
-    private AIThread aiThread;
 
     /**
      * Create a new enemy tank.
@@ -52,15 +38,30 @@ public abstract class EnemyTank extends Tank {
      */
     protected EnemyTank(int speed, int cannonSpeed, List<ImageComponent> clipSequence, int x, int y, GameMap gameMap) {
         super(GameMap.ENEMY_SIDE, speed, cannonSpeed, clipSequence, x, y, gameMap);
-        aiThread = new AIThread();
-        aiThread.start();
+    }
+
+    @Override
+    public void onTimer() {
+        super.onTimer();
+
+        //every 1/3 second
+        aiOperateCounter++;
+
+        if(aiOperateCounter == (int) (AI_OPERATE_INTERVAL * Timeline.FPS)) {
+            aiOperateCounter = 0;
+
+            if(isBlocked() || Math.random() <= AI_TURN_RATE)
+                startMove((int)(Math.random() * 4));
+
+            if(Math.random() <= AI_FIRE_RATE)
+                fire();
+        }
     }
 
     @Override
     protected void tankDestroy() {
         super.tankDestroy();
         getGameMap().getEnemyTankList().remove(this);
-        aiThread.stopRunning();
     }
 
     @Override

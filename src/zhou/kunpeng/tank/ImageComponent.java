@@ -13,17 +13,6 @@ import java.awt.image.BufferedImage;
  */
 public class ImageComponent extends JComponent {
     private int width;
-
-    @Override
-    public int getWidth() {
-        return width;
-    }
-
-    @Override
-    public int getHeight() {
-        return height;
-    }
-
     private int height;
     private String path = "";
     private BufferedImage image;
@@ -63,6 +52,11 @@ public class ImageComponent extends JComponent {
         this(path, 0, 0, 0, 0);
     }
 
+    private ImageComponent() {
+        super();
+        this.setOpaque(false);
+    }
+
     // SO F**KING Foolish! Why there isn't any native ROTATE api for a component?
     public void rotate(double radius) {
         AffineTransform tr = new AffineTransform();
@@ -98,4 +92,27 @@ public class ImageComponent extends JComponent {
         return new Dimension(this.width, this.height);
     }
 
+    @Override
+    public ImageComponent clone() {
+        ImageComponent comp = new ImageComponent();
+        comp.width = this.width;
+        comp.height = this.height;
+        comp.setBounds(this.getX(), this.getY(), this.width, this.height);
+        comp.path = this.path;
+
+        //core: image is shallow-copied - not a problem
+        comp.image = this.image;
+
+        return comp;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
 }
