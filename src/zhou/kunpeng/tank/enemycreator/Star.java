@@ -22,7 +22,7 @@ class Star extends Clip {
 
     private static List<ImageComponent> preloadSequence;
 
-    static{
+    static void preload(){
         preloadSequence = new ArrayList<>();
         for(int i = 1; i <= 39; i++)
             preloadSequence.add(new ImageComponent("/images/star/star" + i + ".png"));
@@ -31,7 +31,7 @@ class Star extends Clip {
     private static List<ImageComponent> clonePreload() {
         List<ImageComponent> seq = new ArrayList<>();
         for(int i = 0; i < preloadSequence.size() ; i++)
-            seq.add(seq.get(i).clone());
+            seq.add(preloadSequence.get(i).clone());
         return seq;
     }
 

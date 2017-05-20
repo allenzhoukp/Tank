@@ -6,6 +6,8 @@ import zhou.kunpeng.tank.tank.PlayerTank;
 import zhou.kunpeng.tank.tank.Tank;
 
 import javax.swing.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Created by JA on 2017/5/19.
@@ -50,6 +52,7 @@ public class Test {
         Tank tank2 = new PlayerTank(false, map);
 
         EnemyCreator creator = new EnemyCreator(map);
+        timer.registerListener(creator);
 
         JFrame frame = new JFrame();
         frame.getContentPane().setLayout(null);
@@ -59,15 +62,17 @@ public class Test {
         timer.start();
         frame.setVisible(true);
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 10000; i++) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 // Anything to do?
             }
 
-            tank1.startMove(Tank.NORTH);
-            tank2.startMove(Tank.NORTH);
+            if(map.getP1Tank() != null)
+                map.getP1Tank().fire();
+            if(map.getP2Tank() != null)
+                map.getP2Tank().fire();
 
         }
 

@@ -3,7 +3,9 @@ package zhou.kunpeng.tank;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,11 +20,11 @@ public class Timeline implements ActionListener {
     public static final int FPS = 25;
 
     private Timer timer;
-    private Set<TimerListener> listeners;
+    private List<TimerListener> listeners;
 
     public Timeline() {
         this.timer = new Timer(1000 / FPS, this);
-        this.listeners = new HashSet<>();
+        this.listeners = new ArrayList<>();
     }
 
     public void registerListener(TimerListener listener) {
@@ -41,9 +43,13 @@ public class Timeline implements ActionListener {
         timer.stop();
     }
 
+    // The problem here is obvious: when performing onTimer(),
+    // the listener list could change, causing java.util.ConcurrentModificationException.
+    // The solution is to set another listener list.
     @Override
     public synchronized void actionPerformed(ActionEvent e) {
-        for (TimerListener listener : listeners)
+        List<TimerListener> listenersInAct = new ArrayList<>(listeners);
+        for (TimerListener listener : listenersInAct)
             listener.onTimer();
     }
 }

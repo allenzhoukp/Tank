@@ -21,7 +21,6 @@ public class GameMap extends JLayeredPane {
     public static final int CONCRETE = 2;
     public static final int GRASS = 3;
     public static final int WATER = 4;
-    public static final int TANK = 5;
 
     public static final Integer BACKGROUND_LAYER = 0;
     public static final Integer WATER_LAYER = 100;
@@ -51,6 +50,21 @@ public class GameMap extends JLayeredPane {
         return coordinate * SLOT_SIZE;
     }
 
+    public static int alignScreenCoordinate(int coordinate) {
+        return coordinate - coordinate % SLOT_SIZE;
+    }
+
+    public static boolean isCoordinateAligned(int coordinate) {
+        return alignScreenCoordinate(coordinate) == coordinate;
+    }
+
+    public static Rectangle convertBattleRect(int x, int y, int width, int height) {
+        return new Rectangle(
+                toBattleCoordinate(x),
+                toBattleCoordinate(y),
+                toBattleCoordinate(x + width - 1) - toBattleCoordinate(x) + 1,
+                toBattleCoordinate(y + height - 1) - toBattleCoordinate(y) + 1);
+    }
 
     private int[][] map;
     private ImageComponent[][] terrainImage;
@@ -120,33 +134,54 @@ public class GameMap extends JLayeredPane {
         this.setBounds(0, 0, BATTLE_WIDTH * SLOT_SIZE, BATTLE_HEIGHT * SLOT_SIZE);
     }
 
-    private boolean isTankPassable(int battleX, int battleY) {
+
+    public List<Tank> getAllTanks() {
+        List<Tank> tankList = new ArrayList<>();
+        tankList.add(getP1Tank());
+        tankList.add(getP2Tank());
+        tankList.addAll(getEnemyTankList());
+        return tankList;
+    }
+
+    private boolean isTerrainPassable(int battleX, int battleY) {
         return map[battleY][battleX] == GameMap.NORMAL ||
                 map[battleY][battleX] == GameMap.GRASS;
     }
 
-    public boolean tankBlocked(int battleX, int battleY) {
-        return !(battleX >= 0 && battleX < GameMap.BATTLE_WIDTH - 1 &&
-                battleY >= 0 && battleY < GameMap.BATTLE_HEIGHT - 1 &&
-                isTankPassable(battleX, battleY) &&
-                isTankPassable(battleX + 1, battleY) &&
-                isTankPassable(battleX, battleY + 1) &&
-                isTankPassable(battleX + 1, battleY + 1));
+    /**
+     * Returns if the tank is blocked.
+     * Note that battleX and battleY should be upperLeft corner of the mover.
+     */
+    public boolean tankBlocked(int x, int y, Tank mover) {
+        Rectangle destRect = convertBattleRect(x, y, mover.getWidth(), mover.getHeight());
+
+        //check if in the border
+        //note in screen coordinate
+        if (x < 0 || x + mover.getWidth() > BATTLE_WIDTH * SLOT_SIZE ||
+                y < 0 || y + mover.getHeight() > BATTLE_HEIGHT * SLOT_SIZE)
+            return true;
+
+        for (Tank tank : getAllTanks()) {
+            if (tank == null || tank == mover)
+                continue;
+
+            //check tank
+            //note if there is collision between tanks, the block does not happen between them.
+            Rectangle tankRect = convertBattleRect(tank.getX(), tank.getY(), tank.getWidth(), tank.getHeight());
+            Rectangle moverRect  = convertBattleRect(mover.getX(), mover.getY(), mover.getWidth(), mover.getHeight());
+            if (!moverRect.intersects(tankRect) && destRect.intersects(tankRect))
+                return true;
+        }
+
+        //check if the terrain has blocked
+        for (int i = destRect.x; i < destRect.x + destRect.width; i++)
+            for (int j = destRect.y; j < destRect.y + destRect.height; j++)
+                if (!isTerrainPassable(i, j))
+                    return true;
+
+        return false;
     }
 
-    public void addTankBlock(int battleX, int battleY) {
-        map[battleY][battleX] = map[battleY][battleX + 1] =
-                map[battleY + 1][battleX] = map[battleY + 1][battleX + 1] = TANK;
-    }
-
-    public void removeTankBlock(int battleX, int battleY) {
-        final int[][] additive = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
-        for (int i = 0; i < 4; i++)
-            if (battleY + additive[i][0] >= 0 && battleY + additive[i][0] < GameMap.BATTLE_HEIGHT &&
-                    battleX + additive[i][1] >= 0 && battleX + additive[i][1] < GameMap.BATTLE_WIDTH &&
-                    map[battleY + additive[i][0]][battleX + additive[i][1]] == TANK)
-                map[battleY + additive[i][0]][battleX + additive[i][1]] = NORMAL;
-    }
 
     public void gameOver() {
         //TODO game over

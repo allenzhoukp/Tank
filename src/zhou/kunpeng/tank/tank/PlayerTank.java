@@ -5,8 +5,8 @@ import zhou.kunpeng.tank.ImageComponent;
 import zhou.kunpeng.tank.Timeline;
 import zhou.kunpeng.tank.TimerListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by JA on 2017/5/20.
@@ -27,10 +27,13 @@ public class PlayerTank extends Tank {
     //This one is for test.
     public PlayerTank(boolean isP1, int initX, int initY, GameMap gameMap) {
         super(GameMap.PLAYER_SIDE, SPEED, CANNON_SPEED,
-                isP1 ? Arrays.asList(new ImageComponent("/images/1p1.png"),
-                        new ImageComponent("/images/1p2.png"))
-                        : Arrays.asList(new ImageComponent("/images/2p1.png"),
-                        new ImageComponent("/images/2p2.png")),
+                new ArrayList<>(
+                        isP1 ? Arrays.asList(
+                                new ImageComponent("/images/1p1.png"),
+                                new ImageComponent("/images/1p2.png"))
+                                : Arrays.asList(
+                                new ImageComponent("/images/2p1.png"),
+                                new ImageComponent("/images/2p2.png"))),
                 initX, initY, gameMap);
         if (isP1)
             gameMap.setP1Tank(this);
@@ -46,15 +49,15 @@ public class PlayerTank extends Tank {
     }
 
     @Override
-    public void move(int direction) {
-        super.move(direction);
+    protected void moveProgress() {
+        super.moveProgress();
         //TODO upgrade plus
     }
 
 
     @Override
     public void triggerHit() {
-        if(immunity)
+        if (immunity)
             return;
 
         //Basic destroy: remove from gameMap and other issues
@@ -80,8 +83,8 @@ public class PlayerTank extends Tank {
 
 
         TimerListener revive = new TimerListener() {
-            private int frameCounter = (int)(Timeline.FPS * (GameMap.BORN_SHIELD_SEC + GameMap.BORN_SEC));
-            Tank newTank;
+            private int frameCounter = (int) (Timeline.FPS * (GameMap.BORN_SHIELD_SEC + GameMap.BORN_SEC));
+            PlayerTank newTank;
 
             private void revive() {
                 // the old tank (PlayerTank.this) will go to gc afterwards.
@@ -90,22 +93,23 @@ public class PlayerTank extends Tank {
                 //When revive, the tank will appear and disappear repeatedly for a while, and becomes immune.
                 //This is a 8-frame sequence, where half of the time is blank.
                 ImageComponent pic1 = newTank.getSequence().get(0);
-                ImageComponent pic2 = newTank.getSequence().get(0);
+                ImageComponent pic2 = newTank.getSequence().get(1);
                 ImageComponent blank = new ImageComponent("/images/null.png");
-                newTank.setSequence(Arrays.asList(pic1, pic2, pic1, pic2, blank, blank, blank, blank));
+                newTank.setSequence(new ArrayList<>(
+                        Arrays.asList(pic1, pic2, pic1, pic2, blank, blank, blank, blank)));
                 newTank.gotoAndPlay(0);
 
-                immunity = true;
+                newTank.immunity = true;
             }
 
             private void removeShield() {
-                immunity = false;
+                newTank.immunity = false;
 
-                if(newTank == null)
+                if (newTank == null)
                     return;
 
                 //Remove frames after frame 2: Does not disappear anymore
-                for(int i = 7; i >= 2; i--)
+                for (int i = 7; i >= 2; i--)
                     newTank.getSequence().remove(i);
             }
 
@@ -115,10 +119,10 @@ public class PlayerTank extends Tank {
                 frameCounter--;
 
                 //BORN_SEC time has passed
-                if(frameCounter == Timeline.FPS * GameMap.BORN_SHIELD_SEC)
+                if (frameCounter == Timeline.FPS * GameMap.BORN_SHIELD_SEC)
                     revive();
 
-                //another BORN_SHIELD_SEC time has passed
+                    //another BORN_SHIELD_SEC time has passed
                 else if (frameCounter == 0) {
                     removeShield();
 

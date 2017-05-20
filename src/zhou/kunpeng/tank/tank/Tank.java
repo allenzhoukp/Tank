@@ -53,17 +53,10 @@ public abstract class Tank extends Clip {
         gameMap.add(this, GameMap.TANK_LAYER);
         gameMap.getTimer().registerListener(this);
 
-        moveToX = x;
-        moveToY = y;
     }
 
-
-    private int moveToX;
-    private int moveToY;
-    private int prevTankX;
-    private int prevTankY;
-
-    private boolean keepMoving = false;
+    private boolean moving = false;
+    private int nextMove = -1;
 
     private boolean blocked = false;
 
@@ -76,39 +69,56 @@ public abstract class Tank extends Clip {
         moveProgress();
     }
 
-    //The basic logic is:
-    //If we want to move the tank, then we assign a target destination point,
-    //and this thread will move the tank there gradually.
     protected void moveProgress() {
+        final int[][] DIR = {
+                {0, speed}, {speed, 0}, {0, -speed}, {-speed, 0}
+        };
 
-        int vecx = moveToX - this.getX();
-        int vecy = moveToY - this.getY();
-        if (vecx != 0 || vecy != 0) {
-            int movx = (int) ((double) vecx * speed / Math.sqrt(vecx * vecx + vecy * vecy));
-            int movy = (int) ((double) vecy * speed / Math.sqrt(vecx * vecx + vecy * vecy));
-            int newx = this.getX() + movx;
-            int newy = this.getY() + movy;
+        boolean aligned = GameMap.isCoordinateAligned(getX()) && GameMap.isCoordinateAligned(getY());
 
-            //If tank is moving too far ahead, drag it back.
-            if (!keepMoving) {
-                if ((newx - moveToX) * movx >= 0)
-                    newx = moveToX;
-                if ((newy - moveToY) * movy >= 0)
-                    newy = moveToY;
+        //Stop moving. Check the next movement.
+        if (!moving && aligned) {
+            if (nextMove != -1) {
+                changeDirection(nextMove);
+                moving = true;
+                nextMove = -1;
             }
 
-            this.setLocation(newx, newy);
+        } else {
 
-            //Reach the destination
-        } else if (prevTankX != -1 && prevTankY != -1) {
-            gameMap.removeTankBlock(prevTankX, prevTankY);
-            gameMap.addTankBlock(GameMap.toBattleCoordinate(moveToX),
-                    GameMap.toBattleCoordinate(moveToY));
-            prevTankX = prevTankY = -1;
+            // Moveup.
+            int newX = getX() + DIR[direction][0];
+            int newY = getY() + DIR[direction][1];
 
-            //If the tank is still moving, move up to the next position.
-            if (keepMoving)
-                move(direction);
+            // If trying to stop moving and after the move, the battle coordinate has changed;
+            // or, the tank is blocked;
+            // then the tank should stop at the aligned position, rather than the accurate one.
+
+            boolean tooFarAhead = !moving &&
+                    (GameMap.toBattleCoordinate(newX) != GameMap.toBattleCoordinate(getX()) ||
+                            GameMap.toBattleCoordinate(newY) != GameMap.toBattleCoordinate(getY()));
+
+            this.blocked = gameMap.tankBlocked(newX, newY, this);
+
+            // This is a little bit complicated..
+            if (tooFarAhead || this.blocked) {
+                switch (direction) {
+                    case WEST:
+                        newX = GameMap.alignScreenCoordinate(getX());
+                        break;
+                    case NORTH:
+                        newY = GameMap.alignScreenCoordinate(getY());
+                        break;
+                    case EAST:
+                        newX = GameMap.alignScreenCoordinate(newX);
+                        break;
+                    case SOUTH:
+                        newY = GameMap.alignScreenCoordinate(newY);
+                        break;
+                }
+            }
+
+            setLocation(newX, newY);
         }
     }
 
@@ -119,51 +129,24 @@ public abstract class Tank extends Clip {
         this.direction = direction;
     }
 
-    // Move the tank for once.
-    protected void move(int direction) {
+    public void startMove(int direction) {
+        if (moving)
+            return;
         changeDirection(direction);
-
-        final int[][] DIR = {
-                {0, 1}, {1, 0}, {0, -1}, {-1, 0}
-        };
-
-        // Temporary remove current tank block: one cannot be blocked by itself.
-        int x = GameMap.toBattleCoordinate(this.getX());
-        int y = GameMap.toBattleCoordinate(this.getY());
-        gameMap.removeTankBlock(x, y);
-
-        // block check
-        if (!gameMap.tankBlocked(x + DIR[direction][0], y + DIR[direction][1])) {
-
-            // set blocked flag
-            blocked = false;
-
-            // add marker @ current and target x & y
-            prevTankX = x;
-            prevTankY = y;
-            moveToX = GameMap.toScreenCoordinate(x + DIR[direction][0]);
-            moveToY = GameMap.toScreenCoordinate(y + DIR[direction][1]);
-
-            // block destination
-            gameMap.addTankBlock(x + DIR[direction][0], y + DIR[direction][1]);
-
-        } else {
-            blocked = true;
-        }
-
-        //Recover the block status
-        gameMap.addTankBlock(x, y);
+        moving = true;
     }
 
-    public void startMove(int direction) {
-        keepMoving = true;
-        move(direction);
+    public void appendMove(int direction) {
+        if(this.direction == direction)
+            return;
+        moving = false; //force stop
+        nextMove = direction;
     }
 
     public void stopMove() {
-        keepMoving = false;
+        nextMove = -1;
+        moving = false;
     }
-
 
     private boolean enableFire = true;
 
@@ -175,11 +158,6 @@ public abstract class Tank extends Clip {
         this.stopMove();
 
         gameMap.remove(this);
-        gameMap.removeTankBlock(prevTankX, prevTankY);
-        gameMap.removeTankBlock(moveToX, moveToY);
-        gameMap.removeTankBlock(GameMap.toBattleCoordinate(getX()),
-                GameMap.toBattleCoordinate(getY()));
-
         gameMap.getTimer().removeListener(this);
 
         gameMap.repaint();
