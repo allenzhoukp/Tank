@@ -33,7 +33,7 @@ public class Clip extends JPanel {
         this.setLayout(null);
         this.setBounds(sx, sy, width, height);
         sequence = seq;
-        if (sequence != null)
+        if (sequence != null && sequence.size() != 0)
             this.add(seq.get(0));
     }
 

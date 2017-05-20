@@ -1,5 +1,7 @@
 package zhou.kunpeng.tank;
 
+import zhou.kunpeng.tank.tank.Tank;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -30,6 +32,9 @@ public class GameMap extends JLayeredPane {
     public static final Integer PLUS_LAYER = 1200;
 
     public static final int FPS = 25;
+
+    public static final int PLAYER_SIDE = 0;
+    public static final int ENEMY_SIDE = 1;
 
     public static final int P1_BORN_BATTLE_X = 9;
     public static final int P1_BORN_BATTLE_Y = 24;
@@ -66,10 +71,10 @@ public class GameMap extends JLayeredPane {
         super();
         this.map = mapContent;
         this.clipManager = clipManager;
-        loadMap();
+        initMap();
     }
 
-    private void loadMap() {
+    private void initMap() {
 
         JComponent background = new JComponent() {
             @Override

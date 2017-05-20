@@ -1,10 +1,18 @@
-package zhou.kunpeng.tank;
+package zhou.kunpeng.tank.tank;
+
+import zhou.kunpeng.tank.GameMap;
+import zhou.kunpeng.tank.ImageComponent;
 
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by JA on 2017/5/20.
+ * <p>
+ * PlayerTank is the tank for player.
+ * It has a default speed and cannon_speed, and is able to be upgraded and revive.
+ * TODO the upgrade module is not yet completed.
+ * </p>
  */
 public class PlayerTank extends Tank {
 
@@ -16,7 +24,7 @@ public class PlayerTank extends Tank {
 
     //This one is for test.
     public PlayerTank(boolean isP1, int initX, int initY, GameMap gameMap) {
-        super(0, SPEED, CANNON_SPEED,
+        super(GameMap.PLAYER_SIDE, SPEED, CANNON_SPEED,
                 isP1 ? Arrays.asList(new ImageComponent("/images/1p1.png"),
                         new ImageComponent("/images/1p2.png"))
                         : Arrays.asList(new ImageComponent("/images/2p1.png"),
@@ -36,32 +44,37 @@ public class PlayerTank extends Tank {
     }
 
     @Override
+    public void move(int direction) {
+        super.move(direction);
+        //TODO upgrade plus
+    }
+
+
+    @Override
     public void triggerHit() {
         if(immunity)
             return;
 
+        //Basic destroy: remove from gameMap and other issues
         tankDestroy();
         if (isP1)
-            gameMap.setP1Tank(null);
+            getGameMap().setP1Tank(null);
         else
-            gameMap.setP2Tank(null);
+            getGameMap().setP2Tank(null);
 
-        gameMap.getClipManager().getClipList().remove(this);
-
-        int life = isP1 ? gameMap.getP1Life() : gameMap.getP2Life();
+        //reduce life
+        int life = isP1 ? getGameMap().getP1Life() : getGameMap().getP2Life();
         if (life == 0) {
-            if (gameMap.getP1Life() == 0 &&
-                    gameMap.getP2Life() == 0)
-                gameMap.gameOver();
+            if (getGameMap().getP1Life() == 0 &&
+                    getGameMap().getP2Life() == 0)
+                getGameMap().gameOver();
             return;
         }
         life--;
         if (isP1)
-            gameMap.setP1Life(life);
+            getGameMap().setP1Life(life);
         else
-            gameMap.setP2Life(life);
-
-        gameMap.repaint();
+            getGameMap().setP2Life(life);
 
         // it takes time to revive.
         try {
@@ -71,20 +84,18 @@ public class PlayerTank extends Tank {
         }
 
         // the old tank (this) will go to gc afterwards.
-        Tank newTank = new PlayerTank(isP1, gameMap);
-        gameMap.add(newTank, GameMap.TANK_LAYER);
+        Tank newTank = new PlayerTank(isP1, getGameMap());
+
+        //When revive, the tank will appear and disappear repeatedly for a while, and becomes immune.
+        //This is a 8-frame sequence, where half of the time is blank.
+        List<ImageComponent> seqBackup = newTank.getSequence();
+
         ImageComponent pic1 = newTank.getSequence().get(0);
         ImageComponent pic2 = newTank.getSequence().get(0);
         ImageComponent blank = new ImageComponent("/images/null.png");
-
-        List<ImageComponent> seqBackup = newTank.getSequence();
-
-        //When revive, the tank will flash for a while, and becomes immune.
-        //This is a 8-frame sequence, where half of the time is blank.
         newTank.setSequence(Arrays.asList(pic1, pic2, pic1, pic2, blank, blank, blank, blank));
-
-        gameMap.getClipManager().getClipList().add(newTank);
         newTank.gotoAndPlay(0);
+
         immunity = true;
 
         // shield will exist for a while

@@ -1,8 +1,11 @@
 package zhou.kunpeng.tank;
 
+import zhou.kunpeng.tank.enemycreator.EnemyCreator;
+import zhou.kunpeng.tank.tank.NormalTank;
+import zhou.kunpeng.tank.tank.PlayerTank;
+import zhou.kunpeng.tank.tank.Tank;
+
 import javax.swing.*;
-import java.awt.*;
-import java.util.Arrays;
 
 /**
  * Created by JA on 2017/5/19.
@@ -46,12 +49,10 @@ public class Test {
         Tank tank1 = new PlayerTank(true, map);
         Tank tank2 = new PlayerTank(false, map);
 
-        mgr.getClipList().add(tank1);
-        mgr.getClipList().add(tank2);
-        mgr.start();
+        EnemyCreator creator = new EnemyCreator(map);
+        creator.start();
 
-        map.add(tank1, GameMap.TANK_LAYER);
-        map.add(tank2, GameMap.TANK_LAYER);
+        mgr.start();
 
         JFrame frame = new JFrame();
         frame.getContentPane().setLayout(null);
@@ -65,8 +66,6 @@ public class Test {
             } catch (InterruptedException e) {
                 // Anything to do?
             }
-            tank1.move((int) (Tank.EAST));
-            tank2.move((int) (Tank.WEST));
 
             tank1.fire();
             tank2.fire();

@@ -24,8 +24,10 @@ public class ClipManager {
                 } catch (InterruptedException e) {
                     //Do nothing. Will there be any problems?
                 }
-                for (Clip c : clipList)
-                    c.nextFrame();
+                synchronized(clipList) {
+                    for (Clip c : clipList)
+                        c.nextFrame();
+                }
             }
         }
 

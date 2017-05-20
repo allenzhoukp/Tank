@@ -1,18 +1,21 @@
 package zhou.kunpeng.tank;
 
+import zhou.kunpeng.tank.tank.Tank;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by JA on 2017/5/19.
  * <p>
- * The cannon ball that the zhou.kunpeng.tank launched.
+ * The cannon ball that the tank launched.
  * Will fly in a certain direction. <br>
  * 1. if hit concrete wall / map border,  it will blast.
- * 2. if hit friendly zhou.kunpeng.tank, it will disappear.
- * 3. if hit enemy zhou.kunpeng.tank, it will trigger zhou.kunpeng.tank's onHit() method.
+ * 2. if hit friendly tank, it will disappear.
+ * 3. if hit enemy tank, it will trigger tank's onHit() method.
  * 4. if hit brick wall, will destroy a wall in range of 2 * 2.
  * </p>
  */
@@ -23,7 +26,7 @@ public class Cannon extends JPanel {
     private Tank launcher;
     private int speed;
     private int direction;
-    private GameMap gameMap;
+    private final GameMap gameMap;
 
     private ImageComponent cannonBall;
     private ImageComponent blast;
@@ -49,15 +52,26 @@ public class Cannon extends JPanel {
 //            }
 //
 //            remove(blast);
+
+            disappear();
+        }
+
+        private void disappear() {
             gameMap.remove(Cannon.this);
             gameMap.repaint();
+            launcher.enableFire(true);
         }
 
         private boolean checkTankHit() {
-            List<Tank> tankList = Arrays.asList(gameMap.getP1Tank(), gameMap.getP2Tank());
-            tankList.addAll(gameMap.getEnemyTankList());
+            List<Tank> tankList;
+            synchronized (gameMap.getEnemyTankList()) {
+                tankList = new ArrayList<>();
+                tankList.add(gameMap.getP1Tank());
+                tankList.add(gameMap.getP2Tank());
+                tankList.addAll(gameMap.getEnemyTankList());
+            }
             for (Tank tank : tankList) {
-                if(tank == null)
+                if (tank == null)
                     continue;
 
                 //Intersect
@@ -73,12 +87,13 @@ public class Cannon extends JPanel {
                     //Not friendly fire
                     if (tank.getSide() != launcher.getSide()) {
                         blast(); //boom!
-                        // Will block the thread. Watch out!
+
+                        // Will block the thread.
                         tank.triggerHit();
 
                     } else {
-                        remove(cannonBall);
-                        gameMap.remove(Cannon.this); //disappear.
+                        // Will block the thread.
+                        disappear();
                     }
 
                     return true;
@@ -102,7 +117,7 @@ public class Cannon extends JPanel {
                         newy >= 0 && newy < GameMap.BATTLE_HEIGHT))
                     blast = true;
                 else {
-                    //Hit the brick wall: blast and destory the walls
+                    //Hit the brick wall: blast and destroy the walls
                     if (gameMap.getMap()[newy][newx] == GameMap.BRICK) {
                         blast = true;
                         gameMap.getMap()[newy][newx] = GameMap.NORMAL;
@@ -117,6 +132,7 @@ public class Cannon extends JPanel {
             }
             if (blast)
                 blast();
+
             return blast;
         }
 
@@ -129,7 +145,6 @@ public class Cannon extends JPanel {
 
             while (true) {
                 if (checkWallHit() || checkTankHit()) {
-                    gameMap.repaint();
                     return;
                 }
 
