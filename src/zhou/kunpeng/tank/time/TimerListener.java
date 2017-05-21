@@ -1,4 +1,4 @@
-package zhou.kunpeng.tank;
+package zhou.kunpeng.tank.time;
 
 /**
  * Created by JA on 2017/5/20.
@@ -8,5 +8,5 @@ package zhou.kunpeng.tank;
  * </p>
  */
 public interface TimerListener {
-    public void onTimer();
+    void onTimer();
 }

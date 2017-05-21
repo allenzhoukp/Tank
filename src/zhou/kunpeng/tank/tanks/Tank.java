@@ -32,6 +32,8 @@ public abstract class Tank extends Clip {
     public static final int NORTH = 0;
     public static final int EAST = 3;
 
+    public int id;
+
     /**
      * When created, a tank will be automatically placed on the map, and start animating.
      *

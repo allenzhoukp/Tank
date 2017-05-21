@@ -1,9 +1,9 @@
-package zhou.kunpeng.tank.enemycreator;
+package zhou.kunpeng.tank.ai;
 
 import zhou.kunpeng.tank.GameMap;
 import zhou.kunpeng.tank.MapUtils;
-import zhou.kunpeng.tank.Timeline;
-import zhou.kunpeng.tank.TimerListener;
+import zhou.kunpeng.tank.time.Timeline;
+import zhou.kunpeng.tank.time.TimerListener;
 import zhou.kunpeng.tank.tanks.*;
 
 /**
@@ -72,10 +72,12 @@ public class EnemyCreator implements TimerListener {
             gameMap.add(star, GameMap.TANK_LAYER);
             gameMap.getTimer().registerListener(star);
 
+            //Outcome determined NOW, not after the star finishes its play.
             gameMap.getTimer().registerListener(
                     new CreationListener(star,
                             MapUtils.toScreenCoordinate(slots[i] * 12),
-                            MapUtils.toScreenCoordinate(0)));
+                            MapUtils.toScreenCoordinate(0),
+                            Math.random()));
         }
     }
 
@@ -85,12 +87,14 @@ public class EnemyCreator implements TimerListener {
         private int tankX;
         private int tankY;
         private Star star;
+        private double dice;
 
-        CreationListener(Star star, int tankX, int tankY) {
+        CreationListener(Star star, int tankX, int tankY, double dice) {
             this.star = star;
             counter = star.getFrameCount();
             this.tankX = tankX;
             this.tankY = tankY;
+            this.dice = dice;
         }
 
         @Override
@@ -99,7 +103,7 @@ public class EnemyCreator implements TimerListener {
             if (counter > 0)
                 return;
 
-            createNewTank(tankX, tankY);
+            createNewTank(tankX, tankY, dice);
             gameMap.getTimer().removeListener(this);
             gameMap.remove(star);
             gameMap.getTimer().removeListener(star);
@@ -108,9 +112,8 @@ public class EnemyCreator implements TimerListener {
 
     //TODO add tanks that could generate plus.
     //problem: a constructor call may not be sufficient... has to be written in direct call, rather than reflect.
-    private void createNewTank(int x, int y) {
-        //randomly choose a tank to create
-        double dice = Math.random();
+    private void createNewTank(int x, int y, double dice) {
+        //choose a tank to create according to the outcome (dice)
         EnemyTank tank;
         if(dice <= 0.2)
             tank = new NormalTank(x, y, gameMap);

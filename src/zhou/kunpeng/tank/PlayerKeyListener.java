@@ -2,6 +2,7 @@ package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.tanks.PlayerTank;
 import zhou.kunpeng.tank.tanks.Tank;
+import zhou.kunpeng.tank.time.TimerListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -58,35 +59,9 @@ public class PlayerKeyListener implements KeyListener {
                 gameMap.getTimer().removeListener(this);
             }
         });
-
-            /*
-            PlayerTank playerTank = isP1 ? gameMap.getP1Tank() : gameMap.getP2Tank();
-            if (playerTank == null)
-                return;
-
-            switch (keycode) {
-                case KeyEvent.VK_W:
-                    playerTank.appendMove(Tank.NORTH);
-                    break;
-                case KeyEvent.VK_A:
-                    playerTank.appendMove(Tank.WEST);
-                    break;
-                case KeyEvent.VK_S:
-                    playerTank.appendMove(Tank.SOUTH);
-                    break;
-                case KeyEvent.VK_D:
-                    playerTank.appendMove(Tank.EAST);
-                    break;
-            }*/
-        //}
     }
 
     private void fire() {
-        /*synchronized (gameMap) {
-            PlayerTank playerTank = isP1 ? gameMap.getP1Tank() : gameMap.getP2Tank();
-            if (playerTank != null)
-                playerTank.fire();
-        }*/
         gameMap.getTimer().registerListener(new TimerListener() {
 
             @Override
@@ -101,12 +76,6 @@ public class PlayerKeyListener implements KeyListener {
     }
 
     private void stopMove() {
-        /*
-        synchronized (gameMap) {
-            PlayerTank playerTank = isP1 ? gameMap.getP1Tank() : gameMap.getP2Tank();
-            if (playerTank != null)
-                playerTank.stopMove();
-        }*/
         gameMap.getTimer().registerListener(new TimerListener() {
 
             @Override

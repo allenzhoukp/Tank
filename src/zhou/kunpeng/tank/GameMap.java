@@ -1,8 +1,10 @@
 package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.display.ImageComponent;
+import zhou.kunpeng.tank.tanks.EnemyTank;
 import zhou.kunpeng.tank.tanks.PlayerTank;
 import zhou.kunpeng.tank.tanks.Tank;
+import zhou.kunpeng.tank.time.Timeline;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,6 +39,9 @@ public class GameMap extends JLayeredPane {
     public static final int PLAYER_SIDE = 0;
     public static final int ENEMY_SIDE = 1;
 
+    public static final int BASE_BATTLE_X = 12;
+    public static final int BASE_BATTLE_Y = 24;
+
     public static final int INIT_LIFE = 4;
     public static final int INIT_ENEMY = 20;
 
@@ -47,7 +52,9 @@ public class GameMap extends JLayeredPane {
 
     private PlayerTank p1Tank;
     private PlayerTank p2Tank;
-    private List<Tank> enemyTankList = new ArrayList<>();
+    private List<EnemyTank> enemyTankList = new ArrayList<>();
+
+    private Base base;
 
     private int p1Life = GameMap.INIT_LIFE;
     private int p2Life = GameMap.INIT_LIFE;
@@ -59,7 +66,7 @@ public class GameMap extends JLayeredPane {
     private ScoreCounter p1Score = new ScoreCounter();
     private ScoreCounter p2Score = new ScoreCounter();
 
-    public GameMap(int[][] mapContent, Timeline timer, int level) {
+    public GameMap(int[][] mapContent, Timeline timer, int level, boolean hasP2) {
         super();
         this.map = mapContent;
         this.timer = timer;
@@ -67,7 +74,8 @@ public class GameMap extends JLayeredPane {
         initMap();
 
         p1Tank = new PlayerTank(true, this);
-        p2Tank = new PlayerTank(false, this);
+        if(hasP2)
+            p2Tank = new PlayerTank(false, this);
 
         initInfoPanel(level);
     }
@@ -117,6 +125,8 @@ public class GameMap extends JLayeredPane {
                     this.setLayer(terrainImage[y][x], WALL_LAYER);
             }
         }
+
+        base = new Base(this, BASE_BATTLE_X, BASE_BATTLE_Y);
 
         this.setBounds(0, 0, BATTLE_WIDTH * SLOT_SIZE, BATTLE_HEIGHT * SLOT_SIZE);
     }
@@ -185,7 +195,9 @@ public class GameMap extends JLayeredPane {
     }
 
     public void gameOver() {
-        //TODO game over
+        new GameOverSign(140, this.getHeight() + 100,
+                140, this.getHeight() / 2 - 100,
+                Timeline.FPS , this);
     }
 
     //Getters and setters
@@ -241,7 +253,7 @@ public class GameMap extends JLayeredPane {
         this.infoPanel.updateEnemyCount(enemyRemaining);
     }
 
-    public List<Tank> getEnemyTankList() {
+    public List<EnemyTank> getEnemyTankList() {
         return enemyTankList;
     }
 
@@ -253,5 +265,7 @@ public class GameMap extends JLayeredPane {
         return isP1 ? p1Score : p2Score;
     }
 
-
+    public Base getBase() {
+        return base;
+    }
 }

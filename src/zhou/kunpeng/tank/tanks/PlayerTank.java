@@ -2,6 +2,8 @@ package zhou.kunpeng.tank.tanks;
 
 import zhou.kunpeng.tank.*;
 import zhou.kunpeng.tank.display.ImageComponent;
+import zhou.kunpeng.tank.time.Timeline;
+import zhou.kunpeng.tank.time.TimerListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +13,6 @@ import java.util.Arrays;
  * <p>
  * PlayerTank is the tank for player.
  * It has a default speed and cannon_speed, and is able to be upgraded and revive.
- * TODO the upgrade module is not yet completed.
  * </p>
  */
 public class PlayerTank extends Tank {
@@ -23,8 +24,8 @@ public class PlayerTank extends Tank {
     public static final double BORN_SEC = 1.5;
     public static final int BORN_SHIELD_SEC = 4;
 
-    private static final int CANNON_SPEED = 12;
-    private static final int SPEED = 5;
+    private static final int CANNON_SPEED = 18;
+    private static final int SPEED = 8;
 
     private boolean isP1;
 
@@ -52,12 +53,6 @@ public class PlayerTank extends Tank {
         this(isP1, MapUtils.toScreenCoordinate(isP1 ? P1_BORN_BATTLE_X : P2_BORN_BATTLE_X),
                 MapUtils.toScreenCoordinate(isP1 ? P1_BORN_BATTLE_Y : P2_BORN_BATTLE_Y),
                 gameMap);
-    }
-
-    @Override
-    protected void moveProgress() {
-        super.moveProgress();
-        //TODO upgrade plus
     }
 
 

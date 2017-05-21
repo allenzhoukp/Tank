@@ -2,6 +2,7 @@ package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.display.ImageComponent;
 import zhou.kunpeng.tank.tanks.Tank;
+import zhou.kunpeng.tank.time.TimerListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,14 +68,14 @@ public class Cannon extends JPanel implements TimerListener {
         // }
         //
         // remove(blast);
-
-        disappear();
     }
 
     //the cannon no longer exists on the map.
     private void disappear() {
         gameMap.remove(Cannon.this);
         gameMap.repaint();
+
+        gameMap.getTimer().removeListener(this);
 
         //launcher can fire again only if the previous cannon disappears
         launcher.enableFire(true);
@@ -105,11 +106,8 @@ public class Cannon extends JPanel implements TimerListener {
 
                     tank.triggerHit(launcher);
 
-                } else {
-                    // friendly fire
-                    disappear();
                 }
-
+                //No matter it is friendly fire or not, it is a hit, isn't it?
                 return true;
             }
         }
@@ -150,6 +148,18 @@ public class Cannon extends JPanel implements TimerListener {
         return blast;
     }
 
+    private boolean checkBaseHit() {
+        int battleX = MapUtils.toBattleCoordinate(getX());
+        int battleY = MapUtils.toBattleCoordinate(getY());
+        Base base = gameMap.getBase();
+        Rectangle baseRect = MapUtils.convertBattleRect(base.getX(), base.getY(), base.getWidth(), base.getHeight());
+        if(baseRect.contains(battleX, battleY)) {
+            base.triggerHit();
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     public void onTimer() {
@@ -160,8 +170,8 @@ public class Cannon extends JPanel implements TimerListener {
         this.setLocation(this.getX() + dir[direction][0], this.getY() + dir[direction][1]);
 
         //check hit
-        if (checkTankHit() || checkWallHit())
-            gameMap.getTimer().removeListener(this);
+        if (checkTankHit() || checkWallHit() || checkBaseHit())
+            disappear();
 
     }
 }

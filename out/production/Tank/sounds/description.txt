@@ -1,0 +1,7 @@
+1 plusshow: when an upgrade is shown.
+2 plus: when an upgrade is taken.
+3 playerboom: -
+4 ding: when a tough zhou.kunpeng.tank is hit.
+5 fire: - 
+6 count: use when counting score (after level)
+7 boom: eneny boom.

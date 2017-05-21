@@ -15,8 +15,8 @@ import java.util.Arrays;
  */
 public class ToughTank extends EnemyTank {
 
-    public static final int SPEED = 3;
-    public static final int CANNON_SPEED = 12;
+    public static final int SPEED = 5;
+    public static final int CANNON_SPEED = 18;
 
     private int life;
     public ToughTank(int initX, int initY, GameMap gameMap) {

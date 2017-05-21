@@ -1,4 +1,4 @@
-package zhou.kunpeng.tank.enemycreator;
+package zhou.kunpeng.tank.ai;
 
 import zhou.kunpeng.tank.display.Clip;
 import zhou.kunpeng.tank.GameMap;

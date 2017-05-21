@@ -14,8 +14,8 @@ import java.util.Arrays;
  * </p>
  */
 public class SecondaryTank extends EnemyTank{
-    public static final int SPEED = 3;
-    public static final int CANNON_SPEED = 12;
+    public static final int SPEED = 5;
+    public static final int CANNON_SPEED = 18;
 
     public SecondaryTank(int initX, int initY, GameMap gameMap) {
         super(SPEED, CANNON_SPEED, new ArrayList<>(Arrays.asList(
