@@ -1,4 +1,4 @@
-package zhou.kunpeng.tank;
+package zhou.kunpeng.tank.display;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -62,7 +62,12 @@ public class ImageComponent extends JComponent {
         AffineTransform tr = new AffineTransform();
         tr.setToRotation(radius, width / 2, height / 2);
         AffineTransformOp op = new AffineTransformOp(tr, AffineTransformOp.TYPE_BILINEAR);
-        image = op.filter(image, null);
+        try {
+            image = op.filter(image, null);
+        } catch (Exception e) {
+            //This is for problems when null.png is rotated.
+            //I have no idea why this will trigger...
+        }
         repaint();
     }
 

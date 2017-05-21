@@ -1,8 +1,9 @@
 package zhou.kunpeng.tank.enemycreator;
 
-import zhou.kunpeng.tank.Clip;
+import zhou.kunpeng.tank.display.Clip;
 import zhou.kunpeng.tank.GameMap;
-import zhou.kunpeng.tank.ImageComponent;
+import zhou.kunpeng.tank.display.ImageComponent;
+import zhou.kunpeng.tank.MapUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,8 @@ class Star extends Clip {
     }
 
     Star(int battleX, int battleY, GameMap gameMap, EnemyCreator creator){
-        super(clonePreload(), GameMap.toScreenCoordinate(battleX) + 9,
-                GameMap.toScreenCoordinate(battleY) + 9);
+        super(clonePreload(), MapUtils.toScreenCoordinate(battleX) + 9,
+                MapUtils.toScreenCoordinate(battleY) + 9);
     }
 
 }

@@ -1,7 +1,7 @@
-package zhou.kunpeng.tank.tank;
+package zhou.kunpeng.tank.tanks;
 
 import zhou.kunpeng.tank.GameMap;
-import zhou.kunpeng.tank.ImageComponent;
+import zhou.kunpeng.tank.display.ImageComponent;
 import zhou.kunpeng.tank.Timeline;
 
 import java.util.List;
@@ -18,7 +18,7 @@ public abstract class EnemyTank extends Tank {
 
     public static final double AI_OPERATE_INTERVAL = 0.33;
     public static final double AI_TURN_RATE = 0.05;
-    public static final double AI_FIRE_RATE = 0.2;
+    public static final double AI_FIRE_RATE = 0.4;
 
     /**
      * Create a new enemy tank.
@@ -50,8 +50,10 @@ public abstract class EnemyTank extends Tank {
     protected void tankDestroy() {
         super.tankDestroy();
         getGameMap().getEnemyTankList().remove(this);
+
+        if(getGameMap().getEnemyRemaining() == 0 &&
+                getGameMap().getEnemyTankList().size() == 0)
+            getGameMap().victory();
     }
 
-    @Override
-    public abstract void triggerHit();
 }

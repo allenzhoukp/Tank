@@ -1,6 +1,8 @@
 package zhou.kunpeng.tank;
 
-import zhou.kunpeng.tank.tank.Tank;
+import zhou.kunpeng.tank.display.ImageComponent;
+import zhou.kunpeng.tank.tanks.PlayerTank;
+import zhou.kunpeng.tank.tanks.Tank;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +14,8 @@ import java.util.List;
  * GameMap stores the terrain situation of map.
  */
 public class GameMap extends JLayeredPane {
+
+    //static constants
     public static final int BATTLE_WIDTH = 26;
     public static final int BATTLE_HEIGHT = 26;
     public static final int SLOT_SIZE = 21;
@@ -33,59 +37,42 @@ public class GameMap extends JLayeredPane {
     public static final int PLAYER_SIDE = 0;
     public static final int ENEMY_SIDE = 1;
 
-    public static final int P1_BORN_BATTLE_X = 9;
-    public static final int P1_BORN_BATTLE_Y = 24;
-    public static final int P2_BORN_BATTLE_X = 15;
-    public static final int P2_BORN_BATTLE_Y = 24;
     public static final int INIT_LIFE = 4;
     public static final int INIT_ENEMY = 20;
-    public static final int BORN_SHIELD_SEC = 4;
-    public static final double BORN_SEC = 1.5;
 
-    public static int toBattleCoordinate(int coordinate) {
-        return coordinate / SLOT_SIZE;
-    }
 
-    public static int toScreenCoordinate(int coordinate) {
-        return coordinate * SLOT_SIZE;
-    }
-
-    public static int alignScreenCoordinate(int coordinate) {
-        return coordinate - coordinate % SLOT_SIZE;
-    }
-
-    public static boolean isCoordinateAligned(int coordinate) {
-        return alignScreenCoordinate(coordinate) == coordinate;
-    }
-
-    public static Rectangle convertBattleRect(int x, int y, int width, int height) {
-        return new Rectangle(
-                toBattleCoordinate(x),
-                toBattleCoordinate(y),
-                toBattleCoordinate(x + width - 1) - toBattleCoordinate(x) + 1,
-                toBattleCoordinate(y + height - 1) - toBattleCoordinate(y) + 1);
-    }
-
+    //map properties and references kept
     private int[][] map;
     private ImageComponent[][] terrainImage;
 
-    private Tank p1Tank;
-    private Tank p2Tank;
+    private PlayerTank p1Tank;
+    private PlayerTank p2Tank;
     private List<Tank> enemyTankList = new ArrayList<>();
 
     private int p1Life = GameMap.INIT_LIFE;
     private int p2Life = GameMap.INIT_LIFE;
     private int enemyRemaining = GameMap.INIT_ENEMY;
 
-    private Timeline timer;
+    private InfoPanel infoPanel;
 
-    public GameMap(int[][] mapContent, Timeline timer) {
+    private final Timeline timer;
+    private ScoreCounter p1Score = new ScoreCounter();
+    private ScoreCounter p2Score = new ScoreCounter();
+
+    public GameMap(int[][] mapContent, Timeline timer, int level) {
         super();
         this.map = mapContent;
         this.timer = timer;
+
         initMap();
+
+        p1Tank = new PlayerTank(true, this);
+        p2Tank = new PlayerTank(false, this);
+
+        initInfoPanel(level);
     }
 
+    //Install all terrain images, and background.
     private void initMap() {
 
         JComponent background = new JComponent() {
@@ -119,7 +106,7 @@ public class GameMap extends JLayeredPane {
                     default:
                         continue;
                 }
-                terrainImage[y][x] = new ImageComponent(path, GameMap.toScreenCoordinate(x), GameMap.toScreenCoordinate(y),
+                terrainImage[y][x] = new ImageComponent(path, MapUtils.toScreenCoordinate(x), MapUtils.toScreenCoordinate(y),
                         SLOT_SIZE, SLOT_SIZE);
                 this.add(terrainImage[y][x]);
                 if (map[y][x] == GRASS)
@@ -134,7 +121,18 @@ public class GameMap extends JLayeredPane {
         this.setBounds(0, 0, BATTLE_WIDTH * SLOT_SIZE, BATTLE_HEIGHT * SLOT_SIZE);
     }
 
+    //install InfoPanel on the right of the map.
+    private void initInfoPanel(int level) {
+        infoPanel = new InfoPanel(INIT_ENEMY, INIT_LIFE, INIT_LIFE, level);
+        infoPanel.setLocation(BATTLE_WIDTH * SLOT_SIZE, 0);
+        this.add(infoPanel, BACKGROUND_LAYER);
+        this.setSize(this.getWidth() + infoPanel.getWidth(), this.getHeight());
+    }
 
+
+    /**
+     * @return a temporary ArrayList that contains all the tanks (player & enemy) on the map.
+     */
     public List<Tank> getAllTanks() {
         List<Tank> tankList = new ArrayList<>();
         tankList.add(getP1Tank());
@@ -153,7 +151,7 @@ public class GameMap extends JLayeredPane {
      * Note that battleX and battleY should be upperLeft corner of the mover.
      */
     public boolean tankBlocked(int x, int y, Tank mover) {
-        Rectangle destRect = convertBattleRect(x, y, mover.getWidth(), mover.getHeight());
+        Rectangle destRect = MapUtils.convertBattleRect(x, y, mover.getWidth(), mover.getHeight());
 
         //check if in the border
         //note in screen coordinate
@@ -167,8 +165,8 @@ public class GameMap extends JLayeredPane {
 
             //check tank
             //note if there is collision between tanks, the block does not happen between them.
-            Rectangle tankRect = convertBattleRect(tank.getX(), tank.getY(), tank.getWidth(), tank.getHeight());
-            Rectangle moverRect  = convertBattleRect(mover.getX(), mover.getY(), mover.getWidth(), mover.getHeight());
+            Rectangle tankRect = MapUtils.convertBattleRect(tank.getX(), tank.getY(), tank.getWidth(), tank.getHeight());
+            Rectangle moverRect = MapUtils.convertBattleRect(mover.getX(), mover.getY(), mover.getWidth(), mover.getHeight());
             if (!moverRect.intersects(tankRect) && destRect.intersects(tankRect))
                 return true;
         }
@@ -182,6 +180,9 @@ public class GameMap extends JLayeredPane {
         return false;
     }
 
+    public void victory() {
+        //TODO victory
+    }
 
     public void gameOver() {
         //TODO game over
@@ -197,19 +198,19 @@ public class GameMap extends JLayeredPane {
         return terrainImage;
     }
 
-    public Tank getP1Tank() {
+    public PlayerTank getP1Tank() {
         return p1Tank;
     }
 
-    public void setP1Tank(Tank p1Tank) {
+    public void setP1Tank(PlayerTank p1Tank) {
         this.p1Tank = p1Tank;
     }
 
-    public Tank getP2Tank() {
+    public PlayerTank getP2Tank() {
         return p2Tank;
     }
 
-    public void setP2Tank(Tank p2Tank) {
+    public void setP2Tank(PlayerTank p2Tank) {
         this.p2Tank = p2Tank;
     }
 
@@ -219,6 +220,7 @@ public class GameMap extends JLayeredPane {
 
     public void setP1Life(int p1Life) {
         this.p1Life = p1Life;
+        this.infoPanel.updateLife(p1Life, true);
     }
 
     public int getP2Life() {
@@ -227,6 +229,7 @@ public class GameMap extends JLayeredPane {
 
     public void setP2Life(int p2Life) {
         this.p2Life = p2Life;
+        this.infoPanel.updateLife(p2Life, false);
     }
 
     public int getEnemyRemaining() {
@@ -235,6 +238,7 @@ public class GameMap extends JLayeredPane {
 
     public void setEnemyRemaining(int enemyRemaining) {
         this.enemyRemaining = enemyRemaining;
+        this.infoPanel.updateEnemyCount(enemyRemaining);
     }
 
     public List<Tank> getEnemyTankList() {
@@ -245,8 +249,9 @@ public class GameMap extends JLayeredPane {
         return timer;
     }
 
-    public void setTimer(Timeline timer) {
-        this.timer = timer;
+    public ScoreCounter getScoreCounter(boolean isP1) {
+        return isP1 ? p1Score : p2Score;
     }
+
 
 }

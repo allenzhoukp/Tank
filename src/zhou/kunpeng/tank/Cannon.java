@@ -1,10 +1,10 @@
 package zhou.kunpeng.tank;
 
-import zhou.kunpeng.tank.tank.Tank;
+import zhou.kunpeng.tank.display.ImageComponent;
+import zhou.kunpeng.tank.tanks.Tank;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -83,12 +83,7 @@ public class Cannon extends JPanel implements TimerListener {
     private boolean checkTankHit() {
 
         //get all tanks on the map
-        List<Tank> tankList;
-        tankList = new ArrayList<>();
-        tankList.add(gameMap.getP1Tank());
-        tankList.add(gameMap.getP2Tank());
-        tankList.addAll(gameMap.getEnemyTankList());
-
+        List<Tank> tankList = gameMap.getAllTanks();
 
         for (Tank tank : tankList) {
             if (tank == null)
@@ -108,7 +103,7 @@ public class Cannon extends JPanel implements TimerListener {
                 if (tank.getSide() != launcher.getSide()) {
                     blast(); //boom!
 
-                    tank.triggerHit();
+                    tank.triggerHit(launcher);
 
                 } else {
                     // friendly fire
@@ -122,8 +117,8 @@ public class Cannon extends JPanel implements TimerListener {
     }
 
     private boolean checkWallHit() {
-        int battleX = GameMap.toBattleCoordinate(getX());
-        int battleY = GameMap.toBattleCoordinate(getY());
+        int battleX = MapUtils.toBattleCoordinate(getX());
+        int battleY = MapUtils.toBattleCoordinate(getY());
         final int[][] additive = {
                 {0, 0}, {0, 1}, {1, 0}, {1, 1}
         };
@@ -159,7 +154,7 @@ public class Cannon extends JPanel implements TimerListener {
     @Override
     public void onTimer() {
         final int dir[][] = {
-                {0, speed}, {speed, 0}, {0, -speed}, {-speed, 0}
+                {0, -speed}, {-speed, 0}, {0, speed}, {speed, 0}
         };
         //move
         this.setLocation(this.getX() + dir[direction][0], this.getY() + dir[direction][1]);

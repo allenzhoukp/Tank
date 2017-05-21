@@ -1,4 +1,6 @@
-package zhou.kunpeng.tank;
+package zhou.kunpeng.tank.display;
+
+import zhou.kunpeng.tank.TimerListener;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -94,7 +96,7 @@ public class Clip extends JPanel implements TimerListener {
         if (!inPlay)
             return;
 
-        this.remove(sequence.get(frame));
+        this.removeAll();
         frame++;
         if (frame >= sequence.size())
             frame = 0;

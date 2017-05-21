@@ -1,9 +1,7 @@
-package zhou.kunpeng.tank.tank;
+package zhou.kunpeng.tank.tanks;
 
-import zhou.kunpeng.tank.GameMap;
-import zhou.kunpeng.tank.ImageComponent;
-import zhou.kunpeng.tank.Timeline;
-import zhou.kunpeng.tank.TimerListener;
+import zhou.kunpeng.tank.*;
+import zhou.kunpeng.tank.display.ImageComponent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,10 +16,18 @@ import java.util.Arrays;
  */
 public class PlayerTank extends Tank {
 
+    public static final int P1_BORN_BATTLE_X = 9;
+    public static final int P1_BORN_BATTLE_Y = 24;
+    public static final int P2_BORN_BATTLE_X = 15;
+    public static final int P2_BORN_BATTLE_Y = 24;
+    public static final double BORN_SEC = 1.5;
+    public static final int BORN_SHIELD_SEC = 4;
+
     private static final int CANNON_SPEED = 12;
     private static final int SPEED = 5;
 
     private boolean isP1;
+
     private boolean immunity = false;
 
     //This one is for test.
@@ -43,8 +49,8 @@ public class PlayerTank extends Tank {
     }
 
     public PlayerTank(boolean isP1, GameMap gameMap) {
-        this(isP1, GameMap.toScreenCoordinate(isP1 ? GameMap.P1_BORN_BATTLE_X : GameMap.P2_BORN_BATTLE_X),
-                GameMap.toScreenCoordinate(isP1 ? GameMap.P1_BORN_BATTLE_Y : GameMap.P2_BORN_BATTLE_Y),
+        this(isP1, MapUtils.toScreenCoordinate(isP1 ? P1_BORN_BATTLE_X : P2_BORN_BATTLE_X),
+                MapUtils.toScreenCoordinate(isP1 ? P1_BORN_BATTLE_Y : P2_BORN_BATTLE_Y),
                 gameMap);
     }
 
@@ -56,7 +62,9 @@ public class PlayerTank extends Tank {
 
 
     @Override
-    public void triggerHit() {
+    public void triggerHit(Tank attacker) {
+        //Attacker is no use here. Why should I care who hits me?
+
         if (immunity)
             return;
 
@@ -83,7 +91,7 @@ public class PlayerTank extends Tank {
 
 
         TimerListener revive = new TimerListener() {
-            private int frameCounter = (int) (Timeline.FPS * (GameMap.BORN_SHIELD_SEC + GameMap.BORN_SEC));
+            private int frameCounter = (int) (Timeline.FPS * (BORN_SHIELD_SEC + BORN_SEC));
             PlayerTank newTank;
 
             private void revive() {
@@ -96,17 +104,18 @@ public class PlayerTank extends Tank {
                 ImageComponent pic2 = newTank.getSequence().get(1);
                 ImageComponent blank = new ImageComponent("/images/null.png");
                 newTank.setSequence(new ArrayList<>(
-                        Arrays.asList(pic1, pic2, pic1, pic2, blank, blank, blank, blank)));
+                        Arrays.asList(pic1.clone(), pic2.clone(), pic1.clone(), pic2.clone(), blank, blank, blank, blank)));
                 newTank.gotoAndPlay(0);
 
                 newTank.immunity = true;
             }
 
             private void removeShield() {
-                newTank.immunity = false;
 
                 if (newTank == null)
                     return;
+
+                newTank.immunity = false;
 
                 //Remove frames after frame 2: Does not disappear anymore
                 for (int i = 7; i >= 2; i--)
@@ -119,7 +128,7 @@ public class PlayerTank extends Tank {
                 frameCounter--;
 
                 //BORN_SEC time has passed
-                if (frameCounter == Timeline.FPS * GameMap.BORN_SHIELD_SEC)
+                if (frameCounter == Timeline.FPS * BORN_SHIELD_SEC)
                     revive();
 
                     //another BORN_SHIELD_SEC time has passed
@@ -134,5 +143,17 @@ public class PlayerTank extends Tank {
 
         getGameMap().getTimer().registerListener(revive);
 
+    }
+
+    public boolean isP1() {
+        return isP1;
+    }
+
+    public boolean isImmunity() {
+        return immunity;
+    }
+
+    public void setImmunity(boolean immunity) {
+        this.immunity = immunity;
     }
 }

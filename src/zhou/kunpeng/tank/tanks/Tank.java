@@ -1,9 +1,10 @@
-package zhou.kunpeng.tank.tank;
+package zhou.kunpeng.tank.tanks;
 
 import zhou.kunpeng.tank.Cannon;
-import zhou.kunpeng.tank.Clip;
 import zhou.kunpeng.tank.GameMap;
-import zhou.kunpeng.tank.ImageComponent;
+import zhou.kunpeng.tank.MapUtils;
+import zhou.kunpeng.tank.display.Clip;
+import zhou.kunpeng.tank.display.ImageComponent;
 
 import java.util.List;
 
@@ -26,10 +27,10 @@ public abstract class Tank extends Clip {
 
     private GameMap gameMap;
 
-    public static final int SOUTH = 0;
-    public static final int WEST = 3;
-    public static final int NORTH = 2;
-    public static final int EAST = 1;
+    public static final int SOUTH = 2;
+    public static final int WEST = 1;
+    public static final int NORTH = 0;
+    public static final int EAST = 3;
 
     /**
      * When created, a tank will be automatically placed on the map, and start animating.
@@ -71,10 +72,10 @@ public abstract class Tank extends Clip {
 
     protected void moveProgress() {
         final int[][] DIR = {
-                {0, speed}, {speed, 0}, {0, -speed}, {-speed, 0}
+                {0, -speed}, {-speed, 0}, {0, speed}, {speed, 0}
         };
 
-        boolean aligned = GameMap.isCoordinateAligned(getX()) && GameMap.isCoordinateAligned(getY());
+        boolean aligned = MapUtils.isCoordinateAligned(getX()) && MapUtils.isCoordinateAligned(getY());
 
         //Stop moving. Check the next movement.
         if (!moving && aligned) {
@@ -95,8 +96,8 @@ public abstract class Tank extends Clip {
             // then the tank should stop at the aligned position, rather than the accurate one.
 
             boolean tooFarAhead = !moving &&
-                    (GameMap.toBattleCoordinate(newX) != GameMap.toBattleCoordinate(getX()) ||
-                            GameMap.toBattleCoordinate(newY) != GameMap.toBattleCoordinate(getY()));
+                    (MapUtils.toBattleCoordinate(newX) != MapUtils.toBattleCoordinate(getX()) ||
+                            MapUtils.toBattleCoordinate(newY) != MapUtils.toBattleCoordinate(getY()));
 
             this.blocked = gameMap.tankBlocked(newX, newY, this);
 
@@ -104,16 +105,16 @@ public abstract class Tank extends Clip {
             if (tooFarAhead || this.blocked) {
                 switch (direction) {
                     case WEST:
-                        newX = GameMap.alignScreenCoordinate(getX());
+                        newX = MapUtils.alignScreenCoordinate(getX());
                         break;
                     case NORTH:
-                        newY = GameMap.alignScreenCoordinate(getY());
+                        newY = MapUtils.alignScreenCoordinate(getY());
                         break;
                     case EAST:
-                        newX = GameMap.alignScreenCoordinate(newX);
+                        newX = MapUtils.alignScreenCoordinate(newX);
                         break;
                     case SOUTH:
-                        newY = GameMap.alignScreenCoordinate(newY);
+                        newY = MapUtils.alignScreenCoordinate(newY);
                         break;
                 }
             }
@@ -137,8 +138,6 @@ public abstract class Tank extends Clip {
     }
 
     public void appendMove(int direction) {
-        if(this.direction == direction)
-            return;
         moving = false; //force stop
         nextMove = direction;
     }
@@ -163,7 +162,7 @@ public abstract class Tank extends Clip {
         gameMap.repaint();
     }
 
-    public abstract void triggerHit();
+    public abstract void triggerHit(Tank attacker);
 
     public void fire() {
         if (!enableFire)
@@ -226,4 +225,7 @@ public abstract class Tank extends Clip {
         return side;
     }
 
+    public int getDirection() {
+        return direction;
+    }
 }

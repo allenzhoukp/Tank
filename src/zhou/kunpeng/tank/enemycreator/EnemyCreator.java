@@ -1,11 +1,10 @@
 package zhou.kunpeng.tank.enemycreator;
 
 import zhou.kunpeng.tank.GameMap;
+import zhou.kunpeng.tank.MapUtils;
 import zhou.kunpeng.tank.Timeline;
 import zhou.kunpeng.tank.TimerListener;
-import zhou.kunpeng.tank.tank.EnemyTank;
-import zhou.kunpeng.tank.tank.NormalTank;
-import zhou.kunpeng.tank.tank.Tank;
+import zhou.kunpeng.tank.tanks.*;
 
 /**
  * Created by JA on 2017/5/20.
@@ -75,8 +74,8 @@ public class EnemyCreator implements TimerListener {
 
             gameMap.getTimer().registerListener(
                     new CreationListener(star,
-                            GameMap.toScreenCoordinate(slots[i] * 12),
-                            GameMap.toScreenCoordinate(0)));
+                            MapUtils.toScreenCoordinate(slots[i] * 12),
+                            MapUtils.toScreenCoordinate(0)));
         }
     }
 
@@ -107,11 +106,26 @@ public class EnemyCreator implements TimerListener {
         }
     }
 
-    //TODO add other tanks. Only Normal tank avaliable now.
+    //TODO add tanks that could generate plus.
+    //problem: a constructor call may not be sufficient... has to be written in direct call, rather than reflect.
     private void createNewTank(int x, int y) {
-        EnemyTank tank = new NormalTank(x, y, gameMap);
+        //randomly choose a tank to create
+        double dice = Math.random();
+        EnemyTank tank;
+        if(dice <= 0.2)
+            tank = new NormalTank(x, y, gameMap);
+        else if(dice <= 0.4)
+            tank = new SecondaryTank(x, y, gameMap);
+        else if(dice <= 0.7)
+            tank = new MobileTank(x, y, gameMap);
+        else
+            tank = new ToughTank(x, y, gameMap);
+
+        //add to map's tank list and update tank remaining
         gameMap.getEnemyTankList().add(tank);
         gameMap.setEnemyRemaining(gameMap.getEnemyRemaining() - 1);
+
+        //default direction
         tank.startMove(Tank.SOUTH);
     }
 
