@@ -20,7 +20,7 @@ public class TerrainDestroyListener implements NetListener{
     @Override
     public boolean tryInterpret(String line) {
         Matcher matcher = Pattern.compile("terrainhit: x=(\\d+),y=(\\d+)\\s*").matcher(line);
-        if(!matcher.matches())
+        if(!matcher.lookingAt())
             return false;
 
         int battleX = Integer.valueOf(matcher.group(1));

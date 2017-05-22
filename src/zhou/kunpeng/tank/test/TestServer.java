@@ -9,7 +9,7 @@ import javax.swing.*;
  */
 class TestServer {
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame("Server");
         frame.setSize(700, 600);
         BattleState battleState = new BattleState(frame, true, true, "");
         frame.setContentPane(battleState);

@@ -1,6 +1,5 @@
 package zhou.kunpeng.tank.messages;
 
-import zhou.kunpeng.tank.comm.ByteUtil;
 import zhou.kunpeng.tank.comm.Message;
 
 /**

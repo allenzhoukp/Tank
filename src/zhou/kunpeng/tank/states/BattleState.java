@@ -1,5 +1,6 @@
 package zhou.kunpeng.tank.states;
 
+import zhou.kunpeng.tank.ClientKeyListener;
 import zhou.kunpeng.tank.GameMap;
 import zhou.kunpeng.tank.PlayerKeyListener;
 import zhou.kunpeng.tank.ai.AIEnemyCreationOperator;
@@ -58,6 +59,7 @@ public class BattleState extends JPanel {
                 map.setNetComm(new ClientNetComm(targetAddress, 8078));
 
             map.getNetComm().registerListener(new BaseHitListener(map));
+            map.getNetComm().registerListener(new ClientOpListener(map));
             map.getNetComm().registerListener(new EnemyGenerateListener(map));
             map.getNetComm().registerListener(new TankFireListener(map));
             map.getNetComm().registerListener(new TankHitListener(map));
@@ -80,7 +82,10 @@ public class BattleState extends JPanel {
         this.setLayout(null);
         this.add(map);
 
-        frame.addKeyListener(new PlayerKeyListener(map, true));
+        if (server)
+            frame.addKeyListener(new PlayerKeyListener(map, true));
+        else
+            frame.addKeyListener(new ClientKeyListener(map, false));
 
         timer.start();
 

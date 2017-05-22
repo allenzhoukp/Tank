@@ -22,7 +22,7 @@ public class TankMoveListener implements NetListener {
     @Override
     public boolean tryInterpret(String line) {
         Matcher matcher = Pattern.compile("move:\\s*id=(-*\\d+),x=(\\d+),y=(\\d+),dir=(\\d+)\\s*").matcher(line);
-        if (!matcher.matches())
+        if (!matcher.lookingAt())
             return false;
 
         int id = Integer.valueOf(matcher.group(1));

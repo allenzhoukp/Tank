@@ -19,8 +19,8 @@ import java.util.Stack;
  */
 public class PlayerKeyListener implements KeyListener {
 
-    private final GameMap gameMap;
-    private boolean isP1;
+    protected final GameMap gameMap;
+    protected boolean isP1;
 
     private Set<Integer> pressedSet = new HashSet<>();
     private Stack<Integer> moveStack = new Stack<>();
@@ -31,8 +31,7 @@ public class PlayerKeyListener implements KeyListener {
     }
 
     // I change it to Timeline logic to avoid synchronization problem.
-    private void appendMove() {
-        int keycode = moveStack.peek();
+    protected void appendMove(int keycode) {
 
         gameMap.getTimer().registerListener(new TimerListener() {
 
@@ -44,15 +43,19 @@ public class PlayerKeyListener implements KeyListener {
 
                 switch (keycode) {
                     case KeyEvent.VK_W:
+                    case KeyEvent.VK_UP:
                         playerTank.appendMove(Tank.NORTH);
                         break;
                     case KeyEvent.VK_A:
+                    case KeyEvent.VK_LEFT:
                         playerTank.appendMove(Tank.WEST);
                         break;
                     case KeyEvent.VK_S:
+                    case KeyEvent.VK_DOWN:
                         playerTank.appendMove(Tank.SOUTH);
                         break;
                     case KeyEvent.VK_D:
+                    case KeyEvent.VK_RIGHT:
                         playerTank.appendMove(Tank.EAST);
                         break;
                 }
@@ -61,7 +64,7 @@ public class PlayerKeyListener implements KeyListener {
         });
     }
 
-    private void fire() {
+    protected void fire() {
         gameMap.getTimer().registerListener(new TimerListener() {
 
             @Override
@@ -75,7 +78,7 @@ public class PlayerKeyListener implements KeyListener {
         });
     }
 
-    private void stopMove() {
+    protected void stopMove() {
         gameMap.getTimer().registerListener(new TimerListener() {
 
             @Override
@@ -111,7 +114,8 @@ public class PlayerKeyListener implements KeyListener {
 
         switch (e.getKeyCode()) {
 
-            case KeyEvent.VK_J:
+            case KeyEvent.VK_F:
+            case KeyEvent.VK_SPACE:
                 fire();
                 break;
 
@@ -119,8 +123,12 @@ public class PlayerKeyListener implements KeyListener {
             case KeyEvent.VK_A:
             case KeyEvent.VK_S:
             case KeyEvent.VK_D:
+            case KeyEvent.VK_UP:
+            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_RIGHT:
                 moveStack.push(e.getKeyCode());
-                appendMove();
+                appendMove(moveStack.peek());
                 break;
         }
     }
@@ -136,6 +144,10 @@ public class PlayerKeyListener implements KeyListener {
             case KeyEvent.VK_A:
             case KeyEvent.VK_S:
             case KeyEvent.VK_D:
+            case KeyEvent.VK_UP:
+            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_RIGHT:
 
                 // e.g. Press A - Press W - Release A, then A should be no longer in the stack.
                 // this time only W will be in the stack.
@@ -147,7 +159,7 @@ public class PlayerKeyListener implements KeyListener {
                 if (moveStack.empty())
                     stopMove();
                 else
-                    appendMove();
+                    appendMove(moveStack.peek());
         }
     }
 

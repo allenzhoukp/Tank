@@ -9,7 +9,7 @@ import javax.swing.*;
  */
 class TestClient {
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame("Client");
         frame.setSize(700, 600);
         BattleState battleState = new BattleState(frame, true, false, "127.0.0.1");
         frame.setContentPane(battleState);

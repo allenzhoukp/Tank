@@ -157,6 +157,7 @@ public class GameMap extends JLayeredPane {
         map[battleY][battleX] = GameMap.NORMAL;
         this.remove(terrainImage[battleY][battleX]);
         terrainImage[battleY][battleX] = null;
+        repaint();
     }
 
 

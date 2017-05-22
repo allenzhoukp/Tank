@@ -16,7 +16,7 @@ public class BaseHitListener implements NetListener {
 
     @Override
     public boolean tryInterpret(String line) {
-        if (!line.matches("basehit\\s*"))
+        if (!line.startsWith("basehit\\s*"))
             return false;
 
         gameMap.getBase().triggerHit();

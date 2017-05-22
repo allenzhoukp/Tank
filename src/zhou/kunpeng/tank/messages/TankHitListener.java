@@ -22,7 +22,7 @@ public class TankHitListener implements NetListener {
     @Override
     public boolean tryInterpret(String line) {
         Matcher matcher = Pattern.compile("tankhit: id=(-*\\d+),atker=(-*\\d+)\\s*").matcher(line);
-        if (!matcher.matches())
+        if (!matcher.lookingAt())
             return false;
 
         int id = Integer.valueOf(matcher.group(1));

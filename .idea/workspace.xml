@@ -2,37 +2,44 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e1608c17-86b1-4941-8667-bcf1794568b4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitMessage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitMessage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/Cannon.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/Cannon.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/ClientKeyListener.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientOpListener.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientOpMessage.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/ByteUtil.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/ByteUtil.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/GameMap.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/GameMap.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/ai/AIOperator.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/ai/AIOperator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/PlayerKeyListener$1.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/PlayerKeyListener$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/PlayerKeyListener$2.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/PlayerKeyListener$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/PlayerKeyListener$3.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/PlayerKeyListener$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/PlayerKeyListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/PlayerKeyListener.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetComm$ReceiverThread.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetComm$ReceiverThread.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetComm.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetComm.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/BaseHitListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/BaseHitListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/EnemyGenerateListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/EnemyGenerateListener.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/EnemyGenerateMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/EnemyGenerateMessage.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankFireListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankFireListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankFireMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankFireMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankHitListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankHitListener.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankMoveListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankMoveListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankMoveMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankMoveMessage.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankStopListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankStopListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankStopMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankStopMessage.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TerrainDestroyListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TerrainDestroyListener.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/states/BattleState.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/states/BattleState.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/tanks/Tank.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/tanks/Tank.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/test/TestClient.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/test/TestClient.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/test/TestServer.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/test/TestServer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/Cannon.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/Cannon.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/GameMap.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/GameMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/AIOperator.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/AIOperator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/PlayerKeyListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/PlayerKeyListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetComm.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetComm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateMessage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitListener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveMessage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyListener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/states/BattleState.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/states/BattleState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/tanks/Tank.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/tanks/Tank.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestClient.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestServer.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestServer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,83 +51,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="Cannon.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/Cannon.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="50" column="10" lean-forward="false" selection-start-line="50" selection-start-column="10" selection-end-line="50" selection-end-column="10" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BattleState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/states/BattleState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="60" column="40" lean-forward="false" selection-start-line="60" selection-start-column="40" selection-end-line="60" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PlayerKeyListener.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/PlayerKeyListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1050">
-              <caret line="73" column="13" lean-forward="true" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TankHitListener.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitListener.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameMap.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/GameMap.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="37" column="50" lean-forward="true" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
-              <folding>
-                <element signature="e#9229#9230#0" expanded="true" />
-                <element signature="e#9267#9268#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestServer.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestServer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestClient.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestClient.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="12" column="32" lean-forward="false" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -168,10 +99,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/AIGenerateMessage.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/EnemyGenerateMessage.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/ByteUtil.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/MESSAGE_TYPE.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/TankMoveMessage.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/TankFireMessage.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/messages/TankMoveMessage.java" />
@@ -185,20 +112,15 @@
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/TestServer.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/TestClient.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/AI.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestServer.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestClient.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/tanks/PlayerTank.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/tanks/EnemyTank.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankListener.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/AIEnemyCreationOperator.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/EnemyCreator.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/Star.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/PlayerKeyListener.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/Message.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetListener.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateMessage.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateListener.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetComm.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireMessage.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveMessage.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopMessage.java" />
@@ -206,19 +128,28 @@
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/AIOperator.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyMessage.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestoryListener.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyListener.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/TankHitMessage.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/TankHitListener.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitMessage.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitMessage.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitListener.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/Cannon.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientKeyMessage.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientOpMessage.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/PlayerKeyListener.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/states/BattleState.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopListener.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveListener.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitListener.java" />
-        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireListener.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestClient.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestServer.java" />
         <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/GameMap.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitListener.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientOpListener.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireListener.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitListener.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveListener.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopListener.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyListener.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetComm.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateListener.java" />
+        <option value="$PROJECT_DIR$/src/zhou/kunpeng/tank/ClientKeyListener.java" />
       </list>
     </option>
   </component>
@@ -246,7 +177,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -274,28 +207,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="tank" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Tank" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Tank" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tank" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="timer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -469,8 +380,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -848,36 +757,35 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896176" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.50208336" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32240438" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32240438" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896176" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.49791667" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896176" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896176" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -888,7 +796,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="81" />
+      <option name="time" value="84" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -897,38 +805,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/InfoPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="36" column="35" lean-forward="false" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/display/Clip.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/display/ImageComponent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/GameOverSign.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="19" column="46" lean-forward="false" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -943,7 +823,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -951,9 +830,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="18" column="45" lean-forward="false" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -961,7 +837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
           <caret line="17" column="45" lean-forward="false" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -969,7 +844,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
           <caret line="17" column="37" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -977,9 +851,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="16" column="37" lean-forward="false" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -995,49 +866,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
           <caret line="23" column="32" lean-forward="true" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/MESSAGE_TYPE.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/ByteUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-273">
-          <caret line="8" column="56" lean-forward="false" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/MESSAGE_TYPE.java" />
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/ByteUtil.java" />
     <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/EnemyCreator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="5" column="20" lean-forward="false" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/AI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="12" lean-forward="false" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/AI.java" />
     <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/tanks/PlayerTank.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
           <caret line="51" column="25" lean-forward="true" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1045,25 +890,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="23" column="99" lean-forward="false" selection-start-line="23" selection-start-column="99" selection-end-line="23" selection-end-column="99" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="37" lean-forward="false" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankListener.java" />
     <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/ai/EnemyCreator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1071,7 +905,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="411">
           <caret line="31" column="56" lean-forward="true" selection-start-line="31" selection-start-column="56" selection-end-line="31" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1079,7 +912,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1087,7 +919,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="6" column="36" lean-forward="false" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1095,9 +926,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1105,19 +933,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
           <caret line="972" column="0" lean-forward="false" selection-start-line="972" selection-start-column="0" selection-end-line="972" selection-end-column="0" />
-          <folding>
-            <element signature="e#37612#37613#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1125,7 +940,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="6" column="21" lean-forward="false" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1133,9 +947,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="483">
           <caret line="23" column="32" lean-forward="true" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
-          <folding>
-            <element signature="e#563#564#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1143,10 +954,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="21" column="5" lean-forward="true" selection-start-line="21" selection-start-column="5" selection-end-line="21" selection-end-column="5" />
-          <folding>
-            <element signature="e#509#510#0" expanded="true" />
-            <element signature="e#594#595#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1154,10 +961,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="25" column="71" lean-forward="false" selection-start-line="25" selection-start-column="71" selection-end-line="25" selection-end-column="71" />
-          <folding>
-            <element signature="e#485#486#0" expanded="true" />
-            <element signature="e#564#565#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1165,7 +968,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="488">
           <caret line="53" column="125" lean-forward="false" selection-start-line="53" selection-start-column="125" selection-end-line="53" selection-end-column="125" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1173,7 +975,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2973">
           <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1181,9 +982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1260">
           <caret line="69" column="84" lean-forward="false" selection-start-line="69" selection-start-column="84" selection-end-line="69" selection-end-column="84" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1191,10 +989,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding>
-            <element signature="e#401#402#0" expanded="true" />
-            <element signature="e#468#469#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1202,19 +996,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="23" column="20" lean-forward="false" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
-            <element signature="e#327#328#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1222,88 +1003,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="11" column="5" lean-forward="false" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-          <folding>
-            <element signature="e#210#211#0" expanded="true" />
-            <element signature="e#242#243#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="12" column="32" lean-forward="false" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="34" column="28" lean-forward="false" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="34" column="15" lean-forward="false" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="34" column="28" lean-forward="false" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/states/BattleState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="60" column="40" lean-forward="false" selection-start-line="60" selection-start-column="40" selection-end-line="60" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/Cannon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="50" column="10" lean-forward="false" selection-start-line="50" selection-start-column="10" selection-end-line="50" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1311,34 +1010,125 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="223">
           <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetComm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="108" column="0" lean-forward="false" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/GameMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="37" column="50" lean-forward="true" selection-start-line="37" selection-start-column="50" selection-end-line="37" selection-end-column="50" />
-          <folding>
-            <element signature="e#9229#9230#0" expanded="true" />
-            <element signature="e#9267#9268#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/PlayerKeyListener.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="73" column="13" lean-forward="true" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
-          <folding />
+        <state relative-caret-position="-627">
+          <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientOpMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="11" column="41" lean-forward="false" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/test/TestServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="11" column="41" lean-forward="false" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/GameMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="150" column="7" lean-forward="true" selection-start-line="150" selection-start-column="7" selection-end-line="150" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/states/BattleState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="37" column="89" lean-forward="true" selection-start-line="37" selection-start-column="89" selection-end-line="37" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/Cannon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="50" column="10" lean-forward="false" selection-start-line="50" selection-start-column="10" selection-end-line="50" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="29" lean-forward="false" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientOpListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="26" column="21" lean-forward="false" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="25" column="31" lean-forward="false" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="24" column="32" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="24" column="32" lean-forward="false" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="25" column="31" lean-forward="false" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="31" lean-forward="false" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="31" column="55" lean-forward="false" selection-start-line="31" selection-start-column="55" selection-end-line="31" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetComm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2041">
+          <caret line="112" column="73" lean-forward="false" selection-start-line="112" selection-start-column="73" selection-end-line="112" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zhou/kunpeng/tank/ClientKeyListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="882">
+          <caret line="44" column="13" lean-forward="false" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
         </state>
       </provider>
     </entry>

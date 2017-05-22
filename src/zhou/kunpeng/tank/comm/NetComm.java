@@ -80,6 +80,7 @@ public abstract class NetComm {
             return;
         }
         try {
+            System.out.println("out: " + message.getMessage());
             output.writeBytes(message.getMessage());
             output.writeBytes("\n");
             output.flush();
@@ -114,6 +115,7 @@ public abstract class NetComm {
                     exceptionFlag = true;
                 }
 
+                System.out.println("in:  " + line);
 
                 if (exceptionFlag) {
                     close();
