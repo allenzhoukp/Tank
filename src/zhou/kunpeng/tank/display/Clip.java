@@ -1,6 +1,6 @@
 package zhou.kunpeng.tank.display;
 
-import zhou.kunpeng.tank.time.TimerListener;
+import zhou.kunpeng.tank.timer.TimerListener;
 
 import javax.swing.*;
 import java.util.ArrayList;

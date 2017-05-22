@@ -1,4 +1,4 @@
-package zhou.kunpeng.tank.time;
+package zhou.kunpeng.tank.timer;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

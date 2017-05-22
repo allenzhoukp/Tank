@@ -5,6 +5,9 @@ import zhou.kunpeng.tank.GameMap;
 import zhou.kunpeng.tank.MapUtils;
 import zhou.kunpeng.tank.display.Clip;
 import zhou.kunpeng.tank.display.ImageComponent;
+import zhou.kunpeng.tank.messages.TankFireMessage;
+import zhou.kunpeng.tank.messages.TankMoveMessage;
+import zhou.kunpeng.tank.messages.TankStopMessage;
 
 import java.util.List;
 
@@ -32,7 +35,7 @@ public abstract class Tank extends Clip {
     public static final int NORTH = 0;
     public static final int EAST = 3;
 
-    public int id;
+    private int id;
 
     /**
      * When created, a tank will be automatically placed on the map, and start animating.
@@ -46,12 +49,13 @@ public abstract class Tank extends Clip {
      * @param gameMap      a reference of GameMap that the tank shall keep.
      */
 
-    protected Tank(int side, int speed, int cannonSpeed, List<ImageComponent> clipSequence, int x, int y, GameMap gameMap) {
+    protected Tank(int side, int speed, int cannonSpeed, List<ImageComponent> clipSequence, int x, int y, GameMap gameMap, int id) {
         super(clipSequence, x, y);
         this.side = side;
         this.speed = speed;
         this.cannonSpeed = cannonSpeed;
         this.gameMap = gameMap;
+        this.id = id;
 
         gameMap.add(this, GameMap.TANK_LAYER);
         gameMap.getTimer().registerListener(this);
@@ -133,6 +137,11 @@ public abstract class Tank extends Clip {
     }
 
     public void startMove(int direction) {
+
+        // Net Communication
+        if(gameMap.isServer() && gameMap.isOnline())
+            gameMap.getNetComm().send(new TankMoveMessage(getId(), direction));
+
         if (moving)
             return;
         changeDirection(direction);
@@ -140,11 +149,21 @@ public abstract class Tank extends Clip {
     }
 
     public void appendMove(int direction) {
+
+        // Net Communication
+        if(gameMap.isServer() && gameMap.isOnline())
+            gameMap.getNetComm().send(new TankMoveMessage(getId(), direction));
+
         moving = false; //force stop
         nextMove = direction;
     }
 
     public void stopMove() {
+
+        // Net Communication
+        if(gameMap.isServer() && gameMap.isOnline())
+            gameMap.getNetComm().send(new TankStopMessage(getId()));
+
         nextMove = -1;
         moving = false;
     }
@@ -167,6 +186,11 @@ public abstract class Tank extends Clip {
     public abstract void triggerHit(Tank attacker);
 
     public void fire() {
+
+        // Net Communication
+        if(gameMap.isServer() && gameMap.isOnline())
+            gameMap.getNetComm().send(new TankFireMessage(getId()));
+
         if (!enableFire)
             return;
         enableFire = false;
@@ -229,5 +253,9 @@ public abstract class Tank extends Clip {
 
     public int getDirection() {
         return direction;
+    }
+
+    public int getId() {
+        return id;
     }
 }

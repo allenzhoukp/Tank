@@ -2,7 +2,7 @@ package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.display.ImageComponent;
 import zhou.kunpeng.tank.tanks.Tank;
-import zhou.kunpeng.tank.time.TimerListener;
+import zhou.kunpeng.tank.timer.TimerListener;
 
 import javax.swing.*;
 import java.awt.*;

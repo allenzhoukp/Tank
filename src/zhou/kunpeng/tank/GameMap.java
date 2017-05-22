@@ -1,10 +1,11 @@
 package zhou.kunpeng.tank;
 
+import zhou.kunpeng.tank.comm.NetComm;
 import zhou.kunpeng.tank.display.ImageComponent;
 import zhou.kunpeng.tank.tanks.EnemyTank;
 import zhou.kunpeng.tank.tanks.PlayerTank;
 import zhou.kunpeng.tank.tanks.Tank;
-import zhou.kunpeng.tank.time.Timeline;
+import zhou.kunpeng.tank.timer.Timeline;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,26 +51,30 @@ public class GameMap extends JLayeredPane {
     private int[][] map;
     private ImageComponent[][] terrainImage;
 
+    private InfoPanel infoPanel;
+
+    private final Timeline timer;
+
+    private NetComm netComm = null;
+    private boolean isServer;
+
     private PlayerTank p1Tank;
     private PlayerTank p2Tank;
     private List<EnemyTank> enemyTankList = new ArrayList<>();
-
     private Base base;
 
     private int p1Life = GameMap.INIT_LIFE;
     private int p2Life = GameMap.INIT_LIFE;
     private int enemyRemaining = GameMap.INIT_ENEMY;
 
-    private InfoPanel infoPanel;
-
-    private final Timeline timer;
     private ScoreCounter p1Score = new ScoreCounter();
     private ScoreCounter p2Score = new ScoreCounter();
 
-    public GameMap(int[][] mapContent, Timeline timer, int level, boolean hasP2) {
+    public GameMap(int[][] mapContent, Timeline timer, int level, boolean hasP2, boolean isServer) {
         super();
         this.map = mapContent;
         this.timer = timer;
+        this.isServer = isServer;
 
         initMap();
 
@@ -267,5 +272,21 @@ public class GameMap extends JLayeredPane {
 
     public Base getBase() {
         return base;
+    }
+
+    public NetComm getNetComm() {
+        return netComm;
+    }
+
+    public void setNetComm(NetComm netComm) {
+        this.netComm = netComm;
+    }
+
+    public boolean isServer() {
+        return isServer;
+    }
+
+    public boolean isOnline() {
+        return netComm != null;
     }
 }

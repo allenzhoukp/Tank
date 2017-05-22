@@ -1,7 +1,7 @@
 package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.display.ImageComponent;
-import zhou.kunpeng.tank.time.TimerListener;
+import zhou.kunpeng.tank.timer.TimerListener;
 
 /**
  * Created by JA on 2017/5/22.

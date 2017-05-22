@@ -13,13 +13,15 @@ import java.util.List;
  */
 public abstract class EnemyTank extends Tank {
 
+    private static int ID = 1;
+
     /**
      * Create a new enemy tank.
      * The params will be passed to base class, and side = 1 (enemy). <br>
      * The AI controller thread will start.
      */
     protected EnemyTank(int speed, int cannonSpeed, List<ImageComponent> clipSequence, int x, int y, GameMap gameMap) {
-        super(GameMap.ENEMY_SIDE, speed, cannonSpeed, clipSequence, x, y, gameMap);
+        super(GameMap.ENEMY_SIDE, speed, cannonSpeed, clipSequence, x, y, gameMap, EnemyTank.ID++);
     }
 
     @Override

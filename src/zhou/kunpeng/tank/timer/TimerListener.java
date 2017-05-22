@@ -1,4 +1,4 @@
-package zhou.kunpeng.tank.time;
+package zhou.kunpeng.tank.timer;
 
 /**
  * Created by JA on 2017/5/20.

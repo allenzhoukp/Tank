@@ -1,8 +1,10 @@
 package zhou.kunpeng.tank.ai;
 
 import zhou.kunpeng.tank.GameMap;
-import zhou.kunpeng.tank.time.Timeline;
-import zhou.kunpeng.tank.time.TimerListener;
+import zhou.kunpeng.tank.messages.TankFireMessage;
+import zhou.kunpeng.tank.messages.TankMoveMessage;
+import zhou.kunpeng.tank.timer.Timeline;
+import zhou.kunpeng.tank.timer.TimerListener;
 import zhou.kunpeng.tank.tanks.EnemyTank;
 
 /**
@@ -24,9 +26,6 @@ public class AIOperator implements TimerListener {
     }
 
     public void onTimer() {
-        if(!AI.AI_ENABLED)
-            return;
-
         aiOperateCounter++;
 
         if(aiOperateCounter == (int) Math.floor(AI_OPERATE_INTERVAL * Timeline.FPS)) {
@@ -38,11 +37,22 @@ public class AIOperator implements TimerListener {
     private void doAI() {
         for(EnemyTank tank : gameMap.getEnemyTankList()) {
             if ((tank.isBlocked() && Math.random() <= AI_BLOCKED_TURN_RATE)
-                    || Math.random() <= AI_TURN_RATE)
-                tank.appendMove((int) Math.floor(Math.random() * 4));
+                    || Math.random() <= AI_TURN_RATE) {
+                int direction = (int) Math.floor(Math.random() * 4);
+                tank.appendMove(direction);
 
-            if (Math.random() <= AI_FIRE_RATE)
+                //Net Communication
+                if(gameMap.isServer() && gameMap.isOnline())
+                    gameMap.getNetComm().send(new TankMoveMessage(tank.getId(), direction));
+            }
+
+            if (Math.random() <= AI_FIRE_RATE) {
                 tank.fire();
+
+                //Net Communication
+                if (gameMap.isServer() && gameMap.isOnline())
+                    gameMap.getNetComm().send(new TankFireMessage(tank.getId()));
+            }
         }
     }
 }

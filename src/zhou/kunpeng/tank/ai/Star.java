@@ -21,7 +21,7 @@ import java.util.List;
  */
 class Star extends Clip {
 
-    private static List<ImageComponent> preloadSequence;
+    private static List<ImageComponent> preloadSequence = null;
 
     static void preload(){
         preloadSequence = new ArrayList<>();
@@ -30,13 +30,15 @@ class Star extends Clip {
     }
 
     private static List<ImageComponent> clonePreload() {
+        if(preloadSequence == null)
+            preload();
         List<ImageComponent> seq = new ArrayList<>();
         for(int i = 0; i < preloadSequence.size() ; i++)
             seq.add(preloadSequence.get(i).clone());
         return seq;
     }
 
-    Star(int battleX, int battleY, GameMap gameMap, EnemyCreator creator){
+    Star(int battleX, int battleY){
         super(clonePreload(), MapUtils.toScreenCoordinate(battleX) + 9,
                 MapUtils.toScreenCoordinate(battleY) + 9);
     }

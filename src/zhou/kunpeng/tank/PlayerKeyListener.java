@@ -2,7 +2,7 @@ package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.tanks.PlayerTank;
 import zhou.kunpeng.tank.tanks.Tank;
-import zhou.kunpeng.tank.time.TimerListener;
+import zhou.kunpeng.tank.timer.TimerListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -109,8 +109,6 @@ public class PlayerKeyListener implements KeyListener {
 
         pressedSet.add(e.getKeyCode());
 
-        System.out.println("Key " + e.getKeyChar() + " pressed");
-
         switch (e.getKeyCode()) {
 
             case KeyEvent.VK_J:
@@ -131,7 +129,6 @@ public class PlayerKeyListener implements KeyListener {
     public void keyReleased(KeyEvent e) {
 
         pressedSet.remove(e.getKeyCode());
-        System.out.println("Key " + e.getKeyChar() + " released");
 
         switch (e.getKeyCode()) {
 

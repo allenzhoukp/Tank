@@ -1,9 +1,10 @@
 package zhou.kunpeng.tank.tanks;
 
-import zhou.kunpeng.tank.*;
+import zhou.kunpeng.tank.GameMap;
+import zhou.kunpeng.tank.MapUtils;
 import zhou.kunpeng.tank.display.ImageComponent;
-import zhou.kunpeng.tank.time.Timeline;
-import zhou.kunpeng.tank.time.TimerListener;
+import zhou.kunpeng.tank.timer.Timeline;
+import zhou.kunpeng.tank.timer.TimerListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,11 +42,13 @@ public class PlayerTank extends Tank {
                                 : Arrays.asList(
                                 new ImageComponent("/images/2p1.png"),
                                 new ImageComponent("/images/2p2.png"))),
-                initX, initY, gameMap);
+                initX, initY, gameMap, isP1 ? -1 : -2);
+
         if (isP1)
             gameMap.setP1Tank(this);
         else
             gameMap.setP2Tank(this);
+
         this.isP1 = isP1;
     }
 
