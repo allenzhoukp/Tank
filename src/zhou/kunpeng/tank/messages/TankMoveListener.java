@@ -21,29 +21,23 @@ public class TankMoveListener implements NetListener {
 
     @Override
     public boolean tryInterpret(String line) {
-        Matcher matcher = Pattern.compile("move:\\s*id=(-*\\d+),\\s*dir=(\\d+)\\s*").matcher(line);
+        Matcher matcher = Pattern.compile("move:\\s*id=(-*\\d+),x=(\\d+),y=(\\d+),dir=(\\d+)\\s*").matcher(line);
         if (!matcher.matches())
             return false;
 
         int id = Integer.valueOf(matcher.group(1));
-        int direction = Integer.valueOf(matcher.group(2));
+        int x = Integer.valueOf(matcher.group(2));
+        int y = Integer.valueOf(matcher.group(3));
+        int direction = Integer.valueOf(matcher.group(4));
 
         Tank tank = null;
-        if (id == -1)
-            tank = gameMap.getP1Tank();
-        else if (id == -2)
-            tank = gameMap.getP2Tank();
-        else {
-            for (EnemyTank t : gameMap.getEnemyTankList()) {
-                if (t.getId() == id) {
-                    tank = t;
-                    break;
-                }
-            }
-        }
+        for(Tank t : gameMap.getAllTanks())
+            if(t != null && t.getId() == id)
+                tank = t;
         if (tank == null)
             return false;
 
+        tank.setLocation(x, y);
         tank.appendMove(direction);
 
         return true;

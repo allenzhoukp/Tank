@@ -1,6 +1,9 @@
 package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.display.ImageComponent;
+import zhou.kunpeng.tank.messages.BaseHitMessage;
+import zhou.kunpeng.tank.messages.TankHitMessage;
+import zhou.kunpeng.tank.messages.TerrainDestroyMessage;
 import zhou.kunpeng.tank.tanks.Tank;
 import zhou.kunpeng.tank.timer.TimerListener;
 
@@ -19,6 +22,10 @@ import java.util.List;
  * 4. if hit brick wall, will destroy a wall in range of 2 * 2.
  * </p>
  */
+
+/*
+   I don't feel good to add isServer() directly to Cannon, but looks like this becomes not-quite-avoidable.
+*/
 public class Cannon extends JPanel implements TimerListener {
 
     private static final int BLAST_TIME = 2;
@@ -30,6 +37,8 @@ public class Cannon extends JPanel implements TimerListener {
 
     private ImageComponent cannonBall;
     private ImageComponent blast;
+
+    private boolean doHitTriggers;
 
 
     public Cannon(int cannonSpeed, int direction, int x, int y, GameMap gameMap, Tank launcher) {
@@ -45,6 +54,10 @@ public class Cannon extends JPanel implements TimerListener {
         this.direction = direction;
         this.gameMap = gameMap;
         this.launcher = launcher;
+
+        //If online and client, cannon balls do not create any destruction.
+        //Destruction is calculated by server.
+        this.doHitTriggers = (!gameMap.isOnline()) || gameMap.isServer();
     }
 
     //explosive animation.
@@ -104,7 +117,14 @@ public class Cannon extends JPanel implements TimerListener {
                 if (tank.getSide() != launcher.getSide()) {
                     blast(); //boom!
 
-                    tank.triggerHit(launcher);
+                    if (doHitTriggers) {
+
+                        tank.triggerHit(launcher);
+
+                        //Net Communication
+                        if (gameMap.isOnline() && gameMap.isServer())
+                            gameMap.getNetComm().send(new TankHitMessage(tank.getId(), launcher.getId()));
+                    }
 
                 }
                 //No matter it is friendly fire or not, it is a hit, isn't it?
@@ -131,10 +151,16 @@ public class Cannon extends JPanel implements TimerListener {
             else {
                 //Hit the brick wall: blast and destroy the walls
                 if (gameMap.getMap()[newy][newx] == GameMap.BRICK) {
+
                     blast = true;
-                    gameMap.getMap()[newy][newx] = GameMap.NORMAL;
-                    gameMap.remove(gameMap.getTerrainImage()[newy][newx]);
-                    gameMap.getTerrainImage()[newy][newx] = null;
+
+                    if (doHitTriggers) {
+                        gameMap.destroyTerrain(newx, newy);
+
+                        //Net Communication
+                        if (gameMap.isOnline() && gameMap.isServer())
+                            gameMap.getNetComm().send(new TerrainDestroyMessage(newx, newy));
+                    }
 
                     //Hit the concrete wall: blast
                 } else if (gameMap.getMap()[newy][newx] == GameMap.CONCRETE) {
@@ -153,8 +179,16 @@ public class Cannon extends JPanel implements TimerListener {
         int battleY = MapUtils.toBattleCoordinate(getY());
         Base base = gameMap.getBase();
         Rectangle baseRect = MapUtils.convertBattleRect(base.getX(), base.getY(), base.getWidth(), base.getHeight());
-        if(baseRect.contains(battleX, battleY)) {
-            base.triggerHit();
+        if (baseRect.contains(battleX, battleY)) {
+
+            if (doHitTriggers) {
+                base.triggerHit();
+
+                //Net Communication
+                if (gameMap.isOnline() && gameMap.isServer())
+                    gameMap.getNetComm().send(new BaseHitMessage());
+            }
+
             return true;
         }
         return false;

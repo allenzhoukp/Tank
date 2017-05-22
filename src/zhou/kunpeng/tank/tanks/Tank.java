@@ -129,7 +129,7 @@ public abstract class Tank extends Clip {
         }
     }
 
-    private void changeDirection(int direction) {
+    public void changeDirection(int direction) {
         direction %= 4;
         for (ImageComponent image : this.getSequence())
             image.rotate(Math.PI * ((this.direction - direction + 4) % 4) / 2);
@@ -140,7 +140,7 @@ public abstract class Tank extends Clip {
 
         // Net Communication
         if(gameMap.isServer() && gameMap.isOnline())
-            gameMap.getNetComm().send(new TankMoveMessage(getId(), direction));
+            gameMap.getNetComm().send(new TankMoveMessage(getId(), getX(), getY(), direction));
 
         if (moving)
             return;
@@ -152,7 +152,7 @@ public abstract class Tank extends Clip {
 
         // Net Communication
         if(gameMap.isServer() && gameMap.isOnline())
-            gameMap.getNetComm().send(new TankMoveMessage(getId(), direction));
+            gameMap.getNetComm().send(new TankMoveMessage(getId(), getX(), getY(),  direction));
 
         moving = false; //force stop
         nextMove = direction;
@@ -162,7 +162,7 @@ public abstract class Tank extends Clip {
 
         // Net Communication
         if(gameMap.isServer() && gameMap.isOnline())
-            gameMap.getNetComm().send(new TankStopMessage(getId()));
+            gameMap.getNetComm().send(new TankStopMessage(getId(), getX(), getY(), getDirection()));
 
         nextMove = -1;
         moving = false;
@@ -189,7 +189,7 @@ public abstract class Tank extends Clip {
 
         // Net Communication
         if(gameMap.isServer() && gameMap.isOnline())
-            gameMap.getNetComm().send(new TankFireMessage(getId()));
+            gameMap.getNetComm().send(new TankFireMessage(getId(), getX(), getY(), getDirection()));
 
         if (!enableFire)
             return;

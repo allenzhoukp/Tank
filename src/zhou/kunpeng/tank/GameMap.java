@@ -32,10 +32,10 @@ public class GameMap extends JLayeredPane {
     public static final Integer BACKGROUND_LAYER = 0;
     public static final Integer WATER_LAYER = 100;
     public static final Integer CANNON_LAYER = 300;
-    public static final Integer WALL_LAYER = 400;
-    public static final Integer TANK_LAYER = 900;
-    public static final Integer GRASS_LAYER = 1000;
-    public static final Integer PLUS_LAYER = 1200;
+    public static final Integer WALL_LAYER = 1000;
+    public static final Integer TANK_LAYER = 1500;
+    public static final Integer GRASS_LAYER = 1800;
+    public static final Integer PLUS_LAYER = 2000;
 
     public static final int PLAYER_SIDE = 0;
     public static final int ENEMY_SIDE = 1;
@@ -145,21 +145,20 @@ public class GameMap extends JLayeredPane {
     }
 
 
+
+    //public interfaces
+
     /**
-     * @return a temporary ArrayList that contains all the tanks (player & enemy) on the map.
+     * Destroy the terrain at certain battle coordinate (regardless of what it is before).
+     * @param battleX battle x of wall.
+     * @param battleY battle y of wall.
      */
-    public List<Tank> getAllTanks() {
-        List<Tank> tankList = new ArrayList<>();
-        tankList.add(getP1Tank());
-        tankList.add(getP2Tank());
-        tankList.addAll(getEnemyTankList());
-        return tankList;
+    public void destroyTerrain(int battleX, int battleY) {
+        map[battleY][battleX] = GameMap.NORMAL;
+        this.remove(terrainImage[battleY][battleX]);
+        terrainImage[battleY][battleX] = null;
     }
 
-    private boolean isTerrainPassable(int battleX, int battleY) {
-        return map[battleY][battleX] == GameMap.NORMAL ||
-                map[battleY][battleX] == GameMap.GRASS;
-    }
 
     /**
      * Returns if the tank is blocked.
@@ -195,6 +194,17 @@ public class GameMap extends JLayeredPane {
         return false;
     }
 
+    /**
+     * @return a temporary ArrayList that contains all the tanks (player & enemy) on the map.
+     */
+    public List<Tank> getAllTanks() {
+        List<Tank> tankList = new ArrayList<>();
+        tankList.add(getP1Tank());
+        tankList.add(getP2Tank());
+        tankList.addAll(getEnemyTankList());
+        return tankList;
+    }
+
     public void victory() {
         //TODO victory
     }
@@ -204,6 +214,15 @@ public class GameMap extends JLayeredPane {
                 140, this.getHeight() / 2 - 100,
                 Timeline.FPS , this);
     }
+
+
+    //private util
+
+    private boolean isTerrainPassable(int battleX, int battleY) {
+        return map[battleY][battleX] == GameMap.NORMAL ||
+                map[battleY][battleX] == GameMap.GRASS;
+    }
+
 
     //Getters and setters
 

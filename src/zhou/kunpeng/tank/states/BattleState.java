@@ -6,10 +6,7 @@ import zhou.kunpeng.tank.ai.AIEnemyCreationOperator;
 import zhou.kunpeng.tank.ai.AIOperator;
 import zhou.kunpeng.tank.comm.ClientNetComm;
 import zhou.kunpeng.tank.comm.ServerNetComm;
-import zhou.kunpeng.tank.messages.EnemyGenerateListener;
-import zhou.kunpeng.tank.messages.TankFireListener;
-import zhou.kunpeng.tank.messages.TankMoveListener;
-import zhou.kunpeng.tank.messages.TankStopListener;
+import zhou.kunpeng.tank.messages.*;
 import zhou.kunpeng.tank.timer.Timeline;
 
 import javax.swing.*;
@@ -59,10 +56,15 @@ public class BattleState extends JPanel {
                 map.setNetComm(new ServerNetComm(8078));
             else
                 map.setNetComm(new ClientNetComm(targetAddress, 8078));
-            map.getNetComm().registerListener(new TankMoveListener(map));
-            map.getNetComm().registerListener(new TankFireListener(map));
+
+            map.getNetComm().registerListener(new BaseHitListener(map));
             map.getNetComm().registerListener(new EnemyGenerateListener(map));
+            map.getNetComm().registerListener(new TankFireListener(map));
+            map.getNetComm().registerListener(new TankHitListener(map));
+            map.getNetComm().registerListener(new TankMoveListener(map));
             map.getNetComm().registerListener(new TankStopListener(map));
+            map.getNetComm().registerListener(new TerrainDestroyListener(map));
+
             map.getNetComm().start();
         }
 
