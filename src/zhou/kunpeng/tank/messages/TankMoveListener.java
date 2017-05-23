@@ -2,7 +2,6 @@ package zhou.kunpeng.tank.messages;
 
 import zhou.kunpeng.tank.GameMap;
 import zhou.kunpeng.tank.comm.NetListener;
-import zhou.kunpeng.tank.tanks.EnemyTank;
 import zhou.kunpeng.tank.tanks.Tank;
 
 import java.util.regex.Matcher;
@@ -30,9 +29,11 @@ public class TankMoveListener implements NetListener {
         int y = Integer.valueOf(matcher.group(3));
         int direction = Integer.valueOf(matcher.group(4));
 
+        //System.out.println("FireMarkerL: " + System.nanoTime() / 1000000L + "id=" + id + ",x=" + x + ",y=" + y + ",dir=" + direction);
+
         Tank tank = null;
-        for(Tank t : gameMap.getAllTanks())
-            if(t != null && t.getId() == id)
+        for (Tank t : gameMap.getAllTanks())
+            if (t != null && t.getId() == id)
                 tank = t;
         if (tank == null)
             return false;

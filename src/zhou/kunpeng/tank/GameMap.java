@@ -2,10 +2,12 @@ package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.comm.NetComm;
 import zhou.kunpeng.tank.display.ImageComponent;
+import zhou.kunpeng.tank.states.BattleState;
 import zhou.kunpeng.tank.tanks.EnemyTank;
 import zhou.kunpeng.tank.tanks.PlayerTank;
 import zhou.kunpeng.tank.tanks.Tank;
 import zhou.kunpeng.tank.timer.Timeline;
+import zhou.kunpeng.tank.timer.TimerListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,6 +49,8 @@ public class GameMap extends JLayeredPane {
     public static final int INIT_ENEMY = 20;
 
 
+    private BattleState parentState;
+
     //map properties and references kept
     private int[][] map;
     private ImageComponent[][] terrainImage;
@@ -56,7 +60,7 @@ public class GameMap extends JLayeredPane {
     private final Timeline timer;
 
     private NetComm netComm = null;
-    private boolean isServer;
+    private boolean isClient;
 
     private PlayerTank p1Tank;
     private PlayerTank p2Tank;
@@ -70,16 +74,17 @@ public class GameMap extends JLayeredPane {
     private ScoreCounter p1Score = new ScoreCounter();
     private ScoreCounter p2Score = new ScoreCounter();
 
-    public GameMap(int[][] mapContent, Timeline timer, int level, boolean hasP2, boolean isServer) {
+    public GameMap(BattleState state, int[][] mapContent, Timeline timer, int level, boolean hasP2, boolean isClient) {
         super();
+        this.parentState = state;
         this.map = mapContent;
         this.timer = timer;
-        this.isServer = isServer;
+        this.isClient = isClient;
 
         initMap();
 
         p1Tank = new PlayerTank(true, this);
-        if(hasP2)
+        if (hasP2)
             p2Tank = new PlayerTank(false, this);
 
         initInfoPanel(level);
@@ -145,11 +150,11 @@ public class GameMap extends JLayeredPane {
     }
 
 
-
     //public interfaces
 
     /**
      * Destroy the terrain at certain battle coordinate (regardless of what it is before).
+     *
      * @param battleX battle x of wall.
      * @param battleY battle y of wall.
      */
@@ -207,13 +212,43 @@ public class GameMap extends JLayeredPane {
     }
 
     public void victory() {
-        //TODO victory
+        timer.registerListener(new TimerListener() {
+
+            //3 seconds
+            private int counter = 3 * Timeline.FPS;
+
+            @Override
+            public void onTimer() {
+                counter--;
+                if (counter == 0) {
+                    parentState.endState(p1Score, p2Score, true);
+                    timer.removeListener(this);
+                }
+            }
+        });
+
     }
 
     public void gameOver() {
+
         new GameOverSign(140, this.getHeight() + 100,
                 140, this.getHeight() / 2 - 100,
-                Timeline.FPS , this);
+                Timeline.FPS, this);
+
+        timer.registerListener(new TimerListener() {
+
+            //4 seconds
+            private int counter = 4 * Timeline.FPS;
+
+            @Override
+            public void onTimer() {
+                counter--;
+                if (counter == 0) {
+                    parentState.endState(p1Score, p2Score, false);
+                    timer.removeListener(this);
+                }
+            }
+        });
     }
 
 
@@ -302,8 +337,8 @@ public class GameMap extends JLayeredPane {
         this.netComm = netComm;
     }
 
-    public boolean isServer() {
-        return isServer;
+    public boolean isNotClient() {
+        return !isClient;
     }
 
     public boolean isOnline() {

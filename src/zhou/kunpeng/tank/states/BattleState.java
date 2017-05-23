@@ -1,16 +1,14 @@
 package zhou.kunpeng.tank.states;
 
-import zhou.kunpeng.tank.ClientKeyListener;
-import zhou.kunpeng.tank.GameMap;
-import zhou.kunpeng.tank.PlayerKeyListener;
+import zhou.kunpeng.tank.*;
 import zhou.kunpeng.tank.ai.AIEnemyCreationOperator;
 import zhou.kunpeng.tank.ai.AIOperator;
-import zhou.kunpeng.tank.comm.ClientNetComm;
-import zhou.kunpeng.tank.comm.ServerNetComm;
 import zhou.kunpeng.tank.messages.*;
 import zhou.kunpeng.tank.timer.Timeline;
+import zhou.kunpeng.tank.timer.TimerListener;
 
 import javax.swing.*;
+import java.awt.event.KeyListener;
 
 /**
  * Created by JA on 2017/5/22.
@@ -46,49 +44,66 @@ public class BattleState extends JPanel {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     };
 
-    public BattleState(JFrame frame, boolean online, boolean server, String targetAddress) {
+    private MainFrame mainFrame;
+    private GameMap gameMap;
+    private KeyListener keyListener;
 
-        Timeline timer = new Timeline();
+    public BattleState(MainFrame frame) {
 
-        GameMap map = new GameMap(level1, timer, 1, online, server);
+        this.mainFrame = frame;
 
-        if (online) {
-            if (server)
-                map.setNetComm(new ServerNetComm(8078));
-            else
-                map.setNetComm(new ClientNetComm(targetAddress, 8078));
+        if (mainFrame.getTimer() == null)
+            mainFrame.setTimer(new Timeline());
+        Timeline timer = mainFrame.getTimer();
 
-            map.getNetComm().registerListener(new BaseHitListener(map));
-            map.getNetComm().registerListener(new ClientOpListener(map));
-            map.getNetComm().registerListener(new EnemyGenerateListener(map));
-            map.getNetComm().registerListener(new TankFireListener(map));
-            map.getNetComm().registerListener(new TankHitListener(map));
-            map.getNetComm().registerListener(new TankMoveListener(map));
-            map.getNetComm().registerListener(new TankStopListener(map));
-            map.getNetComm().registerListener(new TerrainDestroyListener(map));
+        gameMap = new GameMap(this, level1, timer, 1, mainFrame.isOnline(),
+                mainFrame.isOnline() && !mainFrame.isServer());
 
-            map.getNetComm().start();
+        if (mainFrame.isOnline()) {
+
+            gameMap.setNetComm(mainFrame.getNetComm());
+
+            gameMap.getNetComm().registerListener(new BaseHitListener(gameMap));
+            gameMap.getNetComm().registerListener(new ClientOpListener(gameMap));
+            gameMap.getNetComm().registerListener(new EnemyGenerateListener(gameMap));
+            gameMap.getNetComm().registerListener(new TankFireListener(gameMap));
+            gameMap.getNetComm().registerListener(new TankHitListener(gameMap));
+            gameMap.getNetComm().registerListener(new TankMoveListener(gameMap));
+            gameMap.getNetComm().registerListener(new TankStopListener(gameMap));
+            gameMap.getNetComm().registerListener(new TerrainDestroyListener(gameMap));
+
+            gameMap.getNetComm().start();
         }
 
-        if (server) {
-            AIEnemyCreationOperator creator = new AIEnemyCreationOperator(map);
+        if (!mainFrame.isOnline() || mainFrame.isServer()) {
+            AIEnemyCreationOperator creator = new AIEnemyCreationOperator(gameMap);
             timer.registerListener(creator);
 
-            AIOperator aiOperator = new AIOperator(map);
+            AIOperator aiOperator = new AIOperator(gameMap);
             timer.registerListener(aiOperator);
         }
 
 
         this.setLayout(null);
-        this.add(map);
+        this.add(gameMap);
 
-        if (server)
-            frame.addKeyListener(new PlayerKeyListener(map, true));
+        if (!mainFrame.isOnline() || mainFrame.isServer())
+            keyListener = new PlayerKeyListener(gameMap, true);
         else
-            frame.addKeyListener(new ClientKeyListener(map, false));
+            keyListener = new ClientKeyListener(gameMap, false);
+        //The ONLY possible KeyEvent dispatcher is Frame!
+        mainFrame.addKeyListener(keyListener);
 
         timer.start();
 
+    }
+
+    public void endState(ScoreCounter p1Score, ScoreCounter p2Score, boolean isVictory) {
+        gameMap.getNetComm().removeAllListeners();
+        mainFrame.getTimer().removeAllListeners();
+        mainFrame.removeKeyListener(keyListener);
+
+        //TODO next state calc points.
     }
 
 }

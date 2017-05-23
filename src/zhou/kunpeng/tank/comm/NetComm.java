@@ -1,9 +1,7 @@
 package zhou.kunpeng.tank.comm;
 
-import java.io.BufferedReader;
+import javax.swing.*;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +25,10 @@ public abstract class NetComm {
 
     private static final int BUFFER_LEN = 4096;
     private Socket socket;
+    /*
     private BufferedReader reader;
     private DataOutputStream output;
+    */
 
     private List<NetListener> listeners = new ArrayList<>();
 
@@ -46,6 +46,10 @@ public abstract class NetComm {
         listeners.remove(listener);
     }
 
+    public void removeAllListeners() {
+        listeners.clear();
+    }
+
     /**
      * Start the communication by connecting Socket. <br>
      * Warning: This method may block the current thread!
@@ -55,6 +59,7 @@ public abstract class NetComm {
         synchronized (this) {
             socket = getSocket();
 
+            /*
             try {
                 reader = new BufferedReader(new InputStreamReader((socket.getInputStream())));
                 output = new DataOutputStream(socket.getOutputStream());
@@ -63,6 +68,7 @@ public abstract class NetComm {
                 e.printStackTrace();
                 close();
             }
+            */
 
             thread = new ReceiverThread();
             thread.start();
@@ -80,10 +86,17 @@ public abstract class NetComm {
             return;
         }
         try {
-            System.out.println("out: " + message.getMessage());
+            System.out.println("t=" + System.nanoTime() / 1000000L + " " + message.getMessage());
+
+            byte[] msgBytes = message.getMessage().getBytes();
+            byte[] lengthBytes = ByteUtil.getByteArray(msgBytes.length);
+            socket.getOutputStream().write(ByteUtil.append(lengthBytes, msgBytes));
+            socket.getOutputStream().flush();
+            /*
             output.writeBytes(message.getMessage());
             output.writeBytes("\n");
             output.flush();
+            */
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -104,10 +117,20 @@ public abstract class NetComm {
         @Override
         public void run() {
             boolean exceptionFlag = false;
-            while (socket != null && reader != null) {
-                String line = null;
+            while (socket != null /*&& reader != null*/) {
+                byte[] lineBytes = null;
                 try {
-                    line = reader.readLine();
+                    byte[] lengthBytes = new byte[4];
+                    if (socket.getInputStream().read(lengthBytes, 0, 4) != 4)
+                        continue;
+                    int length = ByteUtil.getInt(lengthBytes, 0);
+
+                    lineBytes = new byte[length];
+                    int bytesRead = 0;
+                    while (bytesRead != length)
+                        bytesRead += socket.getInputStream().read(lineBytes, bytesRead, length - bytesRead);
+
+                    //line = reader.readLine();
                 } catch (IOException e) {
                     //Due to sync problem, this WILL happen when NetComm is forced closed.
                     //The thread will auto stop then, by setting exceptionFlag and break.
@@ -115,20 +138,31 @@ public abstract class NetComm {
                     exceptionFlag = true;
                 }
 
-                System.out.println("in:  " + line);
 
                 if (exceptionFlag) {
                     close();
                     break;
                 }
 
+                String line = new String(lineBytes);
+                System.out.println("t=" + System.nanoTime() / 1000000L + " " + line);
+
                 //Avoid interruption e.g. a new listener is added to list.
-                synchronized (NetComm.this) {
-                    List<NetListener> listenersInUse = new ArrayList<>(listeners);
-                    for (NetListener listener : listenersInUse) {
-                        listener.tryInterpret(line);
+                //Exception java.lang.ArrayIndexOutOfBoundsException @ java.awt.Container.add
+                //   potential solution: avoid direct call for Swing components.
+
+                //Another optimization: since there are no multiple listeners
+                // corresponding to one type of message,
+                // once find a proper listener, the loop shall break.
+                SwingUtilities.invokeLater(() -> {
+                    synchronized (NetComm.this) {
+                        List<NetListener> listenersInUse = new ArrayList<>(listeners);
+                        for (NetListener listener : listenersInUse) {
+                            if (listener.tryInterpret(line))
+                                break;
+                        }
                     }
-                }
+                });
             }
         }
     }
@@ -136,14 +170,15 @@ public abstract class NetComm {
     private void closeSocketAndInput() {
         try {
             socket.close();
-            reader.close();
-            output.close();
+            //reader.close();
+            //output.close();
         } catch (Exception e) { //IOException or NullPointerException
             e.printStackTrace();
         } finally {
             socket = null;
-            reader = null;
-            output = null;
+            //reader = null;
+            //output = null;
         }
     }
+
 }

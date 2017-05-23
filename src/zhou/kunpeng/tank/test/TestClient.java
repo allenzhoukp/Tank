@@ -1,6 +1,9 @@
 package zhou.kunpeng.tank.test;
 
+import zhou.kunpeng.tank.MainFrame;
+import zhou.kunpeng.tank.comm.ClientNetComm;
 import zhou.kunpeng.tank.states.BattleState;
+import zhou.kunpeng.tank.timer.Timeline;
 
 import javax.swing.*;
 
@@ -9,10 +12,11 @@ import javax.swing.*;
  */
 class TestClient {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Client");
-        frame.setSize(700, 600);
-        BattleState battleState = new BattleState(frame, true, false, "127.0.0.1");
-        frame.setContentPane(battleState);
-        frame.setVisible(true);
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setTimer(new Timeline());
+        mainFrame.setNetComm(new ClientNetComm("127.0.0.1", 8079));
+        BattleState battleState = new BattleState(mainFrame);
+        mainFrame.nextState(battleState);
+        mainFrame.setVisible(true);
     }
 }

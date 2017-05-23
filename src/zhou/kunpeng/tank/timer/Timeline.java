@@ -33,6 +33,10 @@ public class Timeline implements ActionListener {
         listeners.remove(listener);
     }
 
+    public void removeAllListeners() {
+        listeners.clear();
+    }
+
     public void start() {
         timer.start();
     }

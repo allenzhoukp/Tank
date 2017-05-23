@@ -1,6 +1,7 @@
 package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.display.ImageComponent;
+import zhou.kunpeng.tank.messages.BaseHitMessage;
 
 import javax.swing.*;
 
@@ -30,6 +31,11 @@ public class Base extends JPanel {
     public void triggerHit() {
         this.removeAll();
         this.add(crashbase);
+
+        // Net Communication
+        if(gameMap.isNotClient() && gameMap.isOnline())
+            gameMap.getNetComm().send(new BaseHitMessage());
+
         gameMap.gameOver();
     }
 }

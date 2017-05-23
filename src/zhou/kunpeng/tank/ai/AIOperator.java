@@ -42,7 +42,7 @@ public class AIOperator implements TimerListener {
                 tank.appendMove(direction);
 
                 //Net Communication
-                if (gameMap.isServer() && gameMap.isOnline())
+                if (gameMap.isNotClient() && gameMap.isOnline())
                     gameMap.getNetComm().send(new TankMoveMessage(tank.getId(), tank.getX(), tank.getY(), direction));
             }
 
@@ -50,7 +50,7 @@ public class AIOperator implements TimerListener {
                 tank.fire();
 
                 //Net Communication
-                if (gameMap.isServer() && gameMap.isOnline())
+                if (gameMap.isNotClient() && gameMap.isOnline())
                     gameMap.getNetComm().send(new TankFireMessage(tank.getId(), tank.getX(), tank.getY(), tank.getDirection()));
             }
         }

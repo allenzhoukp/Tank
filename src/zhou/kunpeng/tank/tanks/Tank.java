@@ -139,7 +139,7 @@ public abstract class Tank extends Clip {
     public void startMove(int direction) {
 
         // Net Communication
-        if(gameMap.isServer() && gameMap.isOnline())
+        if(gameMap.isNotClient() && gameMap.isOnline())
             gameMap.getNetComm().send(new TankMoveMessage(getId(), getX(), getY(), direction));
 
         if (moving)
@@ -151,8 +151,10 @@ public abstract class Tank extends Clip {
     public void appendMove(int direction) {
 
         // Net Communication
-        if(gameMap.isServer() && gameMap.isOnline())
+        if(gameMap.isNotClient() && gameMap.isOnline())
             gameMap.getNetComm().send(new TankMoveMessage(getId(), getX(), getY(),  direction));
+
+        //System.out.println("FireMarkerT: " + System.nanoTime() / 1000000L);
 
         moving = false; //force stop
         nextMove = direction;
@@ -161,7 +163,7 @@ public abstract class Tank extends Clip {
     public void stopMove() {
 
         // Net Communication
-        if(gameMap.isServer() && gameMap.isOnline())
+        if(gameMap.isNotClient() && gameMap.isOnline())
             gameMap.getNetComm().send(new TankStopMessage(getId(), getX(), getY(), getDirection()));
 
         nextMove = -1;
@@ -187,12 +189,13 @@ public abstract class Tank extends Clip {
 
     public void fire() {
 
-        // Net Communication
-        if(gameMap.isServer() && gameMap.isOnline())
-            gameMap.getNetComm().send(new TankFireMessage(getId(), getX(), getY(), getDirection()));
-
         if (!enableFire)
             return;
+
+        // Net Communication
+        if(gameMap.isNotClient() && gameMap.isOnline())
+            gameMap.getNetComm().send(new TankFireMessage(getId(), getX(), getY(), getDirection()));
+
         enableFire = false;
         int fireX, fireY;
         switch (direction) {

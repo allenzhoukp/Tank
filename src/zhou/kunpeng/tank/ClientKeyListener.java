@@ -22,7 +22,7 @@ public class ClientKeyListener extends PlayerKeyListener {
 
     @Override
     protected void appendMove(int keycode) {
-        if (gameMap.isOnline() && !gameMap.isServer())
+        if (gameMap.isOnline() && !gameMap.isNotClient())
             synchronized (gameMap.getNetComm()) {
                 gameMap.getNetComm().send(new ClientOpMessage(keycode, isP1));
             }
@@ -30,7 +30,7 @@ public class ClientKeyListener extends PlayerKeyListener {
 
     @Override
     protected void fire() {
-        if (gameMap.isOnline() && !gameMap.isServer())
+        if (gameMap.isOnline() && !gameMap.isNotClient())
             synchronized (gameMap.getNetComm()) {
                 gameMap.getNetComm().send(new ClientOpMessage(KeyEvent.VK_F, isP1));
             }
@@ -39,7 +39,7 @@ public class ClientKeyListener extends PlayerKeyListener {
     // use VK_UNDEFINED as release.
     @Override
     protected void stopMove() {
-        if (gameMap.isOnline() && !gameMap.isServer())
+        if (gameMap.isOnline() && !gameMap.isNotClient())
             synchronized (gameMap.getNetComm()) {
                 gameMap.getNetComm().send(new ClientOpMessage(KeyEvent.VK_UNDEFINED, isP1));
             }

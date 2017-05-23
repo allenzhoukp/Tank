@@ -23,7 +23,7 @@ public class EnemyCreator {
     public void createStar(GameMap gameMap, int battleX, int battleY, double dice) {
 
         //Net Communication
-        if(gameMap.isServer() && gameMap.isOnline())
+        if(gameMap.isNotClient() && gameMap.isOnline())
             gameMap.getNetComm().send(new EnemyGenerateMessage(battleX, battleY, dice));
 
         //Create a star. The star will call tank creation when it disappears.

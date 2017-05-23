@@ -24,7 +24,7 @@ import java.util.List;
  */
 
 /*
-   I don't feel good to add isServer() directly to Cannon, but looks like this becomes not-quite-avoidable.
+   I don't feel good to add isNotClient() directly to Cannon, but looks like this becomes not-quite-avoidable.
 */
 public class Cannon extends JPanel implements TimerListener {
 
@@ -57,7 +57,7 @@ public class Cannon extends JPanel implements TimerListener {
 
         //If online and client, cannon balls do not create any destruction.
         //Destruction is calculated by server.
-        this.doHitTriggers = (!gameMap.isOnline()) || gameMap.isServer();
+        this.doHitTriggers = (!gameMap.isOnline()) || gameMap.isNotClient();
     }
 
     //explosive animation.
@@ -122,7 +122,7 @@ public class Cannon extends JPanel implements TimerListener {
                         tank.triggerHit(launcher);
 
                         //Net Communication
-                        if (gameMap.isOnline() && gameMap.isServer())
+                        if (gameMap.isOnline() && gameMap.isNotClient())
                             gameMap.getNetComm().send(new TankHitMessage(tank.getId(), launcher.getId()));
                     }
 
@@ -158,7 +158,7 @@ public class Cannon extends JPanel implements TimerListener {
                         gameMap.destroyTerrain(newx, newy);
 
                         //Net Communication
-                        if (gameMap.isOnline() && gameMap.isServer())
+                        if (gameMap.isOnline() && gameMap.isNotClient())
                             gameMap.getNetComm().send(new TerrainDestroyMessage(newx, newy));
                     }
 
@@ -185,7 +185,7 @@ public class Cannon extends JPanel implements TimerListener {
                 base.triggerHit();
 
                 //Net Communication
-                if (gameMap.isOnline() && gameMap.isServer())
+                if (gameMap.isOnline() && gameMap.isNotClient())
                     gameMap.getNetComm().send(new BaseHitMessage());
             }
 

@@ -1,6 +1,10 @@
 package zhou.kunpeng.tank.test;
 
+import zhou.kunpeng.tank.MainFrame;
+import zhou.kunpeng.tank.comm.ClientNetComm;
+import zhou.kunpeng.tank.comm.ServerNetComm;
 import zhou.kunpeng.tank.states.BattleState;
+import zhou.kunpeng.tank.timer.Timeline;
 
 import javax.swing.*;
 
@@ -9,10 +13,11 @@ import javax.swing.*;
  */
 class TestServer {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Server");
-        frame.setSize(700, 600);
-        BattleState battleState = new BattleState(frame, true, true, "");
-        frame.setContentPane(battleState);
-        frame.setVisible(true);
+        MainFrame mainFrame = new MainFrame();
+        mainFrame.setTimer(new Timeline());
+        mainFrame.setNetComm(new ServerNetComm(8079));
+        BattleState battleState = new BattleState(mainFrame);
+        mainFrame.nextState(battleState);
+        mainFrame.setVisible(true);
     }
 }
