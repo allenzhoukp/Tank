@@ -27,6 +27,8 @@ public class MainFrame extends JFrame {
 
     public void nextState(Container state) {
         setContentPane(state);
+        revalidate();
+        repaint();
     }
 
     public Timeline getTimer() {

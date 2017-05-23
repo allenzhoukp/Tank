@@ -30,6 +30,6 @@ public class NormalTank extends EnemyTank {
         tankDestroy();
         if(!(attacker instanceof PlayerTank))
             return;
-        getGameMap().getScoreCounter(((PlayerTank)attacker).isP1()).normalTankCount ++;
+        getGameMap().getPlayerState(((PlayerTank)attacker).isP1()).normalTankCount ++;
     }
 }

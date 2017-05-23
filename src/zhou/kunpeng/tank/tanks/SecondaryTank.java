@@ -30,6 +30,6 @@ public class SecondaryTank extends EnemyTank{
         tankDestroy();
         if(!(attacker instanceof PlayerTank))
             return;
-        getGameMap().getScoreCounter(((PlayerTank)attacker).isP1()).secondaryTankCount ++;
+        getGameMap().getPlayerState(((PlayerTank)attacker).isP1()).secondaryTankCount ++;
     }
 }

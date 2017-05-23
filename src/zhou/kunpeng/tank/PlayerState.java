@@ -7,7 +7,11 @@ package zhou.kunpeng.tank;
  * It seems a little confusing to use Class as key. Use non-dynamic properties instead!
  * </p>
  */
-public class ScoreCounter {
+public class PlayerState {
+
+    public static final int INIT_LIFE = 4;
+
+    public int life = INIT_LIFE;
 
     public int normalTankCount = 0;
     public int secondaryTankCount = 0;

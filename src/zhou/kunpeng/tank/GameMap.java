@@ -1,6 +1,7 @@
 package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.comm.NetComm;
+import zhou.kunpeng.tank.display.Background;
 import zhou.kunpeng.tank.display.ImageComponent;
 import zhou.kunpeng.tank.states.BattleState;
 import zhou.kunpeng.tank.tanks.EnemyTank;
@@ -45,7 +46,6 @@ public class GameMap extends JLayeredPane {
     public static final int BASE_BATTLE_X = 12;
     public static final int BASE_BATTLE_Y = 24;
 
-    public static final int INIT_LIFE = 4;
     public static final int INIT_ENEMY = 20;
 
 
@@ -55,6 +55,8 @@ public class GameMap extends JLayeredPane {
     private int[][] map;
     private ImageComponent[][] terrainImage;
 
+
+    private int level;
     private InfoPanel infoPanel;
 
     private final Timeline timer;
@@ -67,19 +69,28 @@ public class GameMap extends JLayeredPane {
     private List<EnemyTank> enemyTankList = new ArrayList<>();
     private Base base;
 
-    private int p1Life = GameMap.INIT_LIFE;
-    private int p2Life = GameMap.INIT_LIFE;
+    private int p1Life = PlayerState.INIT_LIFE;
+    private int p2Life = PlayerState.INIT_LIFE;
     private int enemyRemaining = GameMap.INIT_ENEMY;
 
-    private ScoreCounter p1Score = new ScoreCounter();
-    private ScoreCounter p2Score = new ScoreCounter();
+    private PlayerState p1State;
+    private PlayerState p2State;
 
-    public GameMap(BattleState state, int[][] mapContent, Timeline timer, int level, boolean hasP2, boolean isClient) {
+    public GameMap(BattleState viewState, int[][] mapContent, Timeline timer,
+                   int level, PlayerState p1State, PlayerState p2State,
+                   boolean hasP2, boolean isClient) {
         super();
-        this.parentState = state;
+        this.parentState = viewState;
         this.map = mapContent;
         this.timer = timer;
+        this.level = level;
         this.isClient = isClient;
+
+        this.p1State = p1State;
+        this.p2State = p2State;
+        this.p1Life = p1State.life;
+        this.p2Life = p2State.life;
+
 
         initMap();
 
@@ -93,16 +104,9 @@ public class GameMap extends JLayeredPane {
     //Install all terrain images, and background.
     private void initMap() {
 
-        JComponent background = new JComponent() {
-            @Override
-            public void paint(Graphics g) {
-                super.paint(g);
-                g.setColor(Color.BLACK);
-                g.fillRect(0, 0, BATTLE_WIDTH * SLOT_SIZE, BATTLE_HEIGHT * SLOT_SIZE);
-            }
-        };
-        background.setBounds(0, 0, BATTLE_WIDTH * SLOT_SIZE, BATTLE_HEIGHT * SLOT_SIZE);
-        this.add(background, BACKGROUND_LAYER);
+
+        this.add(new Background(BATTLE_WIDTH * SLOT_SIZE, BATTLE_HEIGHT * SLOT_SIZE),
+                BACKGROUND_LAYER);
 
         terrainImage = new ImageComponent[GameMap.BATTLE_HEIGHT][GameMap.BATTLE_WIDTH];
         for (int y = 0; y < map.length; y++) {
@@ -143,7 +147,7 @@ public class GameMap extends JLayeredPane {
 
     //install InfoPanel on the right of the map.
     private void initInfoPanel(int level) {
-        infoPanel = new InfoPanel(INIT_ENEMY, INIT_LIFE, INIT_LIFE, level);
+        infoPanel = new InfoPanel(INIT_ENEMY, PlayerState.INIT_LIFE, PlayerState.INIT_LIFE, level);
         infoPanel.setLocation(BATTLE_WIDTH * SLOT_SIZE, 0);
         this.add(infoPanel, BACKGROUND_LAYER);
         this.setSize(this.getWidth() + infoPanel.getWidth(), this.getHeight());
@@ -212,6 +216,10 @@ public class GameMap extends JLayeredPane {
     }
 
     public void victory() {
+
+        p1State.life = p1Life;
+        p2State.life = p2Life;
+
         timer.registerListener(new TimerListener() {
 
             //3 seconds
@@ -221,7 +229,7 @@ public class GameMap extends JLayeredPane {
             public void onTimer() {
                 counter--;
                 if (counter == 0) {
-                    parentState.endState(p1Score, p2Score, true);
+                    parentState.endState(p1State, p2State, true);
                     timer.removeListener(this);
                 }
             }
@@ -230,6 +238,9 @@ public class GameMap extends JLayeredPane {
     }
 
     public void gameOver() {
+
+        p1State.life = p1Life;
+        p2State.life = p2Life;
 
         new GameOverSign(140, this.getHeight() + 100,
                 140, this.getHeight() / 2 - 100,
@@ -244,7 +255,7 @@ public class GameMap extends JLayeredPane {
             public void onTimer() {
                 counter--;
                 if (counter == 0) {
-                    parentState.endState(p1Score, p2Score, false);
+                    parentState.endState(p1State, p2State, false);
                     timer.removeListener(this);
                 }
             }
@@ -321,8 +332,8 @@ public class GameMap extends JLayeredPane {
         return timer;
     }
 
-    public ScoreCounter getScoreCounter(boolean isP1) {
-        return isP1 ? p1Score : p2Score;
+    public PlayerState getPlayerState(boolean isP1) {
+        return isP1 ? p1State : p2State;
     }
 
     public Base getBase() {
@@ -343,5 +354,9 @@ public class GameMap extends JLayeredPane {
 
     public boolean isOnline() {
         return netComm != null;
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

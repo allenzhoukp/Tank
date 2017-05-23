@@ -37,7 +37,7 @@ public class ToughTank extends EnemyTank {
         tankDestroy();
         if(!(attacker instanceof PlayerTank))
             return;
-        getGameMap().getScoreCounter(((PlayerTank)attacker).isP1()).toughTankCount ++;
+        getGameMap().getPlayerState(((PlayerTank)attacker).isP1()).toughTankCount ++;
     }
 
     private void changeDisplay() {

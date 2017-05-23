@@ -17,7 +17,7 @@ public class AIOperator implements TimerListener {
     public static final double AI_OPERATE_INTERVAL = 0.2;
     public static final double AI_BLOCKED_TURN_RATE = 0.5;
     public static final double AI_TURN_RATE = 0.02;
-    public static final double AI_FIRE_RATE = 0.2;
+    public static final double AI_FIRE_RATE = 0.4;
 
     private final GameMap gameMap;
 
@@ -40,18 +40,10 @@ public class AIOperator implements TimerListener {
                     || Math.random() <= AI_TURN_RATE) {
                 int direction = (int) Math.floor(Math.random() * 4);
                 tank.appendMove(direction);
-
-                //Net Communication
-                if (gameMap.isNotClient() && gameMap.isOnline())
-                    gameMap.getNetComm().send(new TankMoveMessage(tank.getId(), tank.getX(), tank.getY(), direction));
             }
 
             if (Math.random() <= AI_FIRE_RATE) {
                 tank.fire();
-
-                //Net Communication
-                if (gameMap.isNotClient() && gameMap.isOnline())
-                    gameMap.getNetComm().send(new TankFireMessage(tank.getId(), tank.getX(), tank.getY(), tank.getDirection()));
             }
         }
     }

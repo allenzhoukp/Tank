@@ -68,7 +68,7 @@ public class InfoPanel extends JPanel {
     }
 
     public InfoPanel() {
-        this(GameMap.INIT_ENEMY, GameMap.INIT_LIFE, GameMap.INIT_LIFE);
+        this(GameMap.INIT_ENEMY, PlayerState.INIT_LIFE, PlayerState.INIT_LIFE);
     }
 
     public void updateEnemyCount(int enemyCount) {

@@ -28,6 +28,14 @@ import java.util.List;
 */
 public class Cannon extends JPanel implements TimerListener {
 
+    private static ImageComponent preloadCannon;
+
+    private static ImageComponent getCannon() {
+        if(preloadCannon == null)
+            preloadCannon = new ImageComponent("/images/cannon.png", 0, 0);
+        return preloadCannon.clone();
+    }
+
     private static final int BLAST_TIME = 2;
 
     private Tank launcher;
@@ -43,7 +51,7 @@ public class Cannon extends JPanel implements TimerListener {
 
     public Cannon(int cannonSpeed, int direction, int x, int y, GameMap gameMap, Tank launcher) {
         this.setLayout(null);
-        cannonBall = new ImageComponent("/images/cannon.png", 0, 0);
+        cannonBall = getCannon();
         this.add(cannonBall);
         this.setBounds(x - cannonBall.getWidth() / 2, y - cannonBall.getHeight() / 2,
                 cannonBall.getWidth(), cannonBall.getHeight());
@@ -91,7 +99,8 @@ public class Cannon extends JPanel implements TimerListener {
         gameMap.getTimer().removeListener(this);
 
         //launcher can fire again only if the previous cannon disappears
-        launcher.enableFire(true);
+        //Add: no longer like this. Fire interval is 1 second.
+        //launcher.enableFire(true);
     }
 
     private boolean checkTankHit() {

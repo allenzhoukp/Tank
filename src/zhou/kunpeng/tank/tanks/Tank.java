@@ -8,6 +8,8 @@ import zhou.kunpeng.tank.display.ImageComponent;
 import zhou.kunpeng.tank.messages.TankFireMessage;
 import zhou.kunpeng.tank.messages.TankMoveMessage;
 import zhou.kunpeng.tank.messages.TankStopMessage;
+import zhou.kunpeng.tank.timer.Timeline;
+import zhou.kunpeng.tank.timer.TimerListener;
 
 import java.util.List;
 
@@ -34,6 +36,8 @@ public abstract class Tank extends Clip {
     public static final int WEST = 1;
     public static final int NORTH = 0;
     public static final int EAST = 3;
+
+    public static double TANK_FIRE_INTERVAL = 1.0;
 
     private int id;
 
@@ -139,7 +143,7 @@ public abstract class Tank extends Clip {
     public void startMove(int direction) {
 
         // Net Communication
-        if(gameMap.isNotClient() && gameMap.isOnline())
+        if (gameMap.isNotClient() && gameMap.isOnline())
             gameMap.getNetComm().send(new TankMoveMessage(getId(), getX(), getY(), direction));
 
         if (moving)
@@ -151,8 +155,8 @@ public abstract class Tank extends Clip {
     public void appendMove(int direction) {
 
         // Net Communication
-        if(gameMap.isNotClient() && gameMap.isOnline())
-            gameMap.getNetComm().send(new TankMoveMessage(getId(), getX(), getY(),  direction));
+        if (gameMap.isNotClient() && gameMap.isOnline())
+            gameMap.getNetComm().send(new TankMoveMessage(getId(), getX(), getY(), direction));
 
         //System.out.println("FireMarkerT: " + System.nanoTime() / 1000000L);
 
@@ -163,7 +167,7 @@ public abstract class Tank extends Clip {
     public void stopMove() {
 
         // Net Communication
-        if(gameMap.isNotClient() && gameMap.isOnline())
+        if (gameMap.isNotClient() && gameMap.isOnline())
             gameMap.getNetComm().send(new TankStopMessage(getId(), getX(), getY(), getDirection()));
 
         nextMove = -1;
@@ -193,10 +197,24 @@ public abstract class Tank extends Clip {
             return;
 
         // Net Communication
-        if(gameMap.isNotClient() && gameMap.isOnline())
+        if (gameMap.isNotClient() && gameMap.isOnline())
             gameMap.getNetComm().send(new TankFireMessage(getId(), getX(), getY(), getDirection()));
 
         enableFire = false;
+
+        gameMap.getTimer().registerListener(new TimerListener() {
+            private int counter = (int) (Timeline.FPS * TANK_FIRE_INTERVAL);
+
+            @Override
+            public void onTimer() {
+                counter--;
+                if (counter == 0) {
+                    enableFire(true);
+                    gameMap.getTimer().removeListener(this);
+                }
+            }
+        });
+
         int fireX, fireY;
         switch (direction) {
             case SOUTH:

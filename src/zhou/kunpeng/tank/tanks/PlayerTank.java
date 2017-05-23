@@ -77,7 +77,7 @@ public class PlayerTank extends Tank {
         int life = isP1 ? getGameMap().getP1Life() : getGameMap().getP2Life();
         if (life == 0) {
             if (getGameMap().getP1Life() == 0 &&
-                    getGameMap().getP2Life() == 0)
+                    (!getGameMap().isOnline() || getGameMap().getP2Life() == 0))
                 getGameMap().gameOver();
             return;
         }

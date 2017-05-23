@@ -31,6 +31,6 @@ public class MobileTank extends EnemyTank {
         tankDestroy();
         if(!(attacker instanceof PlayerTank))
             return;
-        getGameMap().getScoreCounter(((PlayerTank)attacker).isP1()).mobileTankCount ++;
+        getGameMap().getPlayerState(((PlayerTank)attacker).isP1()).mobileTankCount ++;
     }
 }
