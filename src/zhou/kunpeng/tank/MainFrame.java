@@ -10,6 +10,12 @@ import java.awt.*;
 
 /**
  * Created by JA on 2017/5/23.
+ * <p>
+ * The Main JFrame. States are its Content Panes, and they shall keep a MainFrame reference to switch game states.<br>
+ * Also, MainFrame keeps the Timer and NetComm references globally.
+ * All other classes shall use them to animate, communicate with client/server,
+ * and decide its own action depending on whether it is single player, 1p or 2p.
+ * </p>
  */
 public class MainFrame extends JFrame {
 
@@ -18,7 +24,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         super("Tank");
-        this.setSize(700,600);
+        this.setSize(700, 600);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         WelcomeState firstState = new WelcomeState(this);
         nextState(firstState);

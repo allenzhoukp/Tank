@@ -7,7 +7,7 @@ import java.net.Socket;
  * Created by JA on 2017/5/22.
  * <p>
  * A specified NetComm using ServerSocket.
- * When start() is called, it will block the current thread.
+ * Warning: When start() is called, it will block the current thread.
  * </p>
  */
 public class ServerNetComm extends NetComm {

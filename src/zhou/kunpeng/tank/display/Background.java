@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Created by JA on 2017/5/23.
  * <p>
- *     A normal background JComponent with Color.
+ * A normal background JComponent with Color.
  * </p>
  */
 public class Background extends JComponent {

@@ -1,6 +1,6 @@
 package zhou.kunpeng.tank.messages;
 
-import zhou.kunpeng.tank.GameMap;
+import zhou.kunpeng.tank.battle.GameMap;
 import zhou.kunpeng.tank.comm.NetListener;
 
 import java.util.regex.Matcher;

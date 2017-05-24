@@ -23,12 +23,7 @@ import java.util.List;
  */
 public abstract class NetComm {
 
-    private static final int BUFFER_LEN = 4096;
     private Socket socket;
-    /*
-    private BufferedReader reader;
-    private DataOutputStream output;
-    */
 
     private List<NetListener> listeners = new ArrayList<>();
 
@@ -58,16 +53,6 @@ public abstract class NetComm {
     public void start() {
         synchronized (this) {
             socket = getSocket();
-            /*
-            try {
-                reader = new BufferedReader(new InputStreamReader((socket.getInputStream())));
-                output = new DataOutputStream(socket.getOutputStream());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                close();
-            }
-            */
 
             thread = new ReceiverThread();
             thread.start();
@@ -91,11 +76,7 @@ public abstract class NetComm {
             byte[] lengthBytes = ByteUtil.getByteArray(msgBytes.length);
             socket.getOutputStream().write(ByteUtil.append(lengthBytes, msgBytes));
             socket.getOutputStream().flush();
-            /*
-            output.writeBytes(message.getMessage());
-            output.writeBytes("\n");
-            output.flush();
-            */
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,7 +114,6 @@ public abstract class NetComm {
                     while (bytesRead != length)
                         bytesRead += socket.getInputStream().read(lineBytes, bytesRead, length - bytesRead);
 
-                    //line = reader.readLine();
                 } catch (IOException e) {
                     //Due to sync problem, this WILL happen when NetComm is forced closed.
                     //The thread will auto stop then, by setting exceptionFlag and break.
@@ -173,14 +153,10 @@ public abstract class NetComm {
     private void closeSocketAndInput() {
         try {
             socket.close();
-            //reader.close();
-            //output.close();
         } catch (Exception e) { //IOException or NullPointerException
             e.printStackTrace();
         } finally {
             socket = null;
-            //reader = null;
-            //output = null;
         }
     }
 

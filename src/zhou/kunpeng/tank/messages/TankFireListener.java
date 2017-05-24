@@ -1,8 +1,8 @@
 package zhou.kunpeng.tank.messages;
 
-import zhou.kunpeng.tank.GameMap;
+import zhou.kunpeng.tank.battle.GameMap;
 import zhou.kunpeng.tank.comm.NetListener;
-import zhou.kunpeng.tank.tanks.Tank;
+import zhou.kunpeng.tank.battle.Tank;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

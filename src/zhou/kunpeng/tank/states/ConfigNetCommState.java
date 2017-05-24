@@ -10,7 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.UnknownHostException;
 
 /**
  * Created by JA on 2017/5/24.
@@ -68,7 +67,7 @@ public class ConfigNetCommState extends JPanel {
                 }
 
                 mainFrame.getNetComm().start();
-                if(mainFrame.getNetComm().isClosed()){
+                if (mainFrame.getNetComm().isClosed()) {
                     info.setText("Player 1 has to connect first, or, check your hostname.");
                     return;
                 }

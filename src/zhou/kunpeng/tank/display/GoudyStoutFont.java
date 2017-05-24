@@ -8,8 +8,8 @@ import java.io.InputStream;
 /**
  * Created by JA on 2017/5/21.
  * <p>
- *     The font used in Tank Game is special (Goudy Stout).
- *     getInstance() of this class returns the font.
+ * The font used in Tank Game is special (Goudy Stout).
+ * getInstance() of this class returns the font.
  * </p>
  */
 public class GoudyStoutFont {

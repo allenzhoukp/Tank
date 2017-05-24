@@ -1,8 +1,10 @@
 package zhou.kunpeng.tank.comm;
 
 /**
- * Created by JA on 2017/5/22.
+ * Created by JA on 2017/5/22.<p>
+ * Used for simplifying byte array operations.
  * Code source: http://blog.csdn.net/giantpoplar/article/details/47657333
+ * </p>
  */
 public class ByteUtil {
 

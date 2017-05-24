@@ -1,8 +1,14 @@
 package zhou.kunpeng.tank.states;
 
-import zhou.kunpeng.tank.*;
-import zhou.kunpeng.tank.ai.AIEnemyCreationOperator;
-import zhou.kunpeng.tank.ai.AIOperator;
+import zhou.kunpeng.tank.Levels;
+import zhou.kunpeng.tank.MainFrame;
+import zhou.kunpeng.tank.PlayerState;
+import zhou.kunpeng.tank.Sound;
+import zhou.kunpeng.tank.battle.ClientKeyListener;
+import zhou.kunpeng.tank.battle.GameMap;
+import zhou.kunpeng.tank.battle.PlayerKeyListener;
+import zhou.kunpeng.tank.battle.ai.AIEnemyCreationOperator;
+import zhou.kunpeng.tank.battle.ai.AIOperator;
 import zhou.kunpeng.tank.messages.*;
 import zhou.kunpeng.tank.timer.Timeline;
 
@@ -46,14 +52,18 @@ public class BattleState extends JPanel {
 
             gameMap.setNetComm(mainFrame.getNetComm());
 
-            gameMap.getNetComm().registerListener(new BaseHitListener(gameMap));
-            gameMap.getNetComm().registerListener(new ClientOpListener(gameMap));
-            gameMap.getNetComm().registerListener(new EnemyGenerateListener(gameMap));
-            gameMap.getNetComm().registerListener(new TankFireListener(gameMap));
-            gameMap.getNetComm().registerListener(new TankHitListener(gameMap));
+            // The order is significant!
+            // listeners in front will be checked first.
+            // Thus, the most frequent visited listeners should be placed in front.
             gameMap.getNetComm().registerListener(new TankMoveListener(gameMap));
             gameMap.getNetComm().registerListener(new TankStopListener(gameMap));
+            gameMap.getNetComm().registerListener(new TankFireListener(gameMap));
+            gameMap.getNetComm().registerListener(new ClientKeyOpListener(gameMap));
             gameMap.getNetComm().registerListener(new TerrainDestroyListener(gameMap));
+            gameMap.getNetComm().registerListener(new TankHitListener(gameMap));
+            gameMap.getNetComm().registerListener(new EnemyGenerateListener(gameMap));
+            gameMap.getNetComm().registerListener(new BaseHitListener(gameMap));
+            gameMap.getNetComm().registerListener(new PauseAndContinueListener(gameMap));
 
         }
 
@@ -81,6 +91,7 @@ public class BattleState extends JPanel {
         //The ONLY possible KeyEvent dispatcher is Frame!
         mainFrame.addKeyListener(keyListener);
 
+        Sound.play("/sounds/start.wav");
         mainFrame.getTimer().start();
     }
 
@@ -89,7 +100,7 @@ public class BattleState extends JPanel {
      *
      * @param p1Score   PlayerState for player 1.
      * @param p2Score   PlayerState for player 2. If it doesn't exists, an empty All-Zero counter should be appropriate.
-     * @param isVictory if true, CounterState will (TODO) call for next level; otherwise return to first state.
+     * @param isVictory if true, ScoreCounterState will call for next level; otherwise return to first state.
      */
     public void endState(PlayerState p1Score, PlayerState p2Score, boolean isVictory) {
         if (gameMap.isOnline())
@@ -97,7 +108,7 @@ public class BattleState extends JPanel {
         mainFrame.getTimer().removeAllListeners();
         mainFrame.removeKeyListener(keyListener);
 
-        CounterState nextState = new CounterState(mainFrame, gameMap.getLevel(),
+        ScoreCounterState nextState = new ScoreCounterState(mainFrame, gameMap.getLevel(),
                 p1Score, p2Score, isVictory);
         mainFrame.nextState(nextState);
 

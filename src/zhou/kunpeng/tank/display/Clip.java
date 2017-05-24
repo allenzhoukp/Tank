@@ -14,8 +14,7 @@ import java.util.List;
  * </p>
  * <p>
  * However, only with this component, the clip will not animate itself. <br>
- * A ClipManager is required since one thread for one clip is costly. <br>
- * The Clip should be appended to ClipManager's display list.
+ * It needs to be registered as a TimerListener in Timeline.
  * </p>
  * <p>
  * The sequence is an image sequence, and Clip itself only serves as a container.

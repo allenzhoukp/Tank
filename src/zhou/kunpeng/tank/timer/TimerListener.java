@@ -8,5 +8,8 @@ package zhou.kunpeng.tank.timer;
  * </p>
  */
 public interface TimerListener {
+    /**
+     * triggers every frame invoked by Timeline.
+     */
     void onTimer();
 }
