@@ -1,32 +1,35 @@
 # Tank
 This project is for my Fundamental Java Programming assignment. Use Swing GUI as the course requires.
 
-The project is organized as follows:
-1) src/images: all image files that the game uses.
-2) src/sounds: all sound files that the game uses.
-3) src/maps/maps.txt: the terrain information of 10 levels.
-4) src/zhou/kunpeng/tank: source code.
+The project is organized as follows:<br>
+1) src/images: all image files that the game uses.<br>
+2) src/sounds: all sound files that the game uses.<br>
+3) src/maps/maps.txt: the terrain information of 10 levels.<br>
+4) src/zhou/kunpeng/tank: source code.<br>
 
 
-Gameplay:
-Use W/A or UP/DOWN to select in the welcome page.
-Use W/A/S/D or UP/DOWN/LEFT/RIGHT to control your tank.
-Use F/Space to fire.
-Use P/Esc to pause and resume.
+Gameplay
+---------
+Use W/A or UP/DOWN to select in the welcome page.<br>
+Use W/A/S/D or UP/DOWN/LEFT/RIGHT to control your tank.<br>
+Use F/Space to fire.<br>
+Use P/Esc to pause and resume.<br>
 
 If played with your partner, player 1 has to start the game first and determine the port.
 Player 2 should start after that, and connect to Player 1's network address and port.
 
-Package structure:
-
+Package structure
+-----------------
+```
 battle: All the classes mainly used in battle.
-    GameMap: core of battle which stores the terrain information, and it is the parent container of the entire map as well.
+    GameMap: core of battle which stores the terrain information, and the parent container of the entire map.
     Tank (abstract): tank on the map. Provides a list of actions that a tank can do (e.g. move, stop and fire).
     Cannon: the cannon that the tank launches. Triggers tank hits and terrain destruction.
 
     PlayerTank: tank of player. It can revive!
     EnemyTank (abstract): tank of enemies. Updates information when an enemy tank is destroyed.
-    PlayerKeyListener / ClientKeyListener: listen to user's key input. The former is for P1 (server) and the latter is for P2(client).
+    PlayerKeyListener / ClientKeyListener: listen to user's key input. 
+        The former is for P1 (server) and the latter is for P2(client).
 
     Base: the base on the bottom of the map. When hit, the game is over.
     GameOverSign: the sign shown when losing the game.
@@ -79,4 +82,4 @@ PlayerState: keeps player scores, life and enemy tank destroyed.
 Sound: play sound.
 MainFrame: main JFrame. Maintaining a Timeline and a NetComm.
 Main: entrance of application.
-
+```
