@@ -2,6 +2,7 @@ package zhou.kunpeng.tank.states;
 
 import zhou.kunpeng.tank.MainFrame;
 import zhou.kunpeng.tank.PlayerState;
+import zhou.kunpeng.tank.Sound;
 import zhou.kunpeng.tank.display.Background;
 import zhou.kunpeng.tank.display.GoudyStoutFont;
 import zhou.kunpeng.tank.display.ImageComponent;
@@ -108,8 +109,7 @@ public class WelcomeState extends JLayeredPane implements KeyListener {
             case KeyEvent.VK_F:
             case KeyEvent.VK_ENTER:
             case KeyEvent.VK_SPACE:
-                selectList.get(cursor).setForeground(Color.RED);
-                repaint();
+                Sound.play("/sounds/count.wav");
                 mainFrame.removeKeyListener(this);
                 nextFrame();
                 break;
