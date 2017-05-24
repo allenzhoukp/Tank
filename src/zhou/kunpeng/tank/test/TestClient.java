@@ -16,7 +16,6 @@ class TestClient {
         mainFrame.setNetComm(new ClientNetComm("127.0.0.1", 8079));
         mainFrame.getNetComm().start();
         PrepareLevelState state = new PrepareLevelState(mainFrame, 1, new PlayerState(), new PlayerState());
-        //BattleState state = new BattleState(mainFrame, 1);
         mainFrame.nextState(state);
         mainFrame.setVisible(true);
     }

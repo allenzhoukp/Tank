@@ -39,7 +39,7 @@ public class BattleState extends JPanel {
             mainFrame.setTimer(new Timeline());
         mainFrame.getTimer().stop();
 
-        gameMap = new GameMap(this, Levels.getLevel(level), mainFrame.getTimer(), 1, p1State, p2State, mainFrame.isOnline(),
+        gameMap = new GameMap(this, Levels.getLevel(level), mainFrame.getTimer(), level, p1State, p2State, mainFrame.isOnline(),
                 mainFrame.isOnline() && !mainFrame.isServer());
 
         if (mainFrame.isOnline()) {

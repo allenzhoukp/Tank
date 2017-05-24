@@ -2,6 +2,7 @@ package zhou.kunpeng.tank;
 
 import zhou.kunpeng.tank.comm.NetComm;
 import zhou.kunpeng.tank.comm.ServerNetComm;
+import zhou.kunpeng.tank.states.WelcomeState;
 import zhou.kunpeng.tank.timer.Timeline;
 
 import javax.swing.*;
@@ -18,7 +19,9 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         super("Tank");
         this.setSize(700,600);
-        // TODO main state
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        WelcomeState firstState = new WelcomeState(this);
+        nextState(firstState);
     }
 
     public Container getCurrentState() {

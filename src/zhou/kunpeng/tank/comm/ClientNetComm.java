@@ -19,8 +19,9 @@ public class ClientNetComm extends NetComm {
     protected Socket getSocket() {
         try {
             return new Socket(targetAddr, targetPort);
-        } catch (Exception e) {
-            //UnknownHost or IOException
+        } catch (IOException e) {
+            //IOException
+            //Note UnknownHostException will be THROWN!
             e.printStackTrace();
             return null;
         }

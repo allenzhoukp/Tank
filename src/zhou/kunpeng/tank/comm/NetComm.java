@@ -58,7 +58,6 @@ public abstract class NetComm {
     public void start() {
         synchronized (this) {
             socket = getSocket();
-
             /*
             try {
                 reader = new BufferedReader(new InputStreamReader((socket.getInputStream())));
@@ -111,6 +110,10 @@ public abstract class NetComm {
             closeSocketAndInput();
             extraClose();
         }
+    }
+
+    public boolean isClosed() {
+        return socket == null;
     }
 
     protected class ReceiverThread extends Thread {

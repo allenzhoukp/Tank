@@ -46,7 +46,7 @@ public class GameMap extends JLayeredPane {
     public static final int BASE_BATTLE_X = 12;
     public static final int BASE_BATTLE_Y = 24;
 
-    public static final int INIT_ENEMY = 20;
+    public static final int INIT_ENEMY = 1;
 
 
     private BattleState parentState;
@@ -147,7 +147,7 @@ public class GameMap extends JLayeredPane {
 
     //install InfoPanel on the right of the map.
     private void initInfoPanel(int level) {
-        infoPanel = new InfoPanel(INIT_ENEMY, PlayerState.INIT_LIFE, PlayerState.INIT_LIFE, level);
+        infoPanel = new InfoPanel(INIT_ENEMY, p1Life, p2Life, level);
         infoPanel.setLocation(BATTLE_WIDTH * SLOT_SIZE, 0);
         this.add(infoPanel, BACKGROUND_LAYER);
         this.setSize(this.getWidth() + infoPanel.getWidth(), this.getHeight());

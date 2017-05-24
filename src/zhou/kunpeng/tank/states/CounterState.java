@@ -37,13 +37,15 @@ public class CounterState extends JLayeredPane {
     public void showNextLevel() {
 
         try {
-            Thread.sleep((int)(WAIT_SEC * 1000));
+            Thread.sleep((int) (WAIT_SEC * 1000));
         } catch (InterruptedException e) {
             // Anything to do?
         }
 
-        if(!isVictory || level == Levels.getLevelCount()) {
-            //TODO main state
+        if (!isVictory || level == Levels.getLevelCount() - 1) {
+            mainFrame.getNetComm().close();
+            WelcomeState welcomeState = new WelcomeState(mainFrame);
+            mainFrame.nextState(welcomeState);
 
         } else {
             PrepareLevelState prepareState = new PrepareLevelState(mainFrame, level + 1, p1State, p2State);
@@ -55,9 +57,9 @@ public class CounterState extends JLayeredPane {
      * Warning: the counter display effect will start immediately after construction.
      *
      * @param mainFrame the MainFrame instance.
-     * @param level level number.
-     * @param p1State score of player 1.
-     * @param p2State score of player 2.
+     * @param level     level number.
+     * @param p1State   score of player 1.
+     * @param p2State   score of player 2.
      * @param isVictory if the level ends with victory. If true, the game will switch to next level,
      *                  otherwise it will return to main screen.
      */
@@ -172,18 +174,20 @@ public class CounterState extends JLayeredPane {
                         count = -1; //dummy for break loop
                 }
 
-                if (tankType != 4)
+                if (tankType != 4) {
                     texts[player][tankType].setText(getCounterText(count, count * perTankScore));
-                else
-                    totalText[player].setText(getTotalText(player == 0, totalScore));
+                    state.totalScore += count * perTankScore;
+                } else
+                    totalText[player].setText(getTotalText(player == 0, state.totalScore));
 
-                totalScore += count * perTankScore;
+
 
                 tankType++;
                 if (!(tankType < 5)) {
                     tankType %= 5;
                     player++;
-                    totalScore = 0;
+                    state.normalTankCount = state.secondaryTankCount
+                            = state.mobileTankCount = state.toughTankCount = 0;
                 }
             }
         }

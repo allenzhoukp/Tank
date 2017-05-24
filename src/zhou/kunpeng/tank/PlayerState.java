@@ -13,6 +13,8 @@ public class PlayerState {
 
     public int life = INIT_LIFE;
 
+    public int totalScore = 0;
+
     public int normalTankCount = 0;
     public int secondaryTankCount = 0;
     public int mobileTankCount = 0;
@@ -21,6 +23,6 @@ public class PlayerState {
     public static final int NORMAL_TANK_SCORE = 100;
     public static final int SECONDARY_TANK_SCORE = 200;
     public static final int MOBILE_TANK_SCORE = 300;
-    public static final int TOUGH_TANK_SCORE = 300;
+    public static final int TOUGH_TANK_SCORE = 400;
 
 }

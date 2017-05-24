@@ -15,7 +15,6 @@ class TestServer {
         mainFrame.setTimer(new Timeline());
         mainFrame.setNetComm(new ServerNetComm(8079));
         mainFrame.getNetComm().start();
-        //BattleState state = new BattleState(mainFrame, 1);
         PrepareLevelState state = new PrepareLevelState(mainFrame, 1, new PlayerState(), new PlayerState());
         mainFrame.nextState(state);
 

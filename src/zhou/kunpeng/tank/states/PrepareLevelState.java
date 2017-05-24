@@ -96,7 +96,11 @@ public class PrepareLevelState extends JLayeredPane implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
+        //Do nothing
+    }
 
+    @Override
+    public void keyPressed(KeyEvent e) {
         mainFrame.removeKeyListener(this);
 
         if (mainFrame.isOnline()) {
@@ -114,11 +118,6 @@ public class PrepareLevelState extends JLayeredPane implements KeyListener {
         } else {
             startCountdown();
         }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        //Do nothing
     }
 
     @Override
