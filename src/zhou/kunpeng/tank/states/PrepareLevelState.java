@@ -126,6 +126,9 @@ public class PrepareLevelState extends JLayeredPane implements KeyListener {
     }
 
     private void startCountdown() {
+        info.setText("loading...");
+        repaint();
+
         if(startLevelListener != null)
             mainFrame.getNetComm().removeListener(startLevelListener);
 

@@ -14,8 +14,8 @@ public class AIOperator implements TimerListener {
 
     public static final double AI_OPERATE_INTERVAL = 0.2;
     public static final double AI_BLOCKED_TURN_RATE = 0.5;
-    public static final double AI_TURN_RATE = 0.2;
-    public static final double AI_FIRE_RATE = 1;
+    public static final double AI_TURN_RATE = 0.1;
+    public static final double AI_FIRE_RATE = 0.7;
 
     private final GameMap gameMap;
 

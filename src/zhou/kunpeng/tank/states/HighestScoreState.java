@@ -17,7 +17,8 @@ import java.util.Scanner;
 /**
  * Created by JA on 2017/5/24.
  * <p>
- * This state is for showing Highest Scores, once finishing all levels or game over.
+ * This state is for showing Highest Scores, once finishing all levels or game over. <br>
+ * After this state, the game will return to WelcomeState.
  * </p>
  */
 public class HighestScoreState extends JLayeredPane implements KeyListener {
@@ -65,11 +66,11 @@ public class HighestScoreState extends JLayeredPane implements KeyListener {
         mpList.sort((o1, o2) -> o2 - o1);
 
         // get text to show
-        StringBuilder show = new StringBuilder().append("<html>Single Player Highest Scores:<br>");
+        StringBuilder show = new StringBuilder().append("<html>Single Player Highest Scores:<br><br>");
         for (int i = 0; i < 5; i++)
             show = show.append("&nbsp;&nbsp;&nbsp;&nbsp;").append(i + 1).append(":&nbsp;&nbsp;").
                     append(spList.get(i)).append("<br>");
-        show = show.append("<br>Multi Player Highest Scores:<br>");
+        show = show.append("<br>Multi Player Highest Scores:<br><br>");
         for (int i = 0; i < 5; i++)
             show = show.append("&nbsp;&nbsp;&nbsp;&nbsp;").append(i + 1).append(":&nbsp;&nbsp;").
                     append(mpList.get(i)).append("<br>");
@@ -77,7 +78,7 @@ public class HighestScoreState extends JLayeredPane implements KeyListener {
 
         // Show the text on screen using JLabel
         JLabel label = new JLabel(show.toString());
-        label.setBounds(50, 50, getWidth() - 100, getHeight() - 100);
+        label.setBounds(50, 0, getWidth() - 100, getHeight() - 100);
         label.setForeground(Color.WHITE);
         label.setFont(GoudyStoutFont.getInstance());
         this.add(label, new Integer(1));

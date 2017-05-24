@@ -25,7 +25,7 @@ public class PlayerTank extends Tank {
     public static final int BORN_SHIELD_SEC = 4;
 
     private static final int CANNON_SPEED = 18;
-    private static final int SPEED = 7;
+    private static final int SPEED = 6;
 
     private boolean isP1;
 

@@ -76,11 +76,11 @@ public class EnemyCreator {
     private void createNewTank(GameMap gameMap, int x, int y, double dice) {
         //choose a tank to create according to the outcome (dice)
         EnemyTank tank;
-        if (dice <= 0.2)
+        if (dice <= 0.3)
             tank = new NormalTank(x, y, gameMap);
-        else if (dice <= 0.4)
+        else if (dice <= 0.6)
             tank = new SecondaryTank(x, y, gameMap);
-        else if (dice <= 0.7)
+        else if (dice <= 0.8)
             tank = new MobileTank(x, y, gameMap);
         else
             tank = new ToughTank(x, y, gameMap);

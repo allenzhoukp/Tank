@@ -19,7 +19,7 @@ import java.util.Arrays;
  */
 public class MobileTank extends EnemyTank {
 
-    public static final int SPEED = 9;
+    public static final int SPEED = 8;
     public static final int CANNON_SPEED = 18;
 
     public MobileTank(int initX, int initY, GameMap gameMap) {

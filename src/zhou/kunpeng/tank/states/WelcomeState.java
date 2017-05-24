@@ -15,6 +15,15 @@ import java.util.List;
 
 /**
  * Created by JA on 2017/5/24.
+ * <p>
+ * WelcomeState is the first state of the game. <br>
+ * The user can choose <br>
+ * (1) Single player; <br>
+ * (2) Online game as Player 1 (server); <br>
+ * (3) Online game as Player 2 (client). <br>
+ * If single player game is chosen, switch to PrepareLevelState directly;
+ * otherwise switch to ConfigNetCommState.
+ * </p>
  */
 public class WelcomeState extends JLayeredPane implements KeyListener {
 
@@ -99,6 +108,8 @@ public class WelcomeState extends JLayeredPane implements KeyListener {
             case KeyEvent.VK_F:
             case KeyEvent.VK_ENTER:
             case KeyEvent.VK_SPACE:
+                selectList.get(cursor).setForeground(Color.RED);
+                repaint();
                 mainFrame.removeKeyListener(this);
                 nextFrame();
                 break;
@@ -106,7 +117,7 @@ public class WelcomeState extends JLayeredPane implements KeyListener {
     }
 
     private void nextFrame() {
-        if(cursor == 0) {
+        if (cursor == 0) {
             PrepareLevelState prepareLevelState = new PrepareLevelState
                     (mainFrame, 1, new PlayerState(), new PlayerState());
             mainFrame.nextState(prepareLevelState);

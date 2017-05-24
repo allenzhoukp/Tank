@@ -17,7 +17,9 @@ import java.util.List;
 
 /**
  * Created by JA on 2017/5/19. <br>
- * GameMap stores the terrain situation of map.
+ * GameMap stores the terrain situation of map. <br>
+ * And, this is the core of all battle operations,
+ * since it keeps all the references of tanks, player info and display components.
  */
 public class GameMap extends JLayeredPane {
 

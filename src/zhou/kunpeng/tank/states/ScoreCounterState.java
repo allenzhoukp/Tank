@@ -16,7 +16,10 @@ import java.awt.*;
 /**
  * Created by JA on 2017/5/23.
  * <p>
- * A score counter view state after the level. Occurs when victory or game over.
+ * A score counter view state after the level. Occurs when victory or game over. <br>
+ * After counter ends, the game will <br>
+ * 1. Swtich to next level (PrepareLevelState), if the game can continue. <br>
+ * 2. Switch to HighestScoreState, if the game is over (GameOver or all levels finished).
  * </p>
  */
 public class ScoreCounterState extends JLayeredPane {

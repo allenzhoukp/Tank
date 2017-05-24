@@ -7,7 +7,7 @@ import javax.swing.*;
 /**
  * Created by JA on 2017/5/21.
  * <p>
- *     Base on the bottom of the map.
+ *     The Base on the bottom of the map.
  * </p>
  */
 public class Base extends JPanel {

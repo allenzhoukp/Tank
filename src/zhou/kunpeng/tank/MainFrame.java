@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         super("Tank");
-        this.setSize(700, 600);
+        this.setSize(700, 590);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         WelcomeState firstState = new WelcomeState(this);
         nextState(firstState);

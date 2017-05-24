@@ -20,7 +20,8 @@ import java.awt.event.KeyListener;
  * <p>
  * BattleState is the main state of the game, i.e. the states with tanks firing! <br>
  * Most works are linked to class GameMap. BattleState only configures
- * a proper environment for GameMap, the latter being the mediator of most operations.
+ * a proper environment for GameMap, the latter being the mediator of most operations. <br>
+ * After the game ends, switch to ScoreCounterState.
  * </p>
  */
 public class BattleState extends JPanel {
