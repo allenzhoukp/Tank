@@ -20,13 +20,14 @@ Player 2 should start after that, and connect to Player 1's network address and 
 Package structure:
 
 battle: All the classes mainly used in battle.
-    GameMap: core of battle which stores the terrain information, and it is the parent container of the entire map as well.
+    GameMap: core of battle which stores the terrain information, and the parent container of the entire map.
     Tank (abstract): tank on the map. Provides a list of actions that a tank can do (e.g. move, stop and fire).
     Cannon: the cannon that the tank launches. Triggers tank hits and terrain destruction.
 
     PlayerTank: tank of player. It can revive!
     EnemyTank (abstract): tank of enemies. Updates information when an enemy tank is destroyed.
-    PlayerKeyListener / ClientKeyListener: listen to user's key input. The former is for P1 (server) and the latter is for P2(client).
+    PlayerKeyListener / ClientKeyListener: listen to user's key input. 
+        The former is for P1 (server) and the latter is for P2(client).
 
     Base: the base on the bottom of the map. When hit, the game is over.
     GameOverSign: the sign shown when losing the game.
@@ -79,4 +80,3 @@ PlayerState: keeps player scores, life and enemy tank destroyed.
 Sound: play sound.
 MainFrame: main JFrame. Maintaining a Timeline and a NetComm.
 Main: entrance of application.
-
