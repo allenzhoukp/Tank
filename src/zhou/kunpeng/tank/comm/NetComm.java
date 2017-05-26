@@ -130,22 +130,32 @@ public abstract class NetComm {
                 String line = new String(lineBytes);
                 System.out.println("t=" + System.nanoTime() / 1000000L + " " + line);
 
-                //Avoid interruption e.g. a new listener is added to list.
+
                 //Exception java.lang.ArrayIndexOutOfBoundsException @ java.awt.Container.add
                 //   potential solution: avoid direct call for Swing components.
 
-                //Another optimization: since there are no multiple listeners
-                // corresponding to one type of message,
-                // once find a proper listener, the loop shall break.
-                SwingUtilities.invokeLater(() -> {
-                    synchronized (NetComm.this) {
-                        List<NetListener> listenersInUse = new ArrayList<>(listeners);
-                        for (NetListener listener : listenersInUse) {
-                            if (listener.tryInterpret(line))
-                                break;
-                        }
-                    }
-                });
+                SwingUtilities.invokeLater(new InterpretThread(line));
+            }
+        }
+    }
+
+    private class InterpretThread implements Runnable {
+
+        private String line;
+
+        InterpretThread(String line) {
+            this.line = line;
+        }
+
+        @Override
+        public void run() {
+            //Another optimization: since there are no multiple listeners
+            // corresponding to one type of message,
+            // once find a proper listener, the loop shall break.
+            //List<NetListener> listenersInUse = new ArrayList<>(listeners);
+            for (NetListener listener : listeners) {
+                if (listener.tryInterpret(line))
+                    break;
             }
         }
     }

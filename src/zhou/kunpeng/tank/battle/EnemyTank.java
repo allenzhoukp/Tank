@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class EnemyTank extends Tank {
 
-    private static int ID = 1;
+    public static int ID = 1;
 
     /**
      * Create a new enemy tank.

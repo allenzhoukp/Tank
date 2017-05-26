@@ -5,6 +5,7 @@ import zhou.kunpeng.tank.MainFrame;
 import zhou.kunpeng.tank.PlayerState;
 import zhou.kunpeng.tank.Sound;
 import zhou.kunpeng.tank.battle.ClientKeyListener;
+import zhou.kunpeng.tank.battle.EnemyTank;
 import zhou.kunpeng.tank.battle.GameMap;
 import zhou.kunpeng.tank.battle.PlayerKeyListener;
 import zhou.kunpeng.tank.battle.ai.AIEnemyCreationOperator;
@@ -76,6 +77,8 @@ public class BattleState extends JPanel {
      * Start the game.
      */
     public void start() {
+
+        EnemyTank.ID = 1;
 
         if (!mainFrame.isOnline() || mainFrame.isServer()) {
             AIEnemyCreationOperator creator = new AIEnemyCreationOperator(gameMap);
