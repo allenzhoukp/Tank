@@ -7,59 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1608c17-86b1-4941-8667-bcf1794568b4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/Message.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/Message.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetComm$InterpretThread.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetComm$InterpretThread.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetComm$ReceiverThread.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetComm$ReceiverThread.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetComm.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetComm.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/comm/NetListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/BaseHitListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/BaseHitListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/BaseHitMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/BaseHitMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/ClientKeyOpListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/ClientKeyOpListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/ClientKeyOpMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/ClientKeyOpMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/EnemyGenerateListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/EnemyGenerateListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/EnemyGenerateMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/EnemyGenerateMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/PauseAndContinueListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/PauseAndContinueListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/PauseAndContinueMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/PauseAndContinueMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/StartLevelListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/StartLevelListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/StartLevelMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/StartLevelMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankFireListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankFireListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankFireMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankFireMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankHitListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankHitListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankHitMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankHitMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankMoveListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankMoveListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankMoveMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankMoveMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankStopListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankStopListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankStopMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TankStopMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TerrainDestroyListener.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TerrainDestroyListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TerrainDestroyMessage.class" afterPath="$PROJECT_DIR$/out/production/Tank/zhou/kunpeng/tank/messages/TerrainDestroyMessage.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/Sound.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/Sound.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/battle/Tank.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/battle/Tank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/battle/enemies/ToughTank.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/battle/enemies/ToughTank.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/Message.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/Message.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetComm.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetComm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/comm/NetListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/BaseHitMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientKeyOpListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientKeyOpListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientKeyOpMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/ClientKeyOpMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/EnemyGenerateMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/PauseAndContinueListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/PauseAndContinueListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/PauseAndContinueMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/PauseAndContinueMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/StartLevelListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/StartLevelListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/StartLevelMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/StartLevelMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankFireMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankHitMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankMoveMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TankStopMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyListener.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyMessage.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/messages/TerrainDestroyMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zhou/kunpeng/tank/states/HighestScoreState.java" afterPath="$PROJECT_DIR$/src/zhou/kunpeng/tank/states/HighestScoreState.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Tank.jar" afterPath="$PROJECT_DIR$/Tank.jar" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -422,6 +370,42 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="out" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tank" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="out" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="artifacts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tank_jar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scratches" />
@@ -453,6 +437,7 @@
       <recent name="zhou.kunpeng.tank.battle" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Code\IdeaProjects\Tank" />
       <recent name="D:\Code\IdeaProjects\Tank\src\zhou\kunpeng\tank\messages" />
       <recent name="D:\Code\IdeaProjects\tank" />
     </key>
@@ -813,8 +798,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1050" extended-state="7" />
-    <editor active="true" />
+    <frame x="-9" y="-9" width="1938" height="1050" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -831,7 +815,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24947916" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896176" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
