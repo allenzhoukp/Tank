@@ -1,5 +1,6 @@
 package zhou.kunpeng.tank.messages;
 
+import zhou.kunpeng.tank.comm.ByteUtil;
 import zhou.kunpeng.tank.comm.Message;
 
 /**
@@ -7,8 +8,9 @@ import zhou.kunpeng.tank.comm.Message;
  */
 public class StartLevelMessage implements Message{
 
+    public static final short TYPE = 5;
     @Override
-    public String getMessage() {
-        return "levelstart";
+    public byte[] getMessage() {
+        return ByteUtil.getByteArray(TYPE);
     }
 }

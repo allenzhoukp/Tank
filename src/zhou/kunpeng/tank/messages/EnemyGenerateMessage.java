@@ -2,12 +2,14 @@ package zhou.kunpeng.tank.messages;
 
 import zhou.kunpeng.tank.comm.Message;
 
+import java.nio.ByteBuffer;
+
 /**
  * Created by JA on 2017/5/22.
  */
 public class EnemyGenerateMessage implements Message {
 
-    static final int MESSAGE_TYPE = 3;
+    public static final short TYPE = 3;
 
     private int battleX;
     private int battleY;
@@ -20,7 +22,12 @@ public class EnemyGenerateMessage implements Message {
     }
 
     @Override
-    public String getMessage() {
-        return "enemy gen: x=" + battleX + ",y="  + battleY + ",dice=" + dice;
+    public byte[] getMessage() {
+        ByteBuffer buffer = ByteBuffer.allocate(14);
+        buffer.putShort(0, TYPE);
+        buffer.putInt(2, battleX);
+        buffer.putInt(6, battleY);
+        buffer.putFloat(10, (float) dice);
+        return buffer.array();
     }
 }

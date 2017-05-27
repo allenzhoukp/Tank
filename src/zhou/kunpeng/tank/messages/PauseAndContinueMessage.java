@@ -1,5 +1,6 @@
 package zhou.kunpeng.tank.messages;
 
+import zhou.kunpeng.tank.comm.ByteUtil;
 import zhou.kunpeng.tank.comm.Message;
 
 /**
@@ -7,8 +8,9 @@ import zhou.kunpeng.tank.comm.Message;
  */
 public class PauseAndContinueMessage implements Message{
 
+    public static final short TYPE = 4;
     @Override
-    public String getMessage() {
-        return "pause&cont";
+    public byte[] getMessage() {
+        return ByteUtil.getByteArray(TYPE);
     }
 }

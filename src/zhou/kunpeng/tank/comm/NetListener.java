@@ -12,5 +12,5 @@ public interface NetListener {
      * @param line the message from net connection.
      * @return should be true if interpreted correctly. Else return false.
      */
-    boolean tryInterpret(String line);
+    boolean tryInterpret(byte[] line);
 }

@@ -1,6 +1,7 @@
 package zhou.kunpeng.tank.messages;
 
 import zhou.kunpeng.tank.battle.GameMap;
+import zhou.kunpeng.tank.comm.ByteUtil;
 import zhou.kunpeng.tank.comm.NetListener;
 
 /**
@@ -15,15 +16,9 @@ public class PauseAndContinueListener implements NetListener {
     }
 
     @Override
-    public boolean tryInterpret(String line) {
-        if (line.startsWith("pause&cont")) {
+    public boolean tryInterpret(byte[] line) {
+        if (ByteUtil.getShort(line, 0) == PauseAndContinueMessage.TYPE) {
             gameMap.pauseOrContinue();
-            return true;
-        } else if (line.startsWith("pause")) {
-            gameMap.pauseGame();
-            return true;
-        } else if (line.startsWith("cont")) {
-            gameMap.continueGame();
             return true;
         }
         return false;

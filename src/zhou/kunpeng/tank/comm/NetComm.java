@@ -70,9 +70,9 @@ public abstract class NetComm {
             return;
         }
         try {
-            System.out.println("t=" + System.nanoTime() / 1000000L + " " + message.getMessage());
+            //System.out.println("t=" + System.nanoTime() / 1000000L + " " + message.getMessage());
 
-            byte[] msgBytes = message.getMessage().getBytes();
+            byte[] msgBytes = message.getMessage();
             byte[] lengthBytes = ByteUtil.getByteArray(msgBytes.length);
             socket.getOutputStream().write(ByteUtil.append(lengthBytes, msgBytes));
             socket.getOutputStream().flush();
@@ -127,23 +127,22 @@ public abstract class NetComm {
                     break;
                 }
 
-                String line = new String(lineBytes);
-                System.out.println("t=" + System.nanoTime() / 1000000L + " " + line);
+                //System.out.println("t=" + System.nanoTime() / 1000000L + " " + line);
 
 
                 //Exception java.lang.ArrayIndexOutOfBoundsException @ java.awt.Container.add
                 //   potential solution: avoid direct call for Swing components.
 
-                SwingUtilities.invokeLater(new InterpretThread(line));
+                SwingUtilities.invokeLater(new InterpretThread(lineBytes));
             }
         }
     }
 
     private class InterpretThread implements Runnable {
 
-        private String line;
+        private byte[] line;
 
-        InterpretThread(String line) {
+        InterpretThread(byte[] line) {
             this.line = line;
         }
 

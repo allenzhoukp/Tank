@@ -1,6 +1,7 @@
 package zhou.kunpeng.tank.messages;
 
 import zhou.kunpeng.tank.battle.GameMap;
+import zhou.kunpeng.tank.comm.ByteUtil;
 import zhou.kunpeng.tank.comm.NetListener;
 import zhou.kunpeng.tank.battle.PlayerTank;
 import zhou.kunpeng.tank.battle.Tank;
@@ -22,18 +23,19 @@ public class ClientKeyOpListener implements NetListener {
 
 
     @Override
-    public boolean tryInterpret(String line) {
-        Matcher matcher = Pattern.compile("key: k=(\\d+),p=(\\d)\\s*").matcher(line);
-        if (!matcher.lookingAt())
+    public boolean tryInterpret(byte[] line) {
+
+        if (ByteUtil.getShort(line, 0) != ClientKeyOpMessage.TYPE)
             return false;
 
-        boolean isP1 = matcher.group(2).equals("1");
+        int keyCode = ByteUtil.getInt(line, 2);
+        boolean isP1 = line[6] == 1;
         PlayerTank tank = isP1 ? gameMap.getP1Tank() : gameMap.getP2Tank();
 
         if(tank == null)
             return true;
 
-        switch (Integer.valueOf(matcher.group(1))) {
+        switch (keyCode) {
             case KeyEvent.VK_W:
             case KeyEvent.VK_UP:
                 tank.appendMove(Tank.NORTH);

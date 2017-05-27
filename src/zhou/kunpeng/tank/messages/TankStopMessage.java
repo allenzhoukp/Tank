@@ -2,6 +2,8 @@ package zhou.kunpeng.tank.messages;
 
 import zhou.kunpeng.tank.comm.Message;
 
+import java.nio.ByteBuffer;
+
 /**
  * Created by JA on 2017/5/22.
  */
@@ -12,7 +14,7 @@ public class TankStopMessage implements Message {
     private int y;
     private int dir;
 
-    static final int MESSAGE_TYPE = 4;
+    public static final short TYPE = 9;
 
     public TankStopMessage(int id, int x, int y, int dir) {
         this.id = id;
@@ -22,8 +24,14 @@ public class TankStopMessage implements Message {
     }
 
     @Override
-    public String getMessage() {
-        return "stop: id=" + id + ",x=" + x + ",y=" + y + ",dir=" + dir;
+    public byte[] getMessage() {
+        ByteBuffer buffer = ByteBuffer.allocate(18);
+        buffer.putShort(0, TYPE);
+        buffer.putInt(2, id);
+        buffer.putInt(6, x);
+        buffer.putInt(10, y);
+        buffer.putInt(14, dir);
+        return buffer.array();
     }
 
 }

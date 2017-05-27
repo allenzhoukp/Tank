@@ -44,7 +44,7 @@ public class HighestScoreState extends JLayeredPane implements KeyListener {
             for (int i = 0; i < 5 && in.hasNext(); i++)
                 spList.add(in.nextInt());
             for (int i = 0; i < 5 && in.hasNext(); i++)
-                spList.add(in.nextInt());
+                mpList.add(in.nextInt());
             in.close();
         } catch (Exception e) {
             spList.clear();

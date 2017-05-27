@@ -27,7 +27,7 @@ public class Sound {
                     clip.open(inputStream);
                     clip.start();
                 } catch (Exception e) {
-                    System.err.println(e.getMessage());
+                    e.printStackTrace();
                 }
             }
         }).start();

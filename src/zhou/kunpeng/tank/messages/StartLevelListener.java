@@ -1,5 +1,6 @@
 package zhou.kunpeng.tank.messages;
 
+import zhou.kunpeng.tank.comm.ByteUtil;
 import zhou.kunpeng.tank.comm.NetListener;
 import zhou.kunpeng.tank.states.PrepareLevelState;
 
@@ -8,6 +9,7 @@ import zhou.kunpeng.tank.states.PrepareLevelState;
  */
 public class StartLevelListener implements NetListener {
 
+
     private PrepareLevelState state;
 
     public StartLevelListener(PrepareLevelState prepareLevelState) {
@@ -15,8 +17,8 @@ public class StartLevelListener implements NetListener {
     }
 
     @Override
-    public boolean tryInterpret(String line) {
-        if (!line.startsWith("levelstart"))
+    public boolean tryInterpret(byte[] line) {
+        if (ByteUtil.getShort(line, 0) != StartLevelMessage.TYPE)
             return false;
 
         state.partnerStarts();

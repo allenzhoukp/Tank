@@ -1,6 +1,7 @@
 package zhou.kunpeng.tank.messages;
 
 import zhou.kunpeng.tank.battle.GameMap;
+import zhou.kunpeng.tank.comm.ByteUtil;
 import zhou.kunpeng.tank.comm.NetListener;
 import zhou.kunpeng.tank.battle.Tank;
 
@@ -18,15 +19,15 @@ public class TankFireListener implements NetListener {
     }
 
     @Override
-    public boolean tryInterpret(String line) {
+    public boolean tryInterpret(byte[] line) {
 
-        Matcher matcher = Pattern.compile("fire: id=(-*\\d+),x=(\\d+),y=(\\d+),dir=(\\d+)\\s*").matcher(line);
-        if(!matcher.lookingAt())
+        if(ByteUtil.getShort(line, 0) != TankFireMessage.TYPE)
             return false;
-        int id = Integer.valueOf(matcher.group(1));
-        int x = Integer.valueOf(matcher.group(2));
-        int y = Integer.valueOf(matcher.group(3));
-        int dir = Integer.valueOf(matcher.group(4));
+
+        int id = ByteUtil.getInt(line, 2);
+        int x = ByteUtil.getInt(line, 6);
+        int y = ByteUtil.getInt(line, 10);
+        int dir = ByteUtil.getInt(line, 14);
 
         Tank tank = null;
         for(Tank t : gameMap.getAllTanks())

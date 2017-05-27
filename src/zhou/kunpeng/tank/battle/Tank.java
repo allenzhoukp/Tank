@@ -237,7 +237,7 @@ public abstract class Tank extends Clip {
         Cannon cannon = new Cannon(cannonSpeed, direction, fireX, fireY, gameMap, this);
         gameMap.getTimer().registerListener(cannon);
 
-        Sound.play("fire.wav");
+        Sound.play("/sounds/fire.wav");
     }
 
     public int getSpeed() {

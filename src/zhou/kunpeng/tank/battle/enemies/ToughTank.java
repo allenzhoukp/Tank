@@ -37,7 +37,7 @@ public class ToughTank extends EnemyTank {
         life--;
         if(life == 2 || life == 1) {
             changeDisplay();
-            Sound.play("ding.wav");
+            Sound.play("/sounds/ding.wav");
             return;
         }
         tankDestroy();

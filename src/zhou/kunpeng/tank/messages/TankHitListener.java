@@ -1,12 +1,11 @@
 package zhou.kunpeng.tank.messages;
 
 import zhou.kunpeng.tank.battle.GameMap;
-import zhou.kunpeng.tank.comm.NetListener;
 import zhou.kunpeng.tank.battle.Tank;
+import zhou.kunpeng.tank.comm.ByteUtil;
+import zhou.kunpeng.tank.comm.NetListener;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by JA on 2017/5/22.
@@ -20,13 +19,12 @@ public class TankHitListener implements NetListener {
     }
 
     @Override
-    public boolean tryInterpret(String line) {
-        Matcher matcher = Pattern.compile("tankhit: id=(-*\\d+),atker=(-*\\d+)\\s*").matcher(line);
-        if (!matcher.lookingAt())
+    public boolean tryInterpret(byte[] line) {
+        if (ByteUtil.getShort(line, 0) != TankHitMessage.TYPE)
             return false;
 
-        int id = Integer.valueOf(matcher.group(1));
-        int attackerId = Integer.valueOf(matcher.group(2));
+        int id = ByteUtil.getInt(line, 2);
+        int attackerId = ByteUtil.getInt(line, 6);
 
         Tank defender = null;
         Tank attacker = null;
