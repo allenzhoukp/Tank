@@ -52,7 +52,7 @@ public class Clip extends JPanel implements TimerListener {
     }
 
 
-    public void updateSize() {
+    private void updateSize() {
         int maxWidth = 0, maxHeight = 0;
         for (ImageComponent comp : sequence) {
             maxWidth = Math.max(comp.getWidth(), maxWidth);

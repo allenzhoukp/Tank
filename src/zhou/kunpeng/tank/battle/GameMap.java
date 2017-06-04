@@ -306,10 +306,6 @@ public class GameMap extends JLayeredPane {
         return map;
     }
 
-    public ImageComponent[][] getTerrainImage() {
-        return terrainImage;
-    }
-
     public PlayerTank getP1Tank() {
         return p1Tank;
     }
