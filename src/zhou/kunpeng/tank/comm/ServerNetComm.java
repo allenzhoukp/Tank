@@ -20,15 +20,10 @@ public class ServerNetComm extends NetComm {
     }
 
     @Override
-    protected Socket getSocket() {
-        try {
-            ServerSocket server = new ServerSocket(port);
-            return server.accept();
-        } catch (Exception e) {
-            //IOException, or simply NullPointer (server == null).
-            e.printStackTrace();
-            return null;
-        }
+    protected Socket getSocket() throws Exception {
+        ServerSocket server = new ServerSocket(port);
+        return server.accept();
+
     }
 
     @Override

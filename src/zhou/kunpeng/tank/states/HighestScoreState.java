@@ -109,6 +109,10 @@ public class HighestScoreState extends JLayeredPane implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         mainFrame.removeKeyListener(this);
+
+        if (mainFrame.isOnline())
+            mainFrame.getNetComm().close();
+
         WelcomeState welcomeState = new WelcomeState(mainFrame);
         mainFrame.nextState(welcomeState);
     }

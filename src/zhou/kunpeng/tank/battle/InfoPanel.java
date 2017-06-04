@@ -1,7 +1,6 @@
 package zhou.kunpeng.tank.battle;
 
 import zhou.kunpeng.tank.Levels;
-import zhou.kunpeng.tank.PlayerState;
 import zhou.kunpeng.tank.display.GoudyStoutFont;
 import zhou.kunpeng.tank.display.ImageComponent;
 
@@ -12,7 +11,7 @@ import java.util.Stack;
 /**
  * Created by JA on 2017/5/21.
  */
-public class InfoPanel extends JPanel {
+class InfoPanel extends JPanel {
 
     private JPanel enemyCountPanel;
     private Stack<ImageComponent> tankCounters;
@@ -25,7 +24,7 @@ public class InfoPanel extends JPanel {
     private JLabel p2LifeText;
     private JLabel levelLabelText;
 
-    public InfoPanel(int enemyTankCount, int p1Life, int p2Life, int level) {
+    InfoPanel(int enemyTankCount, int p1Life, int p2Life, int level) {
         super();
         this.setLayout(null);
         this.setSize(200, Levels.BATTLE_HEIGHT * GameMap.SLOT_SIZE);
@@ -77,28 +76,26 @@ public class InfoPanel extends JPanel {
         this.add(levelLabelText);
     }
 
-    public InfoPanel(int enemyTankCount, int p1Life, int p2Life) {
-        this(enemyTankCount, p1Life, p2Life, 1);
-    }
 
-    public InfoPanel() {
-        this(GameMap.INIT_ENEMY, PlayerState.INIT_LIFE, PlayerState.INIT_LIFE);
-    }
-
-    public void updateEnemyCount(int enemyCount) {
+    void updateEnemyCount(int enemyCount) {
         while (tankCounters.size() > enemyCount)
             enemyCountPanel.remove(tankCounters.pop());
+        if (enemyCount % 2 == 0) {
+            enemyCountPanel.setSize(80, 250 * enemyCount / 20);
+            ((GridLayout) enemyCountPanel.getLayout()).setRows(enemyCount / 2);
+            ((GridLayout) enemyCountPanel.getLayout()).setColumns(2);
+        }
     }
 
-    public void updateLife(int life, boolean isP1) {
+    void updateLife(int life, boolean isP1) {
         if (isP1)
             p1LifeText.setText(String.valueOf(life));
         else
             p2LifeText.setText(String.valueOf(life));
     }
 
-    public void updateScore(int score, boolean isP1) {
-        if(isP1)
+    void updateScore(int score, boolean isP1) {
+        if (isP1)
             p1Score.setText("P1: " + score);
         else
             p2Score.setText("P2: " + score);

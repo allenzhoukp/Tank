@@ -1,6 +1,5 @@
 package zhou.kunpeng.tank.comm;
 
-import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -21,19 +20,12 @@ public class ClientNetComm extends NetComm {
     }
 
     @Override
-    protected Socket getSocket() {
-        try {
-            return new Socket(targetAddr, targetPort);
-        } catch (IOException e) {
-            //IOException
-            //Note UnknownHostException will be THROWN!
-            e.printStackTrace();
-            return null;
-        }
+    protected Socket getSocket() throws Exception {
+        return new Socket(targetAddr, targetPort);
     }
 
     @Override
     protected void extraClose() {
-
+        // Do nothing: nothing extra to close.
     }
 }

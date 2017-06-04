@@ -82,6 +82,9 @@ public class ConfigNetCommState extends JPanel {
                     mainFrame.setNetComm(new ClientNetComm(addrText.getText().trim(), port));
                 }
 
+                // Add MainFrame reference to show message when socket is unexpectedly terminated.
+                mainFrame.getNetComm().setMainFrame(mainFrame);
+
                 mainFrame.getNetComm().start();
                 if (mainFrame.getNetComm().isClosed()) {
                     info.setText("Player 1 has to connect first, or, check your hostname.");

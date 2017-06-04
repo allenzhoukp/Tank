@@ -1,6 +1,10 @@
 package zhou.kunpeng.tank.comm;
 
+import zhou.kunpeng.tank.MainFrame;
+import zhou.kunpeng.tank.states.WelcomeState;
+
 import javax.swing.*;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -23,13 +27,17 @@ import java.util.List;
  */
 public abstract class NetComm {
 
+    private MainFrame mainFrame;
+
     private Socket socket;
+
+    private boolean started = false;
 
     private List<NetListener> listeners = new ArrayList<>();
 
     private ReceiverThread thread;
 
-    protected abstract Socket getSocket();
+    protected abstract Socket getSocket() throws Exception;
 
     protected abstract void extraClose();
 
@@ -52,10 +60,60 @@ public abstract class NetComm {
      */
     public void start() {
         synchronized (this) {
-            socket = getSocket();
+            try {
+                socket = getSocket();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+
+            started = true;
 
             thread = new ReceiverThread();
             thread.start();
+        }
+    }
+
+    /**
+     * Close the socket.
+     * An extraClose() is called to ensure all the IO APIs are properly closed.
+     */
+    public void close() {
+
+        synchronized (this) {
+            closeSocketAndInput();
+            extraClose();
+
+            //set isOnline() to false
+            if (mainFrame != null)
+                mainFrame.setNetComm(null);
+
+            started = false;
+        }
+    }
+
+    /**
+     * close the socket when there is unexpected error occurs DURING communication.
+     */
+    protected void unexpectedTerminate() {
+
+        boolean isStarted = this.started;
+        close();
+
+        if (!isStarted)
+            return;
+
+        if (mainFrame != null) {
+            JOptionPane.showMessageDialog(mainFrame, "Net Communication has been terminated.",
+                    "Message", JOptionPane.WARNING_MESSAGE);
+
+            //remove all key listeners
+            for (KeyListener listener : mainFrame.getKeyListeners())
+                mainFrame.removeKeyListener(listener);
+
+            //switch to first state
+            WelcomeState welcomeState = new WelcomeState(mainFrame);
+            mainFrame.nextState(welcomeState);
         }
     }
 
@@ -65,10 +123,9 @@ public abstract class NetComm {
      * @param message the message to send.
      */
     public void send(Message message) {
-        if (socket == null) {
-            close();
+        if (socket == null)
             return;
-        }
+
         try {
             //System.out.println("t=" + System.nanoTime() / 1000000L + " " + message.getMessage());
 
@@ -79,22 +136,20 @@ public abstract class NetComm {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    /**
-     * Close the socket.
-     * An extraClose() is called to ensure all the IO APIs are properly closed.
-     */
-    public void close() {
-        synchronized (this) {
-            closeSocketAndInput();
-            extraClose();
+            unexpectedTerminate();
         }
     }
 
     public boolean isClosed() {
         return socket == null;
+    }
+
+    public MainFrame getMainFrame() {
+        return mainFrame;
+    }
+
+    public void setMainFrame(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
     }
 
     protected class ReceiverThread extends Thread {
@@ -123,7 +178,7 @@ public abstract class NetComm {
 
 
                 if (exceptionFlag) {
-                    close();
+                    unexpectedTerminate();
                     break;
                 }
 

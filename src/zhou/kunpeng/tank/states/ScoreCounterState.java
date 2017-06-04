@@ -212,8 +212,6 @@ public class ScoreCounterState extends JLayeredPane {
         }
 
         if (!isVictory || level == Levels.getLevelCount() - 1) {
-            if (mainFrame.isOnline())
-                mainFrame.getNetComm().close();
             HighestScoreState highestScoreState = new HighestScoreState
                     (mainFrame, p1State.totalScore + p2State.totalScore, mainFrame.isOnline());
             mainFrame.nextState(highestScoreState);
